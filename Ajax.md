@@ -1,0 +1,1007 @@
+# 原生Ajax：
+
+## 传送门：
+
+[XMLHttpRequest (javascript.info)](https://zh.javascript.info/xmlhttprequest)
+
+## 1.get
+
+客户端：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX GET 请求</title>
+    <style>
+        #result {
+            width: 200px;
+            height: 100px;
+            border: solid 1px #90b;
+        }
+    </style>
+</head>
+
+<body>
+    <button>点击发送请求</button>
+    <div id="result"></div>
+
+    <script>
+        //获取button元素
+        const btn = document.getElementsByTagName('button')[0];
+        const result = document.getElementById("result");
+        //绑定事件
+        btn.onclick = function () {
+            //1. 创建对象
+            const xhr = new XMLHttpRequest();
+            //2. 初始化 设置请求方法和 url
+            xhr.open('GET', 'http://127.0.0.1:8000/server?a=100&b=200&c=300');
+            //3. 发送
+            xhr.send();
+            //4. 事件绑定 处理服务端返回的结果
+            // on  when 当....时候
+            // readystate 是 xhr 对象中的属性, 表示状态 0 1 2 3 4
+            //0: 请求未初始化
+            // 1: 服务器连接已建立
+            // 2: 请求已接收
+            // 3: 请求处理中
+            // 4: 请求已完成，且响应已就绪
+            // change  改变
+            xhr.onreadystatechange = function () {
+                //判断 (服务端返回了所有的结果)
+                if (xhr.readyState === 4) {
+                    //判断响应状态码 200  404  403 401 500
+                    // 2xx 成功
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        //处理结果  行 头 空行 体
+                        //响应 
+                        console.log(xhr.status);//状态码
+                        console.log(xhr.statusText);//状态字符串
+                        console.log(xhr.getAllResponseHeaders());//所有响应头
+                        console.log(xhr.response);//响应体
+                        //设置 result 的文本
+                        result.innerHTML = xhr.response;
+                    } else {
+
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
+```
+
+服务端(express框架)：
+
+```js
+app.get('/server', (request, response) => {
+    //设置响应头  设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    //设置响应体
+    response.send('HELLO AJAX - 2');
+});
+```
+
+![image-20220324201107816](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220324201107816.png)
+
+## 2.post
+
+客户端：
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX POST 请求</title>
+    <style>
+        #result{
+            width:200px;
+            height:100px;
+            border:solid 1px #903;
+        }
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        //获取元素对象
+        const result = document.getElementById("result");
+        //绑定事件
+        result.addEventListener("mouseover", function(){
+            //1. 创建对象
+            const xhr = new XMLHttpRequest();
+            //2. 初始化 设置类型与 URL
+            xhr.open('POST', 'http://127.0.0.1:8000/server');
+            //设置请求头
+            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            //这里设置了响应头，会发送预检请求
+            xhr.setRequestHeader('name','atguigu');
+            //3. 发送
+            xhr.send('a=100&b=200&c=300');
+            // xhr.send('a:100&b:200&c:300');
+            // xhr.send('1233211234567');
+            
+            //4. 事件绑定
+            xhr.onreadystatechange = function(){
+                //判断
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status < 300){
+                        //处理服务端返回的结果
+                        result.innerHTML = xhr.response;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+服务器：
+
+```js
+//可以接收任意类型的请求 
+app.all('/server', (request, response) => {
+    //设置响应头  设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    //响应头
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    //设置响应体
+    response.send('HELLO AJAX POST');
+});
+```
+
+![image-20220324203619702](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220324203619702.png)
+
+### 需注意：
+
+#### 预检请求
+
+由于自定义了响应头，需要发送预检请求。发post请求时， 之前要发option预检请求， 但是没设置option类型的路由 所以改成app.all。或者直接使用cors解决
+
+## 3.传输json
+
+客户端：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON响应</title>
+    <style>
+        #result{
+            width:200px;
+            height:100px;
+            border:solid 1px #89b;
+        }
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        const result = document.getElementById('result');
+        //绑定键盘按下事件
+        window.onkeydown = function(){
+            //发送请求
+            const xhr = new XMLHttpRequest();
+            //设置响应体数据的类型
+            //手动转化可以不用这行代码
+            xhr.responseType = 'json';
+            //初始化
+            xhr.open('GET','http://127.0.0.1:8000/json-server');
+            //发送
+            xhr.send();
+            //事件绑定
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status < 300){
+                        //
+                        // console.log(xhr.response);
+                        // result.innerHTML = xhr.response;
+                        // 1. 手动对数据转化
+                        // let data = JSON.parse(xhr.response);
+                        // console.log(data);
+                        // result.innerHTML = data.name;
+                        // 2. 自动转换
+                        console.log(xhr.response);
+                        result.innerHTML = xhr.response.name;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+```
+
+服务器：
+
+```js
+app.get('/json-server', (request, response) => {
+    //设置响应头  设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    //响应一个数据
+    const data = {
+        name: 'atguigu'
+    };
+    //对对象进行字符串转换
+    let str = JSON.stringify(data);
+    //设置响应体
+    response.send(str);
+});
+```
+
+### 需注意：
+
+有两种方式喔，不要看漏了
+
+## 4.IE缓存问题
+
+客户端：
+
+```js
+btn.addEventListener('click', function(){
+            const xhr = new XMLHttpRequest();
+    		//重点是这行代码
+            xhr.open("GET",'http://127.0.0.1:8000/ie?t='+Date.now());
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status< 300){
+                        result.innerHTML = xhr.response;
+                    }
+                }
+            }
+        })
+```
+
+### 需注意：
+
+就是说，我们热更新了服务端的res，在低版本IE里面不能及时收到最新的变化，内部会缓存上一次的数据。解决办法就是让每次发送的请求都不一样就行，老师解决办法是增加一个query参数值为时间戳。
+
+拥抱Edge吧~
+
+## 5.请求超时和网络问题
+
+客户端：
+
+```js
+btn.addEventListener('click', function(){
+            const xhr = new XMLHttpRequest();
+            //超时设置 2s 设置
+            xhr.timeout = 2000;
+            //超时回调
+            xhr.ontimeout = function(){
+                alert("网络异常, 请稍后重试!!");
+            }
+            //网络异常回调
+            xhr.onerror = function(){
+                alert("你的网络似乎出了一些问题!");
+            }
+
+            xhr.open("GET",'http://127.0.0.1:8000/delay');
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status< 300){
+                        result.innerHTML = xhr.response;
+                    }
+                }
+            }
+        })
+```
+
+服务器：
+
+```js
+// //延时响应
+app.all('/delay', (request, response) => {
+    //设置响应头  设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    setTimeout(() => {
+        //设置响应体
+        response.send('延时响应');
+    }, 3000)
+});
+```
+
+
+
+
+
+### 网络问题：
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/77.gif" style="zoom: 100%"></img>
+
+### 请求超时：
+
+2s内无响应报错
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/78.gif" style="zoom: 100%"></img>
+
+## 6.取消请求
+
+客户端：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>取消请求</title>
+</head>
+<body>
+    <button>点击发送</button>
+    <button>点击取消</button>
+    <script>
+        //获取元素对象
+        const btns = document.querySelectorAll('button');
+        let x = new XMLHttpRequest();
+
+        btns[0].onclick = function(){
+            x.open("GET",'http://127.0.0.1:8000/delay');
+            x.send();
+            // console.log(x,0);
+        }
+
+        // abort来取消请求
+        btns[1].onclick = function(){
+            x.abort();
+            // console.log(x,1);
+        }
+    </script>
+</body>
+</html>
+```
+
+服务器：
+
+```js
+// //延时响应
+app.all('/delay', (request, response) => {
+    //设置响应头  设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    setTimeout(() => {
+        //设置响应体
+        response.send('延时响应');
+    }, 1000)
+});
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/79.gif" style="zoom: 100%"></img>
+
+## 7.重复请求问题
+
+```js
+<script>
+        //获取元素对象
+        const btns = document.querySelectorAll('button');
+        let x = null;
+        //标识变量
+        let isSending = false; // 是否正在发送AJAX请求
+
+        btns[0].onclick = function(){
+            //判断标识变量
+            if(isSending) x.abort();// 如果正在发送, 则取消该请求, 创建一个新的请求
+            x = new XMLHttpRequest();
+            //修改 标识变量的值
+            isSending = true;
+            x.open("GET",'http://127.0.0.1:8000/delay');
+            x.send();
+            x.onreadystatechange = function(){
+                if(x.readyState === 4){
+                    //修改标识变量
+                    isSending = false;
+                }
+            }
+        }
+
+        // abort
+        btns[1].onclick = function(){
+            x.abort();
+        }
+    </script>
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/80.gif" style="zoom: 60%"></img>
+
+### 需注意：
+
+老师这种写法就是防抖了
+
+防抖：前面的所有的触发都被取消，最后一次执行在规定的时间之后才会触发，也就是说如果连续快速的触发,只会执行最后一次
+
+传送门：
+
+[(1) 浅谈 JS 防抖和节流 - SegmentFault 思否](https://segmentfault.com/a/1190000018428170)
+
+# JQuery Ajax：
+
+## 1.基础
+
+```js
+$('button').eq(0).click(function(){
+    //参数1：url 参数2：query参数对象 参数3：回调
+            $.get('http://127.0.0.1:8000/jquery-server', {a:100, b:200}, function(data){
+                console.log(data);
+            });
+});
+```
+
+```js
+// //jQuery 服务
+app.all('/jquery-server', (request, response) => {
+    //设置响应头  设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    response.send('Hello jQuery AJAX');
+
+});
+```
+
+![image-20220325171402949](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220325171402949.png)
+
+## 2.设置响应体
+
+```js
+$('button').eq(0).click(function(){
+            $.get('http://127.0.0.1:8000/jquery-server', {a:100, b:200}, function(data){
+                console.log(data,"无json");
+            });
+        });
+
+        $('button').eq(1).click(function(){
+            //参数4：响应体类型
+            $.post('http://127.0.0.1:8000/jquery-server', {a:100, b:200}, function(data){
+                console.log(data,"有json");
+            }),"json";
+        });
+```
+
+```js
+// //jQuery 服务
+app.all('/jquery-server', (request, response) => {
+    //设置响应头  设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    // response.send('Hello jQuery AJAX');
+    const data = {name:'小小冯'};
+    response.send(data);
+});
+```
+
+![image-20220325172000939](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220325172000939.png)
+
+## 3.$.ajax
+
+传送门：[$.ajax(url,[settings\]) | jQuery API 3.2 中文文档 | jQuery API 在线手册 (cuishifeng.cn)](https://jquery.cuishifeng.cn/jQuery.Ajax.html)
+
+实例：
+
+```js
+$('button').eq(2).click(function(){
+            $.ajax({
+                //url
+                url: 'http://127.0.0.1:8000/jquery-server',
+                //参数
+                data: {a:100, b:200},
+                //请求类型
+                type: 'GET',
+                //响应体结果
+                dataType: 'json',
+                //成功的回调
+                success: function(data){
+                    console.log(data);
+                },
+                //超时时间
+                timeout: 2000,
+                //失败的回调
+                error: function(){
+                    console.log('出错啦!!');
+                },
+                //头信息
+                headers: {
+                    c:300,
+                    d:400
+                }
+            });
+        });
+```
+
+# Axios：
+
+传送门：
+
+官网：https://github.com/axios/axios
+
+中文文档：[Axios起步_w3cschool](https://www.w3cschool.cn/jquti/jquti-kb3a35x1.html)
+
+## 1.json-server
+
+我们在这里使用json-server作为服务端版本0.17.0
+
+官网：[json-server - npm (npmjs.com)](https://www.npmjs.com/package/json-server)
+
+简单使用：[(25条消息) JsonServer使用详解_冰雪为融的博客-CSDN博客_json-server](https://blog.csdn.net/lhjuejiang/article/details/81475993)
+
+数据库(json)实例：
+
+```json
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "我乱写的",
+      "author": "小编"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "body": "喜大普奔",
+      "postId": 2,
+      "id": 2
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
+```
+
+在这里我简单罗列下我使用的情况：
+
+```js
+启动： npx json-server --watch db.json
+
+获取id为2的文章：(get)
+http://localhost:3000/posts/2
+
+新增文章：(posts)
+http://localhost:3000/posts
+设置请求体就行
+data: {
+        title: "今天天气不错, 还挺风和日丽的",
+        author: "张三"
+}
+
+修改id为2的文章：(put)
+http://localhost:3000/posts/3
+设置新的请求体就行
+data: {
+        title: "今天天气不错, 还挺风和日丽的",
+        author: "李四"
+}
+
+删除id为3的文章：(delete)
+http://localhost:3000/posts/3
+
+```
+
+
+
+## 2.基本使用
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios基本使用</title>
+    <link crossorigin="anonymous" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">基本使用</h2>
+        <button class="btn btn-primary"> 发送GET请求 </button>
+        <button class="btn btn-warning" > 发送POST请求 </button>
+        <button class="btn btn-success"> 发送 PUT 请求 </button>
+        <button class="btn btn-danger"> 发送 DELETE 请求 </button>
+    </div>
+    <script>
+        //获取按钮
+        const btns = document.querySelectorAll('button');
+
+        //第一个
+        btns[0].onclick = function(){
+            //发送 AJAX 请求
+            axios({
+                //请求类型
+                method: 'GET',
+                //URL
+                url: 'http://localhost:3000/posts/2',
+            }).then(response => {
+                console.log(response);
+            });
+        }
+
+        //添加一篇新的文章
+        btns[1].onclick = function(){
+            //发送 AJAX 请求
+            axios({
+                //请求类型
+                method: 'POST',
+                //URL
+                url: 'http://localhost:3000/posts',
+                //设置请求体
+                data: {
+                    title: "今天天气不错, 还挺风和日丽的",
+                    author: "张三"
+                }
+            }).then(response => {
+                console.log(response);
+            });
+        }
+
+        //更新数据
+        btns[2].onclick = function(){
+            //发送 AJAX 请求
+            axios({
+                //请求类型
+                method: 'PUT',
+                //URL
+                url: 'http://localhost:3000/posts/3',
+                //设置请求体
+                data: {
+                    title: "今天天气不错, 还挺风和日丽的",
+                    author: "李四"
+                }
+            }).then(response => {
+                console.log(response);
+            });
+        }
+
+        //删除数据
+        btns[3].onclick = function(){
+            //发送 AJAX 请求
+            axios({
+                //请求类型
+                method: 'delete',
+                //URL
+                url: 'http://localhost:3000/posts/3',
+            }).then(response => {
+                console.log(response);
+            });
+        }
+
+    </script>
+</body>
+
+</html>
+```
+
+## 3.其他使用：
+
+```js
+		//发送 GET 请求
+        btns[0].onclick = function(){
+            // axios()
+            axios.request({
+                method:'GET',
+                url: 'http://localhost:3000/comments'
+            }).then(response => {
+                console.log(response);
+            })
+        }
+
+        //发送 POST 请求
+        btns[1].onclick = function(){
+            // axios()  参数1url，参数2data请求体
+            axios.post(
+                'http://localhost:3000/comments', 
+                {
+                    "body": "喜大普奔",
+                    "postId": 2
+                }).then(response => {
+                    console.log(response);
+                })
+        }
+```
+
+## 4.默认配置：
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios基本使用</title>
+    <link crossorigin="anonymous" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">基本使用</h2>
+        <button class="btn btn-primary"> 发送GET请求 </button>
+        <button class="btn btn-warning" > 发送POST请求 </button>
+        <button class="btn btn-success"> 发送 PUT 请求 </button>
+        <button class="btn btn-danger"> 发送 DELETE 请求 </button>
+    </div>
+    <script>
+        //获取按钮
+        const btns = document.querySelectorAll('button');
+        //默认配置
+        axios.defaults.method = 'GET';//设置默认的请求类型为 GET
+        axios.defaults.baseURL = 'http://localhost:3000';//设置基础 URL
+        axios.defaults.params = {id:100};//设置参数
+        axios.defaults.timeout = 3000;//设置超时时间
+
+        btns[0].onclick = function(){
+            //以后写多个请求，就可以少写很多代码了
+            axios({
+                url: '/posts/2'
+            }).then(response => {
+                console.log(response);
+            })
+        }
+
+    </script>
+</body>
+
+</html>
+```
+
+![image-20220326164803100](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220326164803100.png)
+
+## 5.创建实例对象：
+
+这种写法和基础使用大差不差，有些区别我们以后再写
+
+```js
+ 		//创建实例对象
+        const duanzi = axios.create({
+            baseURL: 'https://api.apiopen.top',
+            timeout: 2000
+        });
+        
+        duanzi.get('/getJoke').then(response => {
+            console.log(response.data)
+        })
+		
+		duanzi.get('/getJoke_test').then(response => {
+            console.log(response.data)
+        })
+```
+
+这种写法的优势在于，我们可以写多个一个实例对象接管不同baseURL的接口，模块化以后很好管理
+
+## 6.拦截器：
+
+分请求拦截器和响应拦截器两种：
+
+下面代码设置了两个请求拦截器和两个响应拦截器。初看很复杂，后面源码解析时细细说明
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拦截器</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <script>
+        // Promise
+        // 设置请求拦截器  config 配置对象
+        axios.interceptors.request.use(function (config) {
+            console.log('请求拦截器 成功 - 1号');
+            //可以修改 config 中的参数
+            config.params = {a:100};
+            return config;
+        }, function (error) {
+            console.log('请求拦截器 失败 - 1号');
+            return Promise.reject(error);
+        });
+
+        axios.interceptors.request.use(function (config) {
+            console.log('请求拦截器 成功 - 2号');
+            //修改 config 中的参数
+            config.timeout = 2000;
+            return config;
+        }, function (error) {
+            console.log('请求拦截器 失败 - 2号');
+            return Promise.reject(error);
+        });
+
+        // 设置响应拦截器
+        axios.interceptors.response.use(function (response) {
+            console.log('响应拦截器 成功 1号');
+            //可以自定义返回响应体数据
+            return response.data;
+            // return response;
+        }, function (error) {
+            console.log('响应拦截器 失败 1号')
+            return Promise.reject(error);
+        });
+
+        axios.interceptors.response.use(function (response) {
+            console.log('响应拦截器 成功 2号')
+            return response;
+        }, function (error) {
+            console.log('响应拦截器 失败 2号')
+            return Promise.reject(error);
+        });
+
+        //发送请求
+        axios({
+            method: 'GET',
+            url: 'http://localhost:3000/posts'
+        }).then(response => {
+            console.log('自定义回调处理成功的结果');
+            // console.log(response);
+        }).catch(err => {
+            console.log('自定义回调处理失败的结果');
+            // console.log(err.message);
+        })
+    </script>   
+</body>
+</html>
+```
+
+![image-20220326171414966](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220326171414966.png)
+
+![image-20220326171649245](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220326171649245.png)
+
+![image-20220326171807744](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220326171807744.png)
+
+## 7.取消发送：
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>取消请求</title>
+    <link crossorigin='anonymous' href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">axios取消请求</h2>
+        <button class="btn btn-primary"> 发送请求 </button>
+        <button class="btn btn-warning" > 取消请求 </button>
+    </div>
+    <script>
+        //获取按钮
+        const btns = document.querySelectorAll('button');
+        //2.声明全局变量
+        let cancel = null;
+        //发送请求
+        btns[0].onclick = function(){
+            //检测上一次的请求是否已经完成
+            if(cancel !== null){
+                //取消上一次的请求
+                cancel();
+            }
+            axios({
+                method: 'GET',
+                url: 'http://localhost:3000/posts',
+                //1. 添加配置对象的属性
+                cancelToken: new axios.CancelToken(function(c){
+                    //3. 将 c 的值赋值给 cancel
+                    cancel = c;
+                })
+            }).then(response => {
+                console.log(response);
+                //将 cancel 的值初始化
+                cancel = null;
+            })
+        }
+
+        //绑定第二个事件取消请求
+        btns[1].onclick = function(){
+            cancel();
+        }
+    </script>   
+</body>
+</html>
+```
+
+为了看到请求的效果，我们启动服务器时，要延迟2s启动
+
+命令：npx json-server --watch db.json -d 2000
+
+同样做了防抖：
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/81.gif" style="zoom: 100%"></img>
+
+后续我们会讲解原理：
+
+## 源码分析：
+
+1.
+
+# Fetch
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios基本使用</title>
+    <link crossorigin="anonymous" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">基本使用</h2>
+        <button class="btn btn-primary"> 发送GET请求 </button>
+        <button class="btn btn-warning" > 发送POST请求 </button>
+        <button class="btn btn-success"> 发送 PUT 请求 </button>
+        <button class="btn btn-danger"> 发送 DELETE 请求 </button>
+    </div>
+    <script>
+        //获取按钮
+        const btns = document.querySelectorAll('button');
+        //默认配置
+        axios.defaults.method = 'GET';//设置默认的请求类型为 GET
+        axios.defaults.baseURL = 'http://localhost:3000';//设置基础 URL
+        axios.defaults.params = {id:100};
+        axios.defaults.timeout = 3000;//设置超时时间
+
+        btns[0].onclick = function(){
+            //以后写多个请求，就可以少写很多代码了
+            axios({
+                url: '/posts'
+            }).then(response => {
+                console.log(response);
+            })
+        }
+
+    </script>
+</body>
+
+</html>
+```
+
+# ch
+
+传送门：
+
+[网络请求 (javascript.info)](https://zh.javascript.info/network)
+
+# Promise：
+
+传送门：
+
+[Promise，async/await (javascript.info)](https://zh.javascript.info/async)
+
+## 有用的包：
+
+### 1.util.promisify
+
+用于将老式的`Error first callback`转换为`Promise`对象，让老项目改造变得更为轻松。
+
+传送门：[util.promisify 的那些事儿 - 掘金 (juejin.cn)](https://juejin.cn/post/6844903694807351310)
