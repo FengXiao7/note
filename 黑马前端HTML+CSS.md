@@ -10,19 +10,11 @@ https://gitee.com/xiaoqiang001/html_css_material.git
 
 # 重点：
 
-流式布局：
-
-Flex布局：
-
-rem布局：
-
-bootstrap响应式布局：我个人感觉比较鸡肋，大屏和小屏分开两个网站比较合理。还是习惯用flex布局
-
 Grid布局：(这部分pink老师没讲，看阮老师的博客)
 
 [CSS Grid 网格布局教程 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html)
 
-常看常记！
+
 
 # 需要注意的地方：
 
