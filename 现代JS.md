@@ -24,17 +24,15 @@
 
 ### 1.对象 — 原始值转换
 
-https://zh.javascript.info/object-toprimitive
-
-### 2.原始类型的方法
-
-https://zh.javascript.info/primitives-methods
-
-
+[对象 — 原始值转换](https://zh.javascript.info/object-toprimitive)
 
 ### 7.变量作用域，闭包 
 
- https://zh.javascript.info/closure
+[变量作用域，闭包](https://zh.javascript.info/closure)
+
+推荐文章
+
+[我从来不理解JavaScript闭包，直到有人这样向我解释它 - 掘金 (juejin.cn)](https://juejin.cn/post/6844903858636849159#heading-6)
 
 ### 8.装饰器，fun.call,fun.apply 
 
@@ -46,9 +44,9 @@ https://zh.javascript.info/call-apply-decorators
 
 [函数对象，NFE (javascript.info)](https://zh.javascript.info/function-object)
 
-尤其是这个https://zh.javascript.info/function-object#zi-ding-yi-shu-xing
+里面提到的自定义属性和闭包的选择，还用length属性用于内省/运行时检查很难理解。
 
-还有习题https://zh.javascript.info/function-object#tasks
+两道习题也很难完成
 
 ### 10.模块在浏览器中的特定功能
 
@@ -114,7 +112,11 @@ https://zh.javascript.info/array-methods#reducereduceright
 
 这样外部没有调用calculator.read()，也可正常运行sum()和mul()了
 
+## 2.任意数量的括号求和
 
+这个习题确实做不来
+
+[任意数量的括号求和](https://zh.javascript.info/function-object#ren-yi-shu-liang-de-kuo-hao-qiu-he)
 
 # JavaScript 编程语言
 
@@ -1795,7 +1797,9 @@ https://zh.javascript.info/keys-values-entries#zhuan-huan-dui-xiang
 
 ### 5.10解构赋值
 
-#### 1.交换两数：
+#### 1.数组解构：
+
+##### 交换两变量:
 
 ```JS
 let guest = "Jane";
@@ -1807,38 +1811,233 @@ let admin = "Pete";
 alert(`${guest} ${admin}`); // Pete Jane（成功交换！）
 ```
 
-还有一种用法是智能函数参数https://zh.javascript.info/destructuring-assignment#zhi-neng-han-shu-can-shu
+##### 其余的‘...’：
 
-#### 2.习题：
+我们还想收集其余的数组项 —— 我们可以使用三个点 "..." 来再加一个参数以获取“其余”数组项：
 
-https://zh.javascript.info/destructuring-assignment#zui-gao-xin-zi
+```js
 
-我的解法
+let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 
-```JS
-let salaries = {
-      "John": 100,
-      "Pete": 300,
-      "Mary": 250
-    };
-    console.log(opSalary(salaries)); 
-
-    function opSalary(salaries){
-      let array=Object.entries(salaries)
-      for(let i = 0; i < array.length; i++){
-        if(array[0][1]<=array[i][1]){
-          [array[0],array[i]]=[array[i],array[0]]
-        }
-      }
-      return array[0] 
-    }
+// rest 是包含从第三项开始的其余数组项的数组
+alert(rest[0]); // Consul
+alert(rest[1]); // of the Roman Republic
+alert(rest.length); // 2
 ```
 
-### 5.11.日期
+还有一种用法是智能函数参数https://zh.javascript.info/destructuring-assignment#zhi-neng-han-shu-can-shu
 
-#### 1.习题:
+##### 默认值：
 
-https://zh.javascript.info/date#mou-yue-de-zui-hou-yi-tian
+我们想要一个“默认”值给未赋值的变量，我们可以使用 `=` 来提供：
+
+```javascript
+// 默认值
+let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+
+alert(name);    // Julius（来自数组的值）
+alert(surname); // Anonymous（默认值被使用了）
+```
+
+##### 忽略逗号：
+
+数组中不想要的元素也可以通过添加额外的逗号来把它丢弃：
+
+```javascript
+// 不需要第二个元素
+let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+
+alert( title ); // Consul
+```
+
+#### 2.对象解构
+
+##### 基本语法：
+
+```javascript
+let {var1, var2} = {var1:…, var2:…}
+```
+
+在等号右侧应该有一个已经存在的对象，我们想把它拆分到变量中。等号左侧包含了对象相应属性的一个类对象“模式（pattern）”。在最简单的情况下，等号左侧的就是 `{...}` 中的变量名列表。
+
+举个例子：
+
+```javascript
+let options = {
+  title: "Menu",
+  width: 100,
+  height: 200
+};
+
+let {title, width, height} = options;
+
+alert(title);  // Menu
+alert(width);  // 100
+alert(height); // 200
+```
+
+##### 顺序不重要：
+
+```js
+// 改变 let {...} 中元素的顺序
+let {height, width, title} = { title: "Menu", height: 200, width: 100 }
+```
+
+##### 设置变量：
+
+```js
+let options = {
+  title: "Menu",
+  width: 100,
+  height: 200
+};
+
+// { sourceProperty: targetVariable }
+let {width: w, height: h, title} = options;
+
+// width -> w
+// height -> h
+// title -> title
+
+alert(title);  // Menu
+alert(w);      // 100
+alert(h);      // 200
+```
+
+##### 设置默认值：
+
+```js
+let options = {
+  title: "Menu"
+};
+
+let {width = 100, height = 200, title} = options;
+
+alert(title);  // Menu
+alert(width);  // 100
+alert(height); // 200
+```
+
+##### 剩余模式：
+
+```js
+let options = {
+  title: "Menu",
+  height: 200,
+  width: 100
+};
+
+// title = 名为 title 的属性
+// rest = 存有剩余属性的对象
+let {title, ...rest} = options;
+
+// 现在 title="Menu", rest={height: 200, width: 100}
+alert(rest.height);  // 200
+alert(rest.width);   // 100
+```
+
+##### 需注意：
+
+就像数组或函数参数一样，默认值可以是任意表达式甚至可以是函数调用。
+
+<div style="color: red">它们只会在未提供对应的值时才会被计算/调用。</div>
+
+```js
+let options = {
+  title: "Menu"
+};
+
+let {width = prompt("width?"), title = prompt("title?")} = options;
+
+alert(title);  // Menu  不会执行prompt("title?")，因为title已经有值了
+alert(width);  // (prompt 的返回值)
+```
+
+<div style="color: red">不使用 `let` 时的陷阱</div>
+
+在上面的示例中，变量都是在赋值中通过正确方式声明的：`let {…} = {…}`。当然，我们也可以使用已有的变量，而不用 `let`，但这里有一个陷阱。
+
+以下代码无法正常运行：
+
+```javascript
+let title, width, height;
+
+// 这一行发生了错误
+{title, width, height} = {title: "Menu", width: 200, height: 100};
+```
+
+问题在于 JavaScript 把主代码流（即不在其他表达式中）的 `{...}` 当做一个代码块。这样的代码块可以用于对语句分组，如下所示：
+
+```javascript
+{
+  // 一个代码块
+  let message = "Hello";
+  // ...
+  alert( message );
+}
+```
+
+因此，这里 JavaScript 假定我们有一个代码块，这就是报错的原因。我们需要解构它。
+
+为了告诉 JavaScript 这不是一个代码块，我们可以把整个赋值表达式用括号 `(...)` 包起来：
+
+```javascript
+let title, width, height;
+
+// 现在就可以了
+({title, width, height} = {title: "Menu", width: 200, height: 100});
+
+alert( title ); // Menu
+```
+
+#### 3.函数参数使用解构赋值
+
+参数太多，用对象传递，使用解构赋值，参数解构十分清晰
+
+```js
+let options = {
+  title: "My menu",
+  items: ["Item1", "Item2"]
+};
+
+function showMenu({
+  title = "Untitled",
+  width: w = 100,  // width goes to w
+  height: h = 200, // height goes to h
+  items: [item1, item2] // items first element goes to item1, second to item2
+}) {
+  alert( `${title} ${w} ${h}` ); // My Menu 100 200
+  alert( item1 ); // Item1
+  alert( item2 ); // Item2
+}
+
+showMenu(options);
+```
+
+
+
+#### 习题：
+
+[最高薪资](https://zh.javascript.info/destructuring-assignment#zui-gao-xin-zi)
+
+### 5.11.日期和时间
+
+[日期和时间](https://zh.javascript.info/date)
+
+api很多，推荐看原文，都是干货。
+
+#### 习题:
+
+##### [某月的最后一天？](https://zh.javascript.info/date#mou-yue-de-zui-hou-yi-tian)
+
+写一个函数 `getLastDayOfMonth(year, month)` 返回 month 月的最后一天。有时候是 30，有时是 31，甚至在二月的时候会是 28/29。
+
+参数：
+
+- `year` —— 四位数的年份，比如 2012。
+- `month` —— 月份，从 0 到 11。
+
+举个例子，`getLastDayOfMonth(2012, 1) = 29`（闰年，二月）
 
 我的代码，和答案一个意思
 
@@ -1859,9 +2058,19 @@ https://zh.javascript.info/date#mou-yue-de-zui-hou-yi-tian
   </script>
 ```
 
-#### 2.习题：
 
-https://zh.javascript.info/date#jin-tian-guo-qu-le-duo-shao-miao
+
+##### [今天过去了多少秒？](https://zh.javascript.info/date#jin-tian-guo-qu-le-duo-shao-miao)
+
+写一个函数 `getSecondsToday()`，返回今天已经过去了多少秒？
+
+例如：如果现在是 `10:00 am`，并且没有夏令时转换，那么：
+
+```javascript
+getSecondsToday() == 36000 // (3600 * 10)
+```
+
+该函数应该在任意一天都能正确运行。那意味着，它不应具有“今天”的硬编码值。
 
 我的是答案的第二种解法
 
@@ -1874,9 +2083,19 @@ https://zh.javascript.info/date#jin-tian-guo-qu-le-duo-shao-miao
     }
 ```
 
-#### 3.习题:
 
-https://zh.javascript.info/date#ju-li-ming-tian-huan-you-duo-shao-miao
+
+##### [距离明天还有多少秒？](https://zh.javascript.info/date#ju-li-ming-tian-huan-you-duo-shao-miao)
+
+写一个函数 `getSecondsToTomorrow()`，返回距离明天的秒数。
+
+例如，现在是 `23:00`，那么：
+
+```javascript
+getSecondsToTomorrow() == 3600
+```
+
+P.S. 该函数应该在任意一天都能正确运行。那意味着，它不应具有“今天”的硬编码值。
 
 我的是答案的第一种解法
 
@@ -1889,14 +2108,32 @@ https://zh.javascript.info/date#ju-li-ming-tian-huan-you-duo-shao-miao
     }
 ```
 
-#### 4.习题:
+##### [格式化相对日期](https://zh.javascript.info/date#ge-shi-hua-xiang-dui-ri-qi)
 
-https://zh.javascript.info/date#ge-shi-hua-xiang-dui-ri-qi
+写一个函数 `formatDate(date)`，能够对 `date` 进行如下格式化：
+
+- 如果 `date` 距离现在不到 1 秒，输出 `"right now"`。
+- 否则，如果 `date` 距离现在不到 1 分钟，输出 `"n sec. ago"`。
+- 否则，如果不到 1 小时，输出 `"m min. ago"`。
+- 否则，以 `"DD.MM.YY HH:mm"` 格式输出完整日期。即：`"day.month.year hours:minutes"`，全部以两位数格式表示，例如：`31.12.16 10:00`。
+
+举个例子：
+
+```javascript
+alert( formatDate(new Date(new Date - 1)) ); // "right now"
+
+alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 sec. ago"
+
+alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 min. ago"
+
+// 昨天的日期，例如 31.12.16 20:00
+alert( formatDate(new Date(new Date - 86400 * 1000)) );
+```
 
 我的这个不是很严谨，要注意取整
 
 ```JS
-formatDate(new Date(new Date - 1)); // "right now"
+	formatDate(new Date(new Date - 1)); // "right now"
 
     formatDate(new Date(new Date - 30 * 1000)); // "30 sec. ago"
 
@@ -1919,29 +2156,753 @@ formatDate(new Date(new Date - 1)); // "right now"
       }
 ```
 
+### 5.12JSON 方法，toJSON
+
+[JSON 方法，toJSON](https://zh.javascript.info/json)
+
+#### 1.JSON.stringfy
+
+```js
+let student = {
+  name: 'John',
+  age: 30,
+  isAdmin: false,
+  courses: ['html', 'css', 'js'],
+  wife: null
+};
+
+let json = JSON.stringify(student);
+
+alert(typeof json); // we've got a string!
+
+alert(json);
+/* JSON 编码的对象：
+{
+  "name": "John",
+  "age": 30,
+  "isAdmin": false,
+  "courses": ["html", "css", "js"],
+  "wife": null
+}
+*/
+```
+
+##### 需注意：
+
+- 字符串使用双引号。JSON 中没有单引号或反引号。所以 `'John'` 被转换为 `"John"`。
+- 对象属性名称也是双引号的。这是强制性的。所以 `age:30` 被转换成 `"age":30`。
+
+
+
+JSON 是语言无关的纯数据规范，因此一些特定于 JavaScript 的对象属性会被 `JSON.stringify` 跳过。
+
+即：
+
+- 函数属性（方法）。
+- Symbol 类型的键和值。
+- 存储 `undefined` 的属性。
+
+```js
+let user = {
+  sayHi() { // 被忽略
+    alert("Hello");
+  },
+  [Symbol("id")]: 123, // 被忽略
+  something: undefined // 被忽略
+};
+
+alert( JSON.stringify(user) ); // {}（空对象）
+```
+
+<div style="color: red">JSON支持嵌套对象转换，不支持循环引用</div>
+
+```js
+let room = {
+  number: 23
+};
+
+let meetup = {
+  title: "Conference",
+  participants: ["john", "ann"]
+};
+
+meetup.place = room;       // meetup 引用了 room
+room.occupiedBy = meetup; // room 引用了 meetup
+
+JSON.stringify(meetup); // Error: Converting circular structure to JSON
+```
+
+#### 2.replacer
+
+就是说我们可以利用第二个replacer参数，分析并替换/跳过整个对象。感觉实际工作中应该用的不多吧
+
+`JSON.stringify` 的完整语法是：
+
+```javascript
+let json = JSON.stringify(value[, replacer, space])
+```
+
+- value
+
+  要编码的值。
+
+- replacer
+
+  要编码的属性数组或映射函数 `function(key, value)`。
+
+- space
+
+  用于格式化的空格数量
+
+如果我们传递一个属性数组给它，那么只有这些属性会被编码。
+
+例如：
+
+```javascript
+let room = {
+  number: 23
+};
+
+let meetup = {
+  title: "Conference",
+  participants: [{name: "John"}, {name: "Alice"}],
+  place: room // meetup 引用了 room
+};
+
+room.occupiedBy = meetup; // room 引用了 meetup
+
+alert( JSON.stringify(meetup, ['title', 'participants']) );
+// {"title":"Conference","participants":[{},{}]}
+```
+
+这里我们可能过于严格了。属性列表应用于了整个对象结构。所以 `participants` 是空的，因为 `name` 不在列表中。
+
+让我们包含除了会导致循环引用的 `room.occupiedBy` 之外的所有属性：
+
+```javascript
+let room = {
+  number: 23
+};
+
+let meetup = {
+  title: "Conference",
+  participants: [{name: "John"}, {name: "Alice"}],
+  place: room // meetup 引用了 room
+};
+
+room.occupiedBy = meetup; // room 引用了 meetup
+
+alert( JSON.stringify(meetup, ['title', 'participants', 'place', 'name', 'number']) );
+/*
+{
+  "title":"Conference",
+  "participants":[{"name":"John"},{"name":"Alice"}],
+  "place":{"number":23}
+}
+*/
+```
+
+我们可以使用一个函数代替数组作为 replacer。
+
+该函数会为每个 (key,value) 对调用并返回“已替换”的值，该值将替换原有的值。如果值被跳过了，则为 undefined。
+
+在我们的例子中，我们可以为 occupiedBy 以外的所有内容按原样返回 value。为了 occupiedBy，下面的代码返回 undefined：
+
+```js
+let room = {
+  number: 23
+};
+
+let meetup = {
+  title: "Conference",
+  participants: [{name: "John"}, {name: "Alice"}],
+  place: room // meetup 引用了 room
+};
+
+room.occupiedBy = meetup; // room 引用了 meetup
+
+alert( JSON.stringify(meetup, function replacer(key, value) {
+  alert(`${key}: ${value}`);
+  return (key == 'occupiedBy') ? undefined : value;
+}));
+
+/* key:value pairs that come to replacer:
+:             [object Object]
+title:        Conference
+participants: [object Object],[object Object]
+0:            [object Object]
+name:         John
+1:            [object Object]
+name:         Alice
+place:        [object Object]
+number:       23
+occupiedBy: [object Object]
+```
+
+请注意 `replacer` 函数会获取每个键/值对，包括嵌套对象和数组项。它被递归地应用。`replacer` 中的 `this` 的值是包含当前属性的对象。
+
+第一个调用很特别。它是使用特殊的“包装对象”制作的：`{"": meetup}`。换句话说，第一个 `(key, value)` 对的键是空的，并且该值是整个目标对象。这就是上面的示例中第一行是 `":[object Object]"` 的原因。
+
+这个理念是为了给 `replacer` 提供尽可能多的功能：如果有必要，它有机会分析并替换/跳过整个对象。
+
+#### 3.自定义toJSON
+
+像 `toString` 进行字符串转换，对象也可以提供 `toJSON` 方法来进行 JSON 转换。如果可用，`JSON.stringify` 会自动调用它。
+
+```js
+let room = {
+  number: 23,
+  toJSON() {
+    return this.number;
+  }
+};
+
+let meetup = {
+  title: "Conference",
+  room
+};
+
+alert( JSON.stringify(room) ); // 23
+
+alert( JSON.stringify(meetup) );
+/*
+  {
+    "title":"Conference",
+    "room": 23
+  }
+*/
+```
+
+#### 4.JSON.parse
+
+用于解码 JSON 字符串
+
+```javascript
+let value = JSON.parse(str, [reviver]);
+```
+
+- str
+
+  要解析的 JSON 字符串。
+
+- reviver
+
+  可选的函数 function(key,value)，该函数将为每个 `(key, value)` 对调用，并可以对值进行转换。
+
+```js
+let userData = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
+
+let user = JSON.parse(userData);
+
+alert( user.friends[1] ); // 1
+```
+
+使用reviver分析JSON字符串
+
+```js
+let schedule = `{
+  "meetups": [
+    {"title":"Conference","date":"2017-11-30T12:00:00.000Z"},
+    {"title":"Birthday","date":"2017-04-18T12:00:00.000Z"}
+  ]
+}`;
+
+schedule = JSON.parse(schedule, function(key, value) {
+  if (key == 'date') return new Date(value);
+  return value;
+});
+
+alert( schedule.meetups[1].date.getDate() ); // 正常运行了！
+```
+
+#### 习题：
+
+很好的题目值得搜藏
+
+[排除反向引用](https://zh.javascript.info/json#pai-chu-fan-xiang-yin-yong)
+
 ## 6.函数进阶内容
 
 ### 6.2Rest 参数与 Spread 语法
 
-#### 1.复制小技巧
+[Rest 参数与 Spread 语法](https://zh.javascript.info/rest-parameters-spread)
 
-用spread语法
+#### 1.Rest参数
 
-https://zh.javascript.info/rest-parameters-spread#fu-zhi-arrayobject
+Rest 参数可以通过使用三个点 `...` 并在后面跟着包含剩余参数的数组名称，来将它们包含在函数定义中。这些点的字面意思是“将剩余参数收集到一个数组中”。
+
+```js
+function sumAll(...args) { // 数组名为 args
+  let sum = 0;
+
+  for (let arg of args) sum += arg;
+
+  return sum;
+}
+
+alert( sumAll(1) ); // 1
+alert( sumAll(1, 2) ); // 3
+alert( sumAll(1, 2, 3) ); // 6
+```
+
+搭配可视参数使用
+
+```js
+function showName(firstName, lastName, ...titles) {
+  alert( firstName + ' ' + lastName ); // Julius Caesar
+
+  // 剩余的参数被放入 titles 数组中
+  // i.e. titles = ["Consul", "Imperator"]
+  alert( titles[0] ); // Consul
+  alert( titles[1] ); // Imperator
+  alert( titles.length ); // 2
+}
+
+showName("Julius", "Caesar", "Consul", "Imperator");
+```
+
+<div style="color: red">Rest 参数必须放到参数列表的末尾</div>
+
+Rest 参数会收集剩余的所有参数，因此下面这种用法没有意义，并且会导致错误：
+
+```javascript
+function f(arg1, ...rest, arg2) { // arg2 在 ...rest 后面？！
+  // error
+}
+```
+
+#### 2.arguments变量
+
+有一个名为 arguments 的特殊的类数组对象，该对象按参数索引包含所有参数。
+
+例如：
+
+```js
+
+
+function showName() {
+  alert( arguments.length );
+  alert( arguments[0] );
+  alert( arguments[1] );
+
+  // 它是可遍历的
+  // for(let arg of arguments) alert(arg);
+}
+
+// 依次显示：2，Julius，Caesar
+showName("Julius", "Caesar");
+
+// 依次显示：1，Ilya，undefined（没有第二个参数）
+showName("Ilya");
+```
+
+在过去，JavaScript 中没有 rest 参数，而使用 `arguments` 是获取函数所有参数的唯一方法。现在它仍然有效，我们可以在一些老代码里找到它。
+
+但缺点是，尽管 `arguments` 是一个类数组，也是可迭代对象，但它终究不是数组。它不支持数组方法，因此我们不能调用 `arguments.map(...)` 等方法。
+
+此外，它始终包含所有参数，我们不能像使用 rest 参数那样只截取入参的一部分。
+
+因此，当我们需要这些功能时，最好使用 rest 参数。
+
+<div style="color: red">箭头函数是没有 "arguments"</div>
+
+#### 3.Spread语法
+
+当在函数调用中使用 `...arr` 时，它会把可迭代对象 `arr` “展开”到参数列表中。
+
+以 `Math.max` 为例：
+
+```javascript
+let arr = [3, 5, 1];
+
+alert( Math.max(...arr) ); // 5（spread 语法把数组转换为参数列表）
+```
+
+我们还可以通过这种方式传递多个可迭代对象：
+
+```javascript
+let arr1 = [1, -2, 3, 4];
+let arr2 = [8, 3, -8, 1];
+
+alert( Math.max(...arr1, ...arr2) ); // 8
+```
+
+我们甚至还可以将 spread 语法与常规值结合使用：
+
+```javascript
+let arr1 = [1, -2, 3, 4];
+let arr2 = [8, 3, -8, 1];
+
+alert( Math.max(1, ...arr1, 2, ...arr2, 25) ); // 25
+```
+
+并且，我们还可以使用 spread 语法来合并数组：
+
+```javascript
+let arr = [3, 5, 1];
+let arr2 = [8, 9, 15];
+
+let merged = [0, ...arr, 2, ...arr2];
+
+alert(merged); // 0,3,5,1,2,8,9,15（0，然后是 arr，然后是 2，然后是 arr2）
+```
+
+Spread 语法内部使用了迭代器来收集元素，与 `for..of` 的方式相同。
+
+```js
+let str = "Hello";
+
+alert( [...str] ); // H,e,l,l,o
+```
+
+注意和Array.from的区别
+
+`Array.from(obj)` 和 `[...obj]` 存在一个细微的差别：
+
+- `Array.from` 适用于类数组对象也适用于可迭代对象。
+- Spread 语法只适用于可迭代对象。
 
 ### 6.3变量作用域，闭包
 
-#### 1.习题:
+[变量作用域，闭包](https://zh.javascript.info/closure)
 
-https://zh.javascript.info/closure#if-nei-de-han-shu
+#### 1.代码块
 
-https://zh.javascript.info/closure#bian-liang-ke-jian-ma
+如果在代码块 `{...}` 内声明了一个变量，那么这个变量只在该代码块内可见。
 
-https://zh.javascript.info/closure#han-shu-da-jun
+例如：
 
-### 6.4var
+```javascript
+{
+  // 使用在代码块外不可见的局部变量做一些工作
 
-https://zh.javascript.info/var#zong-jie
+  let message = "Hello"; // 只在此代码块内可见
+
+  alert(message); // Hello
+}
+
+alert(message); // Error: message is not defined
+```
+
+隔离代码
+
+```js
+{
+  // 显示 message
+  let message = "Hello";
+  alert(message);
+}
+
+{
+  // 显示另一个 message
+  let message = "Goodbye";
+  alert(message);
+}
+```
+
+对于 `if`，`for` 和 `while` 等，在 `{...}` 中声明的变量也仅在内部可见：
+
+if
+
+```javascript
+if (true) {
+  let phrase = "Hello!";
+
+  alert(phrase); // Hello!
+}
+
+alert(phrase); // Error, no such variable!
+```
+
+循环
+
+```js
+for (let i = 0; i < 3; i++) {
+  // 变量 i 仅在这个 for 循环的内部可见
+  alert(i); // 0，然后是 1，然后是 2
+}
+
+alert(i); // Error, no such variable
+```
+
+#### 2.后续
+
+文章写的太难懂了，推荐文章
+
+[我从来不理解JavaScript闭包，直到有人这样向我解释它 - 掘金 (juejin.cn)](https://juejin.cn/post/6844903858636849159#heading-6)
+
+我将永远记住闭包的方法是通过背包的类比。当一个函数被创建并传递或从另一个函数返回时，它会携带一个背包。背包中是函数声明时作用域内的所有变量。
+
+### 6.4旧时的var
+
+#### 1.var没有块级作用域
+
+if：
+
+```js
+if (true) {
+  var test = true; // 使用 "var" 而不是 "let"
+}
+
+alert(test); // true，变量在 if 结束后仍存在
+```
+
+循环：
+
+```js
+for (var i = 0; i < 10; i++) {
+  var one = 1;
+  // ...
+}
+
+alert(i);   // 10，"i" 在循环结束后仍可见，它是一个全局变量
+alert(one); // 1，"one" 在循环结束后仍可见，它是一个全局变量
+```
+
+如果一个代码块位于函数内部，那么 `var` 声明的变量的作用域将为函数作用域：
+
+```javascript
+function sayHi() {
+  if (true) {
+    var phrase = "Hello";
+  }
+
+  alert(phrase); // 能正常工作
+}
+
+sayHi();
+alert(phrase); // ReferenceError: phrase is not defined
+```
+
+#### 2.重复声明
+
+使用 `var`，我们可以重复声明一个变量，不管多少次都行。如果我们对一个已经声明的变量使用 `var`，这条新的声明语句会被忽略：
+
+```javascript
+var user = "Pete";
+
+var user = "John"; // 这个 "var" 无效（因为变量已经声明过了）
+// ……不会触发错误
+
+alert(user); // John
+```
+
+#### 3.变量提升
+
+`var` 声明的变量会在函数开头被定义，与它在代码中定义的位置无关
+
+```javascript
+function sayHi() {
+  phrase = "Hello";
+
+  alert(phrase);
+
+  var phrase;
+}
+sayHi();
+```
+
+……从技术上讲，它与下面这种情况是一样的（`var phrase` 被上移至函数开头）：
+
+```javascript
+function sayHi() {
+  var phrase;
+
+  phrase = "Hello";
+
+  alert(phrase);
+}
+sayHi();
+```
+
+……甚至与这种情况也一样（记住，代码块是会被忽略的）：
+
+```javascript
+function sayHi() {
+  phrase = "Hello"; // (*)
+
+  if (false) {
+    var phrase;
+  }
+
+  alert(phrase);
+}
+sayHi();
+```
+
+人们将这种行为称为“提升”（英文为 “hoisting” 或 “raising”），因为所有的 `var` 都被“提升”到了函数的顶部。
+
+所以，在上面的例子中，`if (false)` 分支永远都不会执行，但没关系，它里面的 `var` 在函数刚开始时就被处理了，所以在执行 `(*)` 那行代码时，变量是存在的。
+
+**声明会被提升，但是赋值不会。**
+
+我们最好用例子来说明：
+
+```javascript
+function sayHi() {
+  alert(phrase);
+
+  var phrase = "Hello";
+}
+
+sayHi();
+```
+
+`var phrase = "Hello"` 这行代码包含两个行为：
+
+1. 使用 `var` 声明变量
+2. 使用 `=` 给变量赋值。
+
+声明在函数刚开始执行的时候（“提升”）就被处理了，但是赋值操作始终是在它出现的地方才起作用。所以这段代码实际上是这样工作的：
+
+```javascript
+function sayHi() {
+  var phrase; // 在函数刚开始时进行变量声明
+
+  alert(phrase); // undefined
+
+  phrase = "Hello"; // ……赋值 — 当程序执行到这一行时。
+}
+
+sayHi();
+```
+
+#### 4.IIFE
+
+就是立即执行函数
+
+在之前，JavaScript 中只有 `var` 这一种声明变量的方式，并且这种方式声明的变量没有块级作用域，程序员们就发明了一种模仿块级作用域的方法。这种方法被称为“立即调用函数表达式”（immediately-invoked function expressions，IIFE）。
+
+如今，我们不应该再使用 IIFE 了，但是你可以在旧脚本中找到它们。
+
+IIFE 看起来像这样：
+
+```javascript
+(function() {
+
+  var message = "Hello";
+
+  alert(message); // Hello
+
+})();
+```
+
+这里，创建了一个函数表达式并立即调用。因此，代码立即执行并拥有了自己的私有变量。
+
+函数表达式被括号 `(function {...})` 包裹起来，因为当 JavaScript 引擎在主代码中遇到 `"function"` 时，它会把它当成一个函数声明的开始。但函数声明必须有一个函数名，所以这样的代码会导致错误：
+
+```javascript
+// 尝试声明并立即调用一个函数
+function() { // <-- SyntaxError: Function statements require a function name
+
+  var message = "Hello";
+
+  alert(message); // Hello
+
+}();
+```
+
+即使我们说：“好吧，那我们加一个名称吧”，但它仍然不工作，因为 JavaScript 不允许立即调用函数声明：
+
+```javascript
+// 下面的括号会导致语法错误
+function go() {
+
+}(); // <-- 不能立即调用函数声明
+```
+
+因此，需要使用圆括号把该函数表达式包起来，以告诉 JavaScript，这个函数是在另一个表达式的上下文中创建的，因此它是一个函数表达式：它不需要函数名，可以立即调用。
+
+除了使用括号，还有其他方式可以告诉 JavaScript 在这我们指的是函数表达式：
+
+```javascript
+// 创建 IIFE 的方法
+
+(function() {
+  alert("Parentheses around the function");
+})();
+
+(function() {
+  alert("Parentheses around the whole thing");
+}());
+
+!function() {
+  alert("Bitwise NOT operator starts the expression");
+}();
+
++function() {
+  alert("Unary plus starts the expression");
+}();
+```
+
+在上面的所有情况中，我们都声明了一个函数表达式并立即运行它。请再注意一下：如今我们没有理由来编写这样的代码。
+
+### 6.6函数对象，NFE
+
+#### name属性：
+
+（感觉没什么用）
+
+一个函数的名字可以通过属性 “name” 来访问：
+
+```javascript
+function sayHi() {
+  alert("Hi");
+}
+
+alert(sayHi.name); // sayHi
+```
+
+名称赋值的逻辑很智能。即使函数被创建时没有名字，名称赋值的逻辑也能给它赋予一个正确的名字，然后进行赋值：
+
+```javascript
+let sayHi = function() {
+  alert("Hi");
+};
+
+alert(sayHi.name); // sayHi（有名字！）
+```
+
+#### length属性：
+
+内建属性 “length”，它返回函数入参的个数，比如：
+
+```javascript
+function f1(a) {}
+function f2(a, b) {}
+function many(a, b, ...more) {}
+
+alert(f1.length); // 1
+alert(f2.length); // 2
+alert(many.length); // 2
+```
+
+#### 自定义属性：
+
+我们添加了 `counter` 属性，用来跟踪总的调用次数：
+
+```javascript
+function sayHi() {
+  alert("Hi");
+
+  // 计算调用次数
+  sayHi.counter++;
+}
+sayHi.counter = 0; // 初始值
+
+sayHi(); // Hi
+sayHi(); // Hi
+
+alert( `Called ${sayHi.counter} times` ); // Called 2 times
+```
+
+<div style="color: red">属性不是变量</div>
+
+
+
+被赋值给函数的属性，比如 `sayHi.counter = 0`，**不会** 在函数内定义一个局部变量 `counter`。换句话说，属性 `counter` 和变量 `let counter` 是毫不相关的两个东西。
+
+我们可以把函数当作对象，在它里面存储属性，但是这对它的执行没有任何影响。变量不是函数属性，反之亦然。它们之间是平行的。
 
 ### 6.8setTimeOut,setInterval
 
@@ -2216,6 +3177,14 @@ alert( lazy.stomach ); // apple
 ```
 
 
+
+## 9.类
+
+和java很像不要记串了
+
+### 1.Class基本语法
+
+[Class 基本语法](https://zh.javascript.info/class)
 
 ## 11.Promise,async/await
 

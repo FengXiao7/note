@@ -14,7 +14,7 @@ https://pan.baidu.com/s/1hS746pu37B78glu5u-TaPw
 
 引入核心库，多了React。引入react-dom，多了ReactDOM
 
-```js
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +49,7 @@ https://pan.baidu.com/s/1hS746pu37B78glu5u-TaPw
 
 ### JSX：
 
-```js
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +77,7 @@ https://pan.baidu.com/s/1hS746pu37B78glu5u-TaPw
 
 ### JS：
 
-```js
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,7 +103,7 @@ const VDOM = React.createElement('h1',{id:'title'},React.createElement('span',{}
 
 ### 虚拟dom和真实dom：
 
-```js
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,7 +141,7 @@ const VDOM = React.createElement('h1',{id:'title'},React.createElement('span',{}
 
 ## 3.JSX语法规则
 
-```js
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -185,11 +185,12 @@ const VDOM = React.createElement('h1',{id:'title'},React.createElement('span',{}
 </html>
 ```
 
+![image-20220330162942493](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220330162942493.png)			
 
-​			jsx语法规则：
+jsx语法规则：
 ​					1.定义虚拟DOM时，不要写引号。
 ​					2.标签中混入JS表达式时要用{}。
-​					3.样式的类名指定不要用class，要用className。
+​					3.样式的类名指定不要用class，要用className。 (为了和js的class类区分)
 ​					4.内联样式，要用style={{key:value}}的形式去写。（第一个括号是引入JS的，第二个括号是对象）
 ​					5.只有一个根标签
 ​					6.标签必须闭合
@@ -199,7 +200,7 @@ const VDOM = React.createElement('h1',{id:'title'},React.createElement('span',{}
 
 ## 4.JSX小练习
 
-```js
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -276,7 +277,7 @@ const VDOM = React.createElement('h1',{id:'title'},React.createElement('span',{}
 
 ### 函数式组件：
 
-```js
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -308,3 +309,43 @@ const VDOM = React.createElement('h1',{id:'title'},React.createElement('span',{}
 </html>
 ```
 
+### 类式组件：
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2_类式组件</title>
+</head>
+<body>
+	<div id="test"></div>
+	
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+	<script type="text/javascript" src="../js/babel.min.js"></script>
+
+	<script type="text/babel">
+		//1.创建类式组件
+		class MyComponent extends React.Component {
+			render(){
+				//render是放在哪里的？—— MyComponent的原型对象上，供实例使用。
+				//render中的this是谁？—— MyComponent的实例对象 <=> MyComponent组件实例对象。
+				console.log('render中的this:',this);
+				return <h2>我是用类定义的组件(适用于【复杂组件】的定义)</h2>
+			}
+		}
+		//2.渲染组件到页面
+		ReactDOM.render(<MyComponent/>,document.getElementById('test'))
+		/* 
+        执行了ReactDOM.render(<MyComponent/>.......之后，发生了什么？
+            1.React解析组件标签，找到了MyComponent组件。
+            2.发现组件是使用类定义的，随后new出来该类的实例，并通过该实例调用到原型上的render方法。
+            3.将render返回的虚拟DOM转为真实DOM，随后呈现在页面中。
+		*/
+	</script>
+</body>
+</html>
+```
+
+## 6.组件实例三大属性之一----state
