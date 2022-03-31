@@ -1,6 +1,6 @@
 # 说明：
 
-1.此笔记记录我对电子书现代 JavaScript 教程学习情况。电子书中记录了很多新特性，不乏ES2020里面的新特性，且保持更新。很值得阅读。
+1.此笔记记录我对电子书现代 JavaScript 教程学习情况。电子书中记录了很多新特性，不乏ES2020里面的新特性，且保持更新，很值得深入阅读。
 
 
 
@@ -8,17 +8,15 @@
 
 
 
-3.有些难以理解的地方，我都写上了“我的见解”，方便自己以后看文档时快速理解，但详细说明还是看原文好。
+3.有些难以理解的地方，我都写的有自己的理解，实在不行还有传送门，但详细说明还是看原文好。
 
 
 
-4.多看传送门
+4.传送门：
 
+中文网址：[现代 JavaScript 教程](https://zh.javascript.info/)
 
-
-5.传送门：[现代 JavaScript 教程](https://zh.javascript.info/)
-
-[The Modern JavaScript Tutorial (github.com)](https://github.com/javascript-tutorial)
+github：[The Modern JavaScript Tutorial (github.com)](https://github.com/javascript-tutorial)
 
 # 较难理解的地方
 
@@ -30,15 +28,19 @@
 
 [变量作用域，闭包](https://zh.javascript.info/closure)
 
-推荐文章
+传送门：
 
 [我从来不理解JavaScript闭包，直到有人这样向我解释它 - 掘金 (juejin.cn)](https://juejin.cn/post/6844903858636849159#heading-6)
 
 ### 8.装饰器，fun.call,fun.apply 
 
-https://zh.javascript.info/call-apply-decorators
+[装饰器模式和转发，call/apply](https://zh.javascript.info/call-apply-decorators)
 
-看懂这个词法环境
+文中举的装饰器的例子难以理解
+
+[任务](https://zh.javascript.info/call-apply-decorators#tasks)
+
+习题里面的防抖装饰器，还有节流装饰器都写得很好，值得收藏。尤其是节流装饰器很值得深究
 
 ### 9.函数对象，NFE
 
@@ -47,6 +49,12 @@ https://zh.javascript.info/call-apply-decorators
 里面提到的自定义属性和闭包的选择，还用length属性用于内省/运行时检查很难理解。
 
 两道习题也很难完成
+
+### 10.在没有上下文的情况下，绑定参数
+
+[在没有上下文情况下的 partial](https://zh.javascript.info/bind#zai-mei-you-shang-xia-wen-qing-kuang-xia-de-partial)
+
+多看看还是可以理解
 
 ### 10.模块在浏览器中的特定功能
 
@@ -58,7 +66,11 @@ https://zh.javascript.info/modules-intro#liu-lan-qi-te-ding-gong-neng
 
 https://zh.javascript.info/import-export
 
+### 12.关于this
 
+推荐文章，传送门：
+
+[this、apply、call、bind - 掘金 (juejin.cn)](https://juejin.cn/post/6844903496253177863)
 
 
 
@@ -833,6 +845,12 @@ let clone = Object.assign({}, user);
 
 <div style="color: red">user和clone指向不同的引用</div>
 
+```
+let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+```
+
+
+
 ##### 深拷贝：
 
 将一个对象从内存中完整的拷贝一份出来,从堆内存中开辟一个新的区域存放新对象,且修改新对象不会影响原对象
@@ -1018,6 +1036,15 @@ new User(); // function User { ... }
 （一般都不写的，可以看看）
 
 [构造器的 return](https://zh.javascript.info/constructor-new#gou-zao-qi-de-return)
+
+如果有 `return` 语句，那么规则就简单了：
+
+- 如果 `return` 返回的是一个对象，则返回这个对象，而不是 `this`。
+- 如果 `return` 返回的是一个原始类型，则忽略。
+
+<div style="color: red">换句话说，带有对象的 `return` 返回该对象，在所有其他情况下返回 `this`。</div>
+
+
 
 #### 习题：
 
@@ -1793,9 +1820,11 @@ john = null; // 覆盖引用
 
 #### 1.对象和数组转换
 
-https://zh.javascript.info/keys-values-entries#zhuan-huan-dui-xiang
+[转换对象](https://zh.javascript.info/keys-values-entries#zhuan-huan-dui-xiang)
 
 ### 5.10解构赋值
+
+[解构赋值](https://zh.javascript.info/destructuring-assignment)
 
 #### 1.数组解构：
 
@@ -1810,6 +1839,20 @@ let admin = "Pete";
 
 alert(`${guest} ${admin}`); // Pete Jane（成功交换！）
 ```
+
+交换多个变量，也是可以的(let c=3;必须打分号)
+
+```js
+let a=1
+let b=2
+let c=3;
+[a,b,c]=[c,a,b]
+console.log(a);
+console.log(b);
+console.log(c);
+```
+
+
 
 ##### 其余的‘...’：
 
@@ -2904,25 +2947,659 @@ alert( `Called ${sayHi.counter} times` ); // Called 2 times
 
 我们可以把函数当作对象，在它里面存储属性，但是这对它的执行没有任何影响。变量不是函数属性，反之亦然。它们之间是平行的。
 
+### 6.7new Function语法
+
+["new Function" 语法](https://zh.javascript.info/new-function)
+
+#### 1.new Function
+
+创建函数的语法：
+
+```javascript
+let func = new Function ([arg1, arg2, ...argN], functionBody);
+```
+
+该函数是通过使用参数 `arg1...argN` 和给定的 `functionBody` 创建的。
+
+下面这个例子可以帮助你理解创建语法。这是一个带有两个参数的函数：
+
+```javascript
+let sum = new Function('a', 'b', 'return a + b');
+
+alert( sum(1, 2) ); // 3
+```
+
+这里有一个没有参数的函数，只有函数体：
+
+```javascript
+let sayHi = new Function('alert("Hello")');
+
+sayHi(); // Hello
+```
+
+与我们已知的其他方法相比，这种方法最大的不同在于，它实际上是通过运行时通过参数传递过来的字符串创建的。
+
+#### 2.闭包
+
+使用 `new Function` 创建一个函数，那么该函数的 `[[Environment]]` 并不指向当前的词法环境，而是指向全局环境。
+
+因此，此类函数无法访问外部（outer）变量，只能访问全局变量。
+
+```javascript
+function getFunc() {
+  let value = "test";
+
+  let func = new Function('alert(value)');
+
+  return func;
+}
+
+getFunc()(); // error: value is not defined  因为没有一个叫value的全局变量
+```
+
+将其与常规行为进行比较：
+
+```javascript
+function getFunc() {
+  let value = "test";
+
+  let func = function() { alert(value); };
+
+  return func;
+}
+
+getFunc()(); // "test"，从 getFunc 的词法环境中获取的
+```
+
+由于历史原因，参数也可以按逗号分隔符的形式给出。
+
+以下三种声明的含义相同：
+
+```javascript
+new Function('a', 'b', 'return a + b'); // 基础语法
+new Function('a,b', 'return a + b'); // 逗号分隔
+new Function('a , b', 'return a + b'); // 逗号和空格分隔
+```
+
 ### 6.8setTimeOut,setInterval
 
-习题：https://zh.javascript.info/settimeout-setinterval#mei-miao-shu-chu-yi-ci
+[调度：setTimeout 和 setInterval](https://zh.javascript.info/settimeout-setinterval)
 
-掌握嵌套setTimeOut
+#### 1.setTimeOut
 
-习题:https://zh.javascript.info/settimeout-setinterval#settimeout-hui-xian-shi-shi-mo
+`setTimeout` 允许我们将函数推迟到一段时间间隔之后再执行。
+
+语法：
+
+```javascript
+let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
+```
+
+参数说明：
+
+- `func|code`
+
+  想要执行的函数或代码字符串。 一般传入的都是函数。由于某些历史原因，支持传入代码字符串，但是不建议这样做。
+
+- `delay`
+
+  执行前的延时，以毫秒为单位（1000 毫秒 = 1 秒），默认值是 0；
+
+- `arg1`，`arg2`…
+
+  要传入被执行函数（或代码字符串）的参数列表（IE9 以下不支持）
+
+例如，在下面这个示例中，`sayHi()` 方法会在 1 秒后执行：
+
+```javascript
+function sayHi() {
+  alert('Hello');
+}
+
+setTimeout(sayHi, 1000);
+```
+
+带参数的情况：
+
+```javascript
+function sayHi(phrase, who) {
+  alert( phrase + ', ' + who );
+}
+
+setTimeout(sayHi, 1000, "Hello", "John"); // Hello, John
+```
+
+如果第一个参数位传入的是字符串，JavaScript 会自动为其创建一个函数。
+
+所以这么写也是可以的：
+
+```javascript
+setTimeout("alert('Hello')", 1000);
+```
+
+但是，不建议使用字符串，我们可以使用箭头函数代替它们，如下所示：
+
+```javascript
+setTimeout(() => alert('Hello'), 1000);
+```
+
+##### 取消调度：
+
+`setTimeout` 在调用时会返回一个“定时器标识符（timer identifier）”，在我们的例子中是 `timerId`，我们可以使用它来取消执行。
+
+取消调度的语法：
+
+```javascript
+let timerId = setTimeout(...);
+clearTimeout(timerId);
+```
+
+在下面的代码中，我们对一个函数进行了调度，紧接着取消了这次调度（中途反悔了）。所以最后什么也没发生：
+
+```javascript
+let timerId = setTimeout(() => alert("never happens"), 1000);
+alert(timerId); // 定时器标识符
+
+clearTimeout(timerId);
+alert(timerId); // 还是这个标识符（并没有因为调度被取消了而变成 null）
+```
+
+返回值`timerId`是一个正整数，表示定时器的编号。这个值可以传递给[`clearTimeout()`](https://developer.mozilla.org/zh-CN/docs/Web/API/clearTimeout)来取消该定时器。
+
+#### 2.setInterval
+
+`setInterval` 方法和 `setTimeout` 的语法相同：
+
+```javascript
+let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...)
+```
+
+所有参数的意义也是相同的。不过与 `setTimeout` 只执行一次不同，`setInterval` 是每间隔给定的时间周期性执行。
+
+想要阻止后续调用，我们需要调用 `clearInterval(timerId)`。
+
+下面的例子将每间隔 2 秒就会输出一条消息。5 秒之后，输出停止：
+
+```javascript
+// 每 2 秒重复一次
+let timerId = setInterval(() => alert('tick'), 2000);
+
+// 5 秒之后停止
+setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
+```
+
+#### 3.嵌套的setTimeOut
+
+周期性调度有两种方式。
+
+一种是使用 `setInterval`，另外一种就是嵌套的 `setTimeout`，就像这样：
+
+```javascript
+/** instead of:
+let timerId = setInterval(() => alert('tick'), 2000);
+*/
+
+let timerId = setTimeout(function tick() {
+  alert('tick');
+  timerId = setTimeout(tick, 2000); // (*)
+}, 2000);
+```
+
+上面这个 `setTimeout` 在当前这一次函数执行完时 `(*)` 立即调度下一次调用。
+
+嵌套的 `setTimeout` 要比 `setInterval` 灵活得多。采用这种方式可以根据当前执行结果来调度下一次调用，因此下一次调用可以与当前这一次不同。
+
+<div style="color: red">嵌套的 `setTimeout` 能够精确地设置两次执行之间的延时，而 `setInterval` 却不能。</div>
+
+下面来比较这两个代码片段。第一个使用的是 `setInterval`：
+
+```javascript
+let i = 1;
+setInterval(function() {
+  func(i++);
+}, 100);
+```
+
+看起来，每隔100ms执行一次i++，实际上i++本身也会消耗一部分间隔时间。所以**使用 `setInterval` 时，`func` 函数的实际调用间隔要比代码中设定的时间间隔要短！**也可能出现这种情况，就是 `func` 的执行所花费的时间比我们预期的时间更长，并且超出了 100 毫秒。
+
+​		在这种情况下，JavaScript 引擎会等待 `func` 执行完成，然后检查调度程序，如果时间到了，则 **立即** 再次执行它。极端情况下，如果函数每次执行时间都超过 `delay` 设置的时间，那么每次调用之间将完全没有停顿。
+
+
+
+第二个使用的是嵌套的 `setTimeout`：
+
+```javascript
+let i = 1;
+setTimeout(function run() {
+  func(i++);
+  setTimeout(run, 100);
+}, 100);
+```
+
+**嵌套的 `setTimeout` 就能确保延时的固定（这里是 100 毫秒）。**
+
+这是因为下一次调用是在前一次调用完成时再调度的。
+
+#### 4.零延时的setTimeOut
+
+这儿有一种特殊的用法：`setTimeout(func, 0)`，或者仅仅是 `setTimeout(func)`。这样调度可以让 `func` 尽快执行。但是只有在当前正在执行的脚本执行完成后，调度程序才会调用它。也就是说，该函数被调度在当前脚本执行完成“之后”立即执行。
+
+例如，下面这段代码会先输出 “Hello”，然后立即输出 “World”：
+
+```javascript
+setTimeout(() => alert("World"));
+
+alert("Hello");
+```
+
+第一行代码“将调用安排到日程（calendar）0 毫秒处”。但是调度程序只有在当前脚本执行完毕时才会去“检查日程”，所以先输出 `"Hello"`，然后才输出 `"World"`。
+
+![image-20220331123451961](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220331123451961.png)
+
+### 6.9装饰器模式和转发，call/apply
+
+[装饰器模式和转发，call/apply](https://zh.javascript.info/call-apply-decorators)
+
+文中提到的装饰器模式，举的例子有点难理解，推荐看原文
+
+#### 1.func.call
+
+有一个特殊的内建函数方法 [func.call(context, …args)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Function/call)，它允许调用一个显式设置 `this` 的函数。
+
+语法如下：
+
+```javascript
+func.call(context, arg1, arg2, ...)
+```
+
+它运行 `func`，提供的第一个参数作为 `this`，后面的作为参数（arguments）。
+
+简单地说，这两个调用几乎相同：
+
+```javascript
+func(1, 2, 3);
+func.call(obj, 1, 2, 3)
+```
+
+它们调用的都是 `func`，参数是 `1`、`2` 和 `3`。唯一的区别是 `func.call` 还会将 `this` 设置为 `obj`。
+
+例如，在下面的代码中，我们在不同对象的上下文中调用 `sayHi`：`sayHi.call(user)` 运行 `sayHi` 并提供了 `this=user`，然后下一行设置 `this=admin`：
+
+```javascript
+function sayHi() {
+  alert(this.name);
+}
+
+let user = { name: "John" };
+let admin = { name: "Admin" };
+
+// 使用 call 将不同的对象传递为 "this"
+sayHi.call( user ); // John
+sayHi.call( admin ); // Admin
+```
+
+在这里我们用带有给定上下文和 phrase 的 `call` 调用 `say`：
+
+```javascript
+function say(phrase) {
+  alert(this.name + ': ' + phrase);
+}
+
+let user = { name: "John" };
+
+// user 成为 this，"Hello" 成为第一个参数
+say.call( user, "Hello" ); // John: Hello
+```
+
+#### 2.func.apply
+
+可以使用 `func.apply(this, arguments)` 代替 `func.call(this, ...arguments)`。
+
+内建方法 [func.apply](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Function/apply) 的语法是：
+
+```javascript
+func.apply(context, args)
+```
+
+它运行 `func` 设置 `this=context`，并使用类数组对象 `args` 作为参数列表（arguments）。
+
+`call` 和 `apply` 之间唯一的语法区别是，`call` 期望一个参数列表，而 `apply` 期望一个包含这些参数的类数组对象。
+
+因此，这两个调用几乎是等效的：
+
+```javascript
+func.call(context, ...args);
+func.apply(context, args);
+```
+
+它们使用给定的上下文和参数执行相同的 `func` 调用。
+
+只有一个关于 `args` 的细微的差别：
+
+- Spread 语法 `...` 允许将 **可迭代对象** `args` 作为列表传递给 `call`。
+- `apply` 只接受 **类数组** `args`。
+
+……对于即可迭代又是类数组的对象，例如一个真正的数组，我们使用 `call` 或 `apply` 均可，但是 `apply` 可能会更快，因为大多数 JavaScript 引擎在内部对其进行了优化。
+
+#### 习题：
+
+##### 防抖装饰器：
+
+```js
+function debounce(func, ms) {
+    let timeout;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, arguments), ms);
+        console.log("定时器编号："+timeout);
+    };
+}
+
+  function print_1(num){
+        console.log(num+"------------"+num);
+  }
+  let print = debounce(print_1,2000)
+
+  print(1)
+  print(2)
+  print(3)
+  print(4)
+  print(5)
+  print(6)
+  print(7)
+  print(8)
+  print(9)
+  print(100)
+
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/83.gif" style="zoom: 100%"></img>
+
+##### 节流装饰器：
+
+```js
+function f(a) {
+    console.log(a);
+}
+
+let f1000 = throttle(f, 1000);
+
+f1000(1); // 显示 1
+f1000(2); // (节流，尚未到 1000ms)
+f1000(2); // (节流，尚未到 1000ms)
+f1000(2); // (节流，尚未到 1000ms)
+f1000(2); // (节流，尚未到 1000ms)
+f1000(2); // (节流，尚未到 1000ms)
+f1000(3); // (节流，尚未到 1000ms)
+
+function throttle(func, ms) {
+
+    let isThrottled = false,
+        savedArgs,
+        savedThis;
+
+    function wrapper() {
+
+        if (isThrottled) { // (2)
+            savedArgs = arguments;
+            savedThis = this;
+            console.log(savedArgs,"if");
+            return;
+        }
+        isThrottled = true;
+       
+        func.apply(this, arguments); // (1)
+
+        setTimeout(function () {
+            isThrottled = false; // (3)
+            console.log(savedArgs,"setTimeOut");
+            if (savedArgs) {
+                wrapper.apply(savedThis, savedArgs);
+                savedArgs = savedThis = null;
+                console.log(isThrottled,"setTimeOut-if");
+            }
+        }, ms);
+    }
+
+    return wrapper;
+}
+```
+
+调用 `throttle(func, ms)` 返回 `wrapper`。
+
+1. 在第一次调用期间，`wrapper` 只运行 `func` 并设置冷却状态（`isThrottled = true`）。
+2. 在这种状态下，所有调用都记忆在 `savedArgs/savedThis` 中。请注意，上下文和参数（arguments）同等重要，应该被记下来。我们同时需要他们以重现调用。
+3. ……然后经过 `ms` 毫秒后，触发 `setTimeout`。冷却状态被移除（`isThrottled = false`），如果我们忽略了调用，则将使用最后记忆的参数和上下文执行 `wrapper`。
+
+第 3 步运行的不是 `func`，而是 `wrapper`，因为我们不仅需要执行 `func`，还需要再次进入冷却状态并设置 timeout 以重置它。
+
+
+
+最终显示1和3
+
+创建了两个setTimeOut
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/82.gif" style="zoom: 100%"></img>
+
+### 6.10函数绑定
+
+[函数绑定](https://zh.javascript.info/bind)
+
+#### 0.丢失this
+
+一旦方法被传递到与对象分开的某个地方 —— `this` 就丢失。
+
+下面是使用 `setTimeout` 时 `this` 是如何丢失的：
+
+```javascript
+let user = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+setTimeout(user.sayHi, 1000); // Hello, undefined!
+```
+
+正如我们所看到的，输出没有像 `this.firstName` 那样显示 “John”，而显示了 `undefined`！
+
+这是因为 `setTimeout` 获取到了函数 `user.sayHi`，但它和对象分离开了。最后一行可以被重写为：
+
+```javascript
+let f = user.sayHi;
+setTimeout(f, 1000); // 丢失了 user 上下文
+```
+
+浏览器中的 `setTimeout` 方法有些特殊：它为函数调用设定了 `this=window`（对于 Node.js，`this` 则会变为计时器（timer）对象，但在这儿并不重要）。所以对于 `this.firstName`，它其实试图获取的是 `window.firstName`，这个变量并不存在。在其他类似的情况下，通常 `this` 会变为 `undefined`。
+
+#### 1.bind
+
+返回一个原函数的拷贝，并拥有指定的 **`this`** 值和初始参数。
+
+```javascript
+let user = {
+  firstName: "John"
+};
+
+function func() {
+  alert(this.firstName);
+}
+
+let funcUser = func.bind(user);
+funcUser(); // John
+```
+
+这里的 `func.bind(user)` 作为 `func` 的“绑定的（bound）变体”，绑定了 `this=user`。
+
+所有的参数（arguments）都被“原样”传递给了初始的 `func`，例如：
+
+```javascript
+let user = {
+  firstName: "John"
+};
+
+function func(phrase) {
+  alert(phrase + ', ' + this.firstName);
+}
+
+// 将 this 绑定到 user
+let funcUser = func.bind(user);
+
+funcUser("Hello"); // Hello, John（参数 "Hello" 被传递，并且 this=user）
+```
+
+现在我们来尝试一个对象方法：
+
+```javascript
+let user = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+let sayHi = user.sayHi.bind(user); // (*)
+
+// 可以在没有对象（译注：与对象分离）的情况下运行它
+sayHi(); // Hello, John!
+
+setTimeout(sayHi, 1000); // Hello, John!
+
+// 即使 user 的值在不到 1 秒内发生了改变
+// sayHi 还是会使用预先绑定（pre-bound）的值，该值是对旧的 user 对象的引用
+user = {
+  sayHi() { alert("Another user in setTimeout!"); }
+};
+```
+
+在 `(*)` 行，我们取了方法 `user.sayHi` 并将其绑定到 `user`。`sayHi` 是一个“绑定后（bound）”的方法，它可以被单独调用，也可以被传递给 `setTimeout` —— 都没关系，函数上下文都会是正确的。
+
+这里我们能够看到参数（arguments）都被“原样”传递了，只是 `this` 被 `bind` 绑定了：
+
+```javascript
+let user = {
+  firstName: "John",
+  say(phrase) {
+    alert(`${phrase}, ${this.firstName}!`);
+  }
+};
+
+let say = user.say.bind(user);
+
+say("Hello"); // Hello, John!（参数 "Hello" 被传递给了 say）
+say("Bye"); // Bye, John!（参数 "Bye" 被传递给了 say）
+```
+
+#### 2.偏函数
+
+我们不仅可以绑定 `this`，还可以绑定参数（arguments）。虽然很少这么做，但有时它可以派上用场。
+
+`bind` 的完整语法如下：
+
+```javascript
+let bound = func.bind(context, [arg1], [arg2], ...);
+```
+
+它允许将上下文绑定为 `this`，以及绑定函数的起始参数。
+
+例如，我们有一个乘法函数 `mul(a, b)`：
+
+```javascript
+function mul(a, b) {
+  return a * b;
+}
+```
+
+让我们使用 `bind` 在该函数基础上创建一个 `double` 函数：
+
+```javascript
+function mul(a, b) {
+  return a * b;
+}
+
+let double = mul.bind(null, 2);//把a设置为2
+
+alert( double(3) ); // = mul(2, 3) = 6
+alert( double(4) ); // = mul(2, 4) = 8
+alert( double(5) ); // = mul(2, 5) = 10
+```
+
+#### 3.没有上下文，只绑定参数
+
+```js
+
+function partial(func, ...argsBound) {
+  return function(...args) { // (*)
+    return func.call(this, ...argsBound, ...args);
+  }
+}
+
+// 用法：
+let user = {
+  firstName: "John",
+  say(time, phrase) {
+    alert(`[${time}] ${this.firstName}: ${phrase}!`);
+  }
+};
+
+// 添加一个带有绑定时间的 partial 方法
+user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+
+user.sayNow("Hello");
+// 类似于这样的一些内容：
+// [10:00] John: Hello!
+```
+
+`partial(func[, arg1, arg2...])` 调用的结果是一个包装器 `(*)`，它调用 `func` 并具有以下内容：
+
+- 与它获得的函数具有相同的 `this`（对于 `user.sayNow` 调用来说，它是 `user`）
+- 然后给它 `...argsBound` —— 来自于 `partial` 调用的参数（`"10:00"`）
+- 然后给它 `...args` —— 给包装器的参数（`"Hello"`）
+
+#### 习题：
+
+<div style="color: red">一个函数不能被重复bind</div>
+
+[二次 bind](https://zh.javascript.info/bind#er-ci-bind)
+
+<div style="color: red">bind 的结果是另一个对象。它并没有原函数的函数属性</div>
+
+[bind 后的函数属性](https://zh.javascript.info/bind#bind-hou-de-han-shu-shu-xing)
+
+这个题会做，bind就过关了。（箭头函数也可以做到，我还没深入学）
+
+[偏函数在登录中的应用](https://zh.javascript.info/bind#pian-han-shu-zai-deng-lu-zhong-de-ying-yong)
+
+### 6.11深入理解箭头函数
+
+[深入理解箭头函数](https://zh.javascript.info/arrow-functions)
+
+推荐看这篇文章，加深下理解
+
+[this、apply、call、bind - 掘金 (juejin.cn)](https://juejin.cn/post/6844903496253177863#heading-11)
+
+众所周知，ES6 的箭头函数是可以避免 ES5 中使用 this 的坑的。**箭头函数的 this 始终指向函数定义时的 this，而非执行时。**，箭头函数需要记着这句话：“箭头函数中没有 this 绑定，必须通过查找作用域链来决定其值，如果箭头函数被非箭头函数包含，则 this 绑定的是最近一层非箭头函数的 this，否则，this 为 undefined”。
+
+
+
+**匿名函数的 this 永远指向 window**
+
+
 
 ## 7.对象属性配置
 
 ### 7.1属性标志和属性描述符
 
-https://zh.javascript.info/property-descriptors
+[属性标志和属性描述符](https://zh.javascript.info/property-descriptors)
 
 #### 1.属性标志
 
 这三个默认如果简单创建对象都是true,而使用Object.defineProperty创建默认都是false
 
 ![image-20220327171828724](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220327171828724.png)
+
+##### 获取：
 
 ```js
 let user = {
@@ -2942,9 +3619,7 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 */
 ```
 
-这里json.stringfy第三个参数，是格式化后空格数量，无伤大雅。json.stringfy完整语法：
-
-https://zh.javascript.info/json#pai-chu-he-zhuan-huan-replacer
+##### 修改：
 
 ![image-20220327172055769](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220327172055769.png)
 
@@ -2994,9 +3669,11 @@ Object.defineProperties(user, {
 
 ### 7.2属性的 getter 和 setter
 
+[属性的 getter 和 setter](https://zh.javascript.info/property-accessors)
+
 这个部分也非常像java里面的get和set
 
-https://zh.javascript.info/property-accessors
+#### 1.getter和setter
 
 ```js
 let obj = {
@@ -3035,7 +3712,7 @@ user.name = ""; // alert("Name is too short, need at least 4 characters");
 
 从技术上讲，外部代码可以使用 `user._name` 直接访问 name。但是，这儿有一个众所周知的约定，即以下划线 `"_"` 开头的属性是内部属性，不应该从对象外部进行访问。
 
-#### 兼容性：
+#### 2.兼容性：
 
 文中提了一个例子：感觉很巧妙啊
 
@@ -3063,11 +3740,13 @@ alert( john.age );      // ……age 也是可访问的
 
 ## 8.原型，继承：
 
-这个概念很像Java里面的类的继承，设计理念应该是一样的，不要混淆了
-
 ### 8.1原型继承
 
-https://zh.javascript.info/prototype-inheritance
+[原型继承](https://zh.javascript.info/prototype-inheritance)
+
+<div style="color: red">__proto__是我们访问设置[[Prototype]]的一种方式。</div>
+
+`__proto__` **是** `[[Prototype]]` 的因历史原因而留下来的 <span style="color: red">getter/setter</span>
 
 #### 1.初识
 
@@ -3088,6 +3767,44 @@ https://zh.javascript.info/prototype-inheritance
 3. 只能有一个 `[[Prototype]]`。一个对象不能从其他两个对象获得继承。
 
 #### 2.写入不使用原型
+
+就是说如果本身有这个方法，就不会顺着原型链往上找了.
+
+
+
+访问器（accessor）属性是一个例外，因为分配（assignment）操作是由 setter 函数处理的。因此，写入此类属性实际上与调用函数相同。
+
+也就是这个原因，所以下面这段代码中的 `admin.fullName` 能够正常运行：
+
+```javascript
+let user = {
+  name: "John",
+  surname: "Smith",
+
+  set fullName(value) {
+    [this.name, this.surname] = value.split(" ");
+  },
+
+  get fullName() {
+    return `${this.name} ${this.surname}`;
+  }
+};
+
+let admin = {
+  __proto__: user,
+  isAdmin: true
+};
+
+alert(admin.fullName); // John Smith (*)
+
+// setter triggers!
+admin.fullName = "Alice Cooper"; // (**)
+
+alert(admin.fullName); // Alice Cooper，admin 的内容被修改了
+alert(user.fullName);  // John Smith，user 的内容被保护了
+```
+
+在 `(*)` 行中，属性 `admin.fullName` 在原型 `user` 中有一个 getter，因此它会被调用。在 `(**)` 行中，属性在原型中有一个 setter，因此它会被调用。
 
 #### 3.this
 
@@ -3122,6 +3839,23 @@ alert(animal.isSleeping); // undefined（原型中没有此属性）
 
 <div style="color: red">`for..in` 循环也会迭代继承的属性。</div>
 
+```js
+let animal = {
+  eats: true
+};
+
+let rabbit = {
+  jumps: true,
+  __proto__: animal
+};
+
+// Object.keys 只返回自己的 key
+alert(Object.keys(rabbit)); // jumps
+
+// for..in 会遍历自己以及继承的键
+for(let prop in rabbit) alert(prop); // jumps，然后是 eats
+```
+
 如果这不是我们想要的，并且我们想排除继承的属性，那么这儿有一个内建方法 [obj.hasOwnProperty(key)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)：如果 `obj` 具有自己的（非继承的）名为 `key` 的属性，则返回 `true`。
 
 ```js
@@ -3147,9 +3881,11 @@ for(let prop in rabbit) {
 
 而几乎所有其他键/值获取方法，例如 `Object.keys` 和 `Object.values` 等，都会忽略继承的属性。它们只会对对象自身进行操作。**不考虑** 继承自原型的属性。
 
-#### 习题4：
+#### 习题：
 
-https://zh.javascript.info/prototype-inheritance#wei-shi-mo-liang-zhi-cang-shu-du-bao-le
+很简单喔
+
+[为什么两只仓鼠都饱了？](https://zh.javascript.info/prototype-inheritance#wei-shi-mo-liang-zhi-cang-shu-du-bao-le)
 
 ```js
 let hamster = {
@@ -3174,6 +3910,240 @@ alert( speedy.stomach ); // apple
 
 // 这只仓鼠也找到了食物，为什么？请修复它。
 alert( lazy.stomach ); // apple
+```
+
+### 8.2F.prototype
+
+[F.prototype](https://zh.javascript.info/function-prototype)
+
+#### 1.F.prototype
+
+就是说我们可以给构造函数设置一个属性叫prototype，如果我们把一个对象（称为A吧）赋值给这个属性prototype，那么通过这个构造函数创建出来的对象，它们的[[Prototype]]就是A。所以我们现在又获得了一种访问[[Prototype]]的方式。
+
+<div style="color: red">"prototype"` 属性仅在设置了一个构造函数（constructor function），并通过 `new` 调用时，才具有这种特殊的影响。</div>
+
+```js
+let animal = {
+  eats: true
+};
+
+function Rabbit(name) {
+  this.name = name;
+}
+
+Rabbit.prototype = animal;
+
+let rabbit = new Rabbit("White Rabbit"); //  rabbit.__proto__ == animal
+
+alert( rabbit.eats ); // true
+```
+
+![image-20220331204716464](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220331204716464.png)
+
+#### 2.默认的F.prototype,构造器属性
+
+就是说我们如果不给构造函数设置prototype属性，它也是存在的，也是有默认值的。
+
+这个默认值是一个对象，一个只有属性 `constructor` 的对象，属性 `constructor` 指向函数自身
+
+```js
+function Rabbit() {}
+// by default:
+// Rabbit.prototype = { constructor: Rabbit }
+
+alert( Rabbit.prototype.constructor == Rabbit ); // true
+```
+
+我们什么都不做，`constructor` 属性可以通过 `[[Prototype]]` 给所有 rabbits 使用：
+
+```js
+function Rabbit() {}
+//Rabbit.prototype = { constructor: Rabbit }
+
+let rabbit = new Rabbit(); 
+let rabbit_1 = new Rabbit(); 
+
+console.log(rabbit.constructor == Rabbit);//true
+console.log(rabbit_1.constructor == Rabbit);//true
+```
+
+所以这样写也是可以的
+
+```js
+function Rabbit(name) {
+  this.name = name;
+  alert(name);
+}
+
+let rabbit = new Rabbit("White Rabbit");
+
+let rabbit2 = new rabbit.constructor("Black Rabbit");
+```
+
+但是我们如果把构造函数的prototype替换掉，就不会有`constructor`了。但这些小rabbit获得了[[Prototype]]
+
+```js
+function Rabbit() {}
+Rabbit.prototype = {
+  jumps: true
+};
+
+let rabbit = new Rabbit();
+alert(rabbit.constructor === Rabbit); // false
+```
+
+因此，为了确保正确的 `"constructor"`，我们可以选择添加/删除属性到默认 `"prototype"`，而不是将其整个覆盖：
+
+```javascript
+function Rabbit() {}
+
+// 不要将 Rabbit.prototype 整个覆盖
+// 可以向其中添加内容
+Rabbit.prototype.jumps = true
+// 默认的 Rabbit.prototype.constructor 被保留了下来
+```
+
+或者，也可以手动重新创建 `constructor` 属性：
+
+```javascript
+Rabbit.prototype = {
+  jumps: true,
+  constructor: Rabbit
+};
+
+// 这样的 constructor 也是正确的，因为我们手动添加了它
+```
+
+ <div style="color: red">在常规对象上，`prototype` 没什么特别的</div>
+
+```javascript
+let user = {
+  name: "John",
+  prototype: "Bla-bla" // 这里只是普通的属性
+};
+```
+
+默认情况下，所有函数都有 `F.prototype = {constructor：F}`，所以我们可以通过访问它的 `"constructor"` 属性来获取一个对象的构造器。
+
+#### 习题：
+
+两个习题都有点难度，但看了解析，还是觉得挺简单的，hahaha。
+
+[任务](https://zh.javascript.info/function-prototype#tasks)
+
+### 8.3原生的原型
+
+[原生的原型](https://zh.javascript.info/native-prototypes)
+
+推荐阅读原文，我觉得都挺重要的没废话。
+
+#### 习题：
+
+[将装饰器 "defer()" 添加到函数](https://zh.javascript.info/native-prototypes#jiang-zhuang-shi-qi-defer-tian-jia-dao-han-shu)
+
+我的做法：(没用箭头函数，笑)
+
+```js
+Function.prototype.defer=function(ms){
+  let _this=this
+  return function(...args){
+    setTimeout(function(){
+      _this.apply(_this,args)
+    },ms)
+  }
+}
+
+
+function f(a, b) {
+  alert( a + b );
+}
+
+f.defer(1000)(1, 2); // 1 秒后显示 3
+```
+
+### 8.4原型方法，没有 __proto__ 的对象
+
+[原型方法，没有 __proto__ 的对象](https://zh.javascript.info/prototype-methods)
+
+#### 1替换____proto____
+
+现代的方法有：
+
+- [Object.create(proto, [descriptors\])](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/create) —— 利用给定的 `proto` 作为 `[[Prototype]]` 和可选的属性描述来创建一个空对象。
+- [Object.getPrototypeOf(obj)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf) —— 返回对象 `obj` 的 `[[Prototype]]`。
+- [Object.setPrototypeOf(obj, proto)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf) —— 将对象 `obj` 的 `[[Prototype]]` 设置为 `proto`。
+
+```js
+let animal = {
+  eats: true
+};
+
+// 创建一个以 animal 为原型的新对象
+let rabbit = Object.create(animal);
+
+alert(rabbit.eats); // true
+
+alert(Object.getPrototypeOf(rabbit) === animal); // true
+
+Object.setPrototypeOf(rabbit, {}); // 将 rabbit 的原型修改为 {}
+```
+
+`Object.create` 有一个可选的第二参数：属性描述器。我们可以在此处为新对象提供额外的属性，就像这样：
+
+```javascript
+let animal = {
+  eats: true
+};
+
+let rabbit = Object.create(animal, {
+  jumps: {
+    value: true
+  }
+});
+
+console.log(animal);
+console.log(rabbit);
+```
+
+![image-20220401015606730](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220401015606730.png)
+
+#### 2."Very plain" objects
+
+["Very plain" objects](https://zh.javascript.info/prototype-methods#very-plain)
+
+关于__proto__的一个bug，以及用“非常普通对象”如何解决，推荐看原文
+
+#### 习题：
+
+[任务](https://zh.javascript.info/prototype-methods#tasks)
+
+这两个题回了，已经通了。
+
+1.
+
+```js
+// "use strict"
+
+let dictionary = Object.create(null);
+
+Object.defineProperty(dictionary, "toString", {
+  value: function() {
+  return Object.keys(this).join();
+},
+  enumerable: false
+})
+
+// 添加一些数据
+dictionary.apple = "Apple";
+dictionary.__proto__ = "test"; // 这里 __proto__ 是一个常规的属性键
+
+// 在循环中只有 apple 和 __proto__
+for(let key in dictionary) {
+  alert(key); // "apple", then "__proto__"
+}
+
+// 你的 toString 方法在发挥作用
+alert(dictionary); // "apple,__proto__"
 ```
 
 
