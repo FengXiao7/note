@@ -1,6 +1,6 @@
 # 说明：
 
-1.此笔记记录我对电子书现代 JavaScript 教程学习情况。电子书中记录了很多新特性，不乏ES2020里面的新特性，且保持更新，很值得深入阅读。
+1.此笔记记录我对电子书现代 JavaScript 教程学习情况。电子书中记录了很多新特性，不乏ES2020里面的新特性。甚至还有处于提案的语法，比如私有属性关键字#之类的。且保持更新，很值得深入阅读多次阅读。
 
 
 
@@ -8,11 +8,15 @@
 
 
 
-3.有些难以理解的地方，我都写的有自己的理解，实在不行还有传送门，但详细说明还是看原文好。
+3.有些难以理解的地方，我都写的有自己的理解。实在不行还有传送门，但详细说明还是看原文好。还有些极其少见的用法，我个人感觉现阶段没有必要掌握。
 
 
 
-4.传送门：
+4.这是JS教程，不要死记硬背，要深度理解，忘记了回来再查查看看就行。
+
+
+
+5.传送门：
 
 中文网址：[现代 JavaScript 教程](https://zh.javascript.info/)
 
@@ -36,7 +40,7 @@ github：[The Modern JavaScript Tutorial (github.com)](https://github.com/javasc
 
 [装饰器模式和转发，call/apply](https://zh.javascript.info/call-apply-decorators)
 
-文中举的装饰器的例子难以理解
+文中举的装饰器的例子难以理解，后面的文章作者也举了很多装饰器的例子，多看看还是能理解
 
 [任务](https://zh.javascript.info/call-apply-decorators#tasks)
 
@@ -72,47 +76,41 @@ https://zh.javascript.info/import-export
 
 [this、apply、call、bind - 掘金 (juejin.cn)](https://juejin.cn/post/6844903496253177863)
 
+**this 永远指向最后调用它的那个对象**
+
+**所有的对象方法都将当前对象作为 `this`**
+
+**箭头函数的 this 始终指向函数定义时的 this，而非执行时。**，箭头函数需要记着这句话：“箭头函数中没有 this 绑定，必须通过查找作用域链来决定其值，如果箭头函数被非箭头函数包含，则 this 绑定的是最近一层非箭头函数的 this，否则，this 为 undefined”。
+
+作为一个函数调用（就是作为一个函数调用的，没有挂载在任何对象上，所以对于没有挂载在任何对象上的函数，在非严格模式下 this 就是指向 window 的）
+
+**匿名函数的 this 永远指向 window**
 
 
-# 值的常看的地方：
 
-## 1.函数表达式
+### 13.关于原型
 
-[函数表达式 (javascript.info)](https://zh.javascript.info/function-expressions)
+[原型，继承](https://zh.javascript.info/prototypes)
 
-## 2.垃圾回收
+看的时候觉得还行，很容易理解，但主要还是用的不是很多，很容易遗忘。
 
-https://zh.javascript.info/garbage-collection
+### 14.关于类
 
-## 3.空值合并运算符  ??
+[类](https://zh.javascript.info/classes)
 
-（ES2020）
+内容很多，有的地方作者挖的很深，常看常理解
 
-https://zh.javascript.info/nullish-coalescing-operator
+### 15.一个继承习题
 
-## 4.可选链 ?.
+[类扩展自对象？](https://zh.javascript.info/static-properties-methods#lei-kuo-zhan-zi-dui-xiang)
 
-(ES2020)
+这个习题，解析拓展的内容很绕
 
-[可选链 "?."](https://zh.javascript.info/optional-chaining)
+### 16.包装异常
 
-## 5.Symbol 类型
+[包装异常](https://zh.javascript.info/custom-errors#bao-zhuang-yi-chang)
 
-（ES2015）(ES6)
 
-[Symbol 类型](https://zh.javascript.info/symbol)
-
-## 6.reduce方法
-
-https://zh.javascript.info/array-methods#reducereduceright
-
-传送门：[25个你不得不知道的数组reduce高级用法 - 掘金 (juejin.cn)](https://juejin.cn/post/6844904063729926152)
-
-[Reduce 和 Transduce 的含义 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2017/03/reduce_transduce.html)
-
-## 7.Array.from
-
-[Array.from](https://zh.javascript.info/iterable#arrayfrom)
 
 # 疑问：
 
@@ -4070,6 +4068,7 @@ f.defer(1000)(1, 2); // 1 秒后显示 3
 现代的方法有：
 
 - [Object.create(proto, [descriptors\])](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/create) —— 利用给定的 `proto` 作为 `[[Prototype]]` 和可选的属性描述来创建一个空对象。
+
 - [Object.getPrototypeOf(obj)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf) —— 返回对象 `obj` 的 `[[Prototype]]`。
 - [Object.setPrototypeOf(obj, proto)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf) —— 将对象 `obj` 的 `[[Prototype]]` 设置为 `proto`。
 
@@ -4150,15 +4149,1178 @@ alert(dictionary); // "apple,__proto__"
 
 ## 9.类
 
-和java很像不要记串了
-
-### 1.Class基本语法
+### 9.1.Class基本语法
 
 [Class 基本语法](https://zh.javascript.info/class)
+
+#### 1.基础
+
+基本语法是：
+
+```javascript
+class MyClass {
+  // class 方法
+  constructor() { ... }
+  method1() { ... }
+  method2() { ... }
+  method3() { ... }
+  ...
+}
+```
+
+然后使用 `new MyClass()` 来创建具有上述列出的所有方法的新对象。
+
+`new` 会自动调用 `constructor()` 方法，因此我们可以在 `constructor()` 中初始化对象。
+
+例如：
+
+```javascript
+class User {
+
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHi() {
+    alert(this.name);
+  }
+
+}
+
+// 用法：
+let user = new User("John");
+user.sayHi();
+```
+
+当 `new User("John")` 被调用：
+
+1. 一个新对象被创建。
+2. `constructor` 使用给定的参数运行，并将其赋值给 `this.name`。
+
+#### 2.什么是class？
+
+在 JavaScript 中，类是一种函数。
+
+看看下面这段代码：
+
+```javascript
+class User {
+  constructor(name) { this.name = name; }
+  sayHi() { alert(this.name); }
+}
+
+// 佐证：User 是一个函数
+alert(typeof User); // function
+```
+
+`class User {...}` 构造实际上做了如下的事儿：
+
+1. 创建一个名为 `User` 的函数，该函数成为类声明的结果。该函数的代码来自于 `constructor` 方法（如果我们不编写这种方法，那么它就被假定为空）。
+2. 存储类中的方法，例如 `User.prototype` 中的 `sayHi`。
+
+![image-20220401123604996](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220401123604996.png)
+
+
+
+```javascript
+class User {
+  constructor(name) { this.name = name; }
+  sayHi() { alert(this.name); }
+}
+
+// class 是一个函数
+alert(typeof User); // function
+
+// ...或者，更确切地说，是 constructor 方法
+alert(User === User.prototype.constructor); // true
+
+// 方法在 User.prototype 中，例如：
+alert(User.prototype.sayHi); // sayHi 方法的代码
+
+// 在原型中实际上有两个方法
+alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
+```
+
+## 
+
+#### 4.类表达式
+
+函数有NFE，和函数一样,类也有命名类表达式
+
+如果类表达式有名字，那么该名字仅在类内部可见：
+
+```javascript
+// “命名类表达式（Named Class Expression）”
+// (规范中没有这样的术语，但是它和命名函数表达式类似)
+let User = class MyClass {
+  sayHi() {
+    alert(MyClass); // MyClass 这个名字仅在类内部可见
+  }
+};
+
+new User().sayHi(); // 正常运行，显示 MyClass 中定义的内容
+
+alert(MyClass); // error，MyClass 在外部不可见
+```
+
+我们甚至可以动态地“按需”创建类，就像这样：
+
+```javascript
+function makeClass(phrase) {
+  // 声明一个类并返回它
+  return class {
+    sayHi() {
+      alert(phrase);
+    }
+  };
+}
+
+// 创建一个新的类
+let User = makeClass("Hello");
+
+new User().sayHi(); // Hello
+```
+
+#### 6.计算属性
+
+这里有一个使用中括号 `[...]` 的计算方法名称示例：
+
+```javascript
+class User {
+
+  ['say' + 'Hi']() {
+    alert("Hello");
+  }
+
+}
+
+new User().sayHi();
+```
+
+这种特性很容易记住，因为它们和对象字面量类似。
+
+#### 7.类字段
+
+“类字段”是一种允许添加任何属性的语法。
+
+例如，让我们在 `class User` 中添加一个 `name` 属性：
+
+```javascript
+class User {
+  name = "John";
+
+  sayHi() {
+    alert(`Hello, ${this.name}!`);
+  }
+}
+
+new User().sayHi(); // Hello, John!
+```
+
+所以，我们就只需在表达式中写 " = "，就这样。
+
+类字段重要的不同之处在于，它们会在每个独立对象中被设好，而不是设在 `User.prototype`：
+
+```javascript
+class User {
+  name = "John";
+}
+
+let user = new User();
+alert(user.name); // John
+alert(User.prototype.name); // undefined
+```
+
+##### 使用类字段防止丢失this：
+
+例如，此代码将显示 `undefined`：
+
+```javascript
+class Button {
+  constructor(value) {
+    this.value = value;
+  }
+
+  click() {
+    alert(this.value);
+  }
+}
+
+let button = new Button("hello");
+
+setTimeout(button.click, 1000); // undefined
+```
+
+这个问题被称为“丢失 `this`”。
+
+我们在 [函数绑定](https://zh.javascript.info/bind) 一章中讲过，有两种可以修复它的方式：
+
+1. 传递一个包装函数，例如 `setTimeout(() => button.click(), 1000)`。
+2. 将方法绑定到对象，例如在 constructor 中。
+
+类字段提供了另一种非常优雅的语法：
+
+```javascript
+class Button {
+  constructor(value) {
+    this.value = value;
+  }
+  click = () => {
+    alert(this.value);
+  }
+}
+
+let button = new Button("hello");
+
+setTimeout(button.click, 1000); // hello
+```
+
+类字段 `click = () => {...}` 是基于每一个对象被创建的，在这里对于每一个 `Button` 对象都有一个独立的方法，在内部都有一个指向此对象的 `this`。我们可以把 `button.click` 传递到任何地方，而且 `this` 的值总是正确的。
+
+在浏览器环境中，它对于进行事件监听尤为有用。
+
+### 9.2类继承
+
+[类继承](https://zh.javascript.info/class-inheritance)
+
+#### 1.extends关键字
+
+假设我们有 class `Animal`：
+
+```javascript
+class Animal {
+  constructor(name) {
+    this.speed = 0;
+    this.name = name;
+  }
+  run(speed) {
+    this.speed = speed;
+    alert(`${this.name} runs with speed ${this.speed}.`);
+  }
+  stop() {
+    this.speed = 0;
+    alert(`${this.name} stands still.`);
+  }
+}
+
+let animal = new Animal("My animal");
+```
+
+![image-20220401130300723](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220401130300723.png)
+
+```js
+class Rabbit extends Animal {
+  hide() {
+    alert(`${this.name} hides!`);
+  }
+}
+
+let rabbit = new Rabbit("White Rabbit");
+
+rabbit.run(5); // White Rabbit runs with speed 5.
+rabbit.hide(); // White Rabbit hides!
+```
+
+在内部，关键字 `extends` 使用了很好的旧的原型机制进行工作。它将 `Rabbit.prototype.[[Prototype]]` 设置为 `Animal.prototype`。所以，如果在 `Rabbit.prototype` 中找不到一个方法，JavaScript 就会从 `Animal.prototype` 中获取该方法。
+
+![image-20220401130352101](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220401130352101.png)
+
+例如，要查找 `rabbit.run` 方法，JavaScript 引擎会进行如下检查（如图所示从下到上）：
+
+1. 查找对象 `rabbit`（没有 `run`）。
+2. 查找它的原型，即 `Rabbit.prototype`（有 `hide`，但没有 `run`）。
+3. 查找它的原型，即（由于 `extends`）`Animal.prototype`，在这儿找到了 `run` 方法。
+
+#### 2.重写方法
+
+我们在 `Rabbit` 中指定了我们自己的方法，例如 `stop()`，那么将会使用它：
+
+```javascript
+class Rabbit extends Animal {
+  stop() {
+    // ……现在这个将会被用作 rabbit.stop()
+    // 而不是来自于 class Animal 的 stop()
+  }
+}
+```
+
+不希望完全替换掉父类的方法：
+
+Class 为此提供了 `"super"` 关键字。
+
+- 执行 `super.method(...)` 来调用一个父类方法。
+- 执行 `super(...)` 来调用一个父类 constructor（只能在我们的 constructor 中）。
+
+例如，让我们的 rabbit 在停下来的时候自动 hide：
+
+```javascript
+class Animal {
+
+  constructor(name) {
+    this.speed = 0;
+    this.name = name;
+  }
+
+  run(speed) {
+    this.speed = speed;
+    alert(`${this.name} runs with speed ${this.speed}.`);
+  }
+
+  stop() {
+    this.speed = 0;
+    alert(`${this.name} stands still.`);
+  }
+
+}
+
+class Rabbit extends Animal {
+  hide() {
+    alert(`${this.name} hides!`);
+  }
+
+  stop() {
+    super.stop(); // 调用父类的 stop
+    this.hide(); // 然后 hide
+  }
+}
+
+let rabbit = new Rabbit("White Rabbit");
+
+rabbit.run(5); // White Rabbit runs with speed 5.
+rabbit.stop(); // White Rabbit stands still. White Rabbit hides!
+```
+
+#### 3.重写构造器
+
+```js
+class Animal {
+  constructor(name) {
+    this.speed = 0;
+    this.name = name;
+  }
+  // ...
+}
+
+class Rabbit extends Animal {
+
+  constructor(name, earLength) {
+    this.speed = 0;
+    this.name = name;
+    this.earLength = earLength;
+  }
+
+  // ...
+}
+
+// 不工作！
+let rabbit = new Rabbit("White Rabbit", 10); // Error: this is not defined.
+```
+
+<div style="color: red">继承类的 constructor 必须调用 `super(...)`，并且 (!) 一定要在使用 `this` 之前调用。</div>
+
+```js
+class Animal {
+
+  constructor(name) {
+    this.speed = 0;
+    this.name = name;
+  }
+
+  // ...
+}
+
+class Rabbit extends Animal {
+
+  constructor(name, earLength) {
+    super(name);
+    this.earLength = earLength;
+  }
+
+  // ...
+}
+
+// 现在可以了
+let rabbit = new Rabbit("White Rabbit", 10);
+alert(rabbit.name); // White Rabbit
+alert(rabbit.earLength); // 10
+```
+
+#### 4.重写类字段
+
+（我就没见过这种写法……）
+
+```js
+class Animal {
+  name = 'animal';
+
+  constructor() {
+    alert(this.name); // (*)
+  }
+}
+
+class Rabbit extends Animal {
+  name = 'rabbit';
+}
+
+new Animal(); // animal
+new Rabbit(); // animal
+```
+
+这里，`Rabbit` 继承自 `Animal`，并且用它自己的值重写了 `name` 字段。
+
+因为 `Rabbit` 中没有自己的构造器，所以 `Animal` 的构造器被调用了。
+
+有趣的是在这两种情况下：`new Animal()` 和 `new Rabbit()`，在 `(*)` 行的 `alert` 都打印了 `animal`。
+
+<div style="color: red">换句话说，父类构造器总是会使用它自己字段的值，而不是被重写的那一个。</div>
+
+下面是使用方法的情况，和使用类字段截然不同
+
+```js
+class Animal {
+  showName() {  // 而不是 this.name = 'animal'
+    alert('animal');
+  }
+
+  constructor() {
+    this.showName(); // 而不是 alert(this.name);
+  }
+}
+
+class Rabbit extends Animal {
+  showName() {
+    alert('rabbit');
+  }
+}
+
+new Animal(); // animal
+new Rabbit(); // rabbit
+```
+
+#### 5.深入：内部探究和 [[HomeObject\]]
+
+[深入：内部探究和 [[HomeObject\]]](https://zh.javascript.info/class-inheritance#shen-ru-nei-bu-tan-jiu-he-homeobject)
+
+挖的太深了，现阶段没必要深究的。
+
+### 9.3静态属性和静态方法
+
+#### 1.静态方法
+
+我们可以把一个方法赋值给类的函数本身，而不是赋给它的 `"prototype"`。这样的方法被称为 **静态的（static）**。
+
+在一个类中，它们以 `static` 关键字开头，如下所示：
+
+```javascript
+class User {
+  static staticMethod() {
+    alert(this === User);
+  }
+}
+
+User.staticMethod(); // true
+```
+
+这实际上跟直接将其作为属性赋值的作用相同：
+
+```javascript
+class User { }
+
+User.staticMethod = function() {
+  alert(this === User);
+};
+
+User.staticMethod(); // true
+```
+
+使用场景
+
+假如我们有对象 `Article`，并且需要一个方法来比较它们。一个自然的解决方案就是添加 `Article.compare` 方法，像下面这样：
+
+```javascript
+class Article {
+  constructor(title, date) {
+    this.title = title;
+    this.date = date;
+  }
+
+  static compare(articleA, articleB) {
+    return articleA.date - articleB.date;
+  }
+}
+
+// 用法
+let articles = [
+  new Article("HTML", new Date(2019, 1, 1)),
+  new Article("CSS", new Date(2019, 0, 1)),
+  new Article("JavaScript", new Date(2019, 11, 1))
+];
+
+articles.sort(Article.compare);
+
+alert( articles[0].title ); // CSS
+```
+
+#### 2.静态属性
+
+静态的属性也是可能的，它们看起来就像常规的类属性，但前面加有 `static`：
+
+```javascript
+class Article {
+  static publisher = "Levi Ding";
+}
+
+alert( Article.publisher ); // Levi Ding
+```
+
+这等同于直接给 `Article` 赋值：
+
+```javascript
+Article.publisher = "Levi Ding";
+```
+
+#### 3.继承静态属性和方法
+
+```js
+class Animal {
+  static planet = "Earth";
+
+  constructor(name, speed) {
+    this.speed = speed;
+    this.name = name;
+  }
+
+  run(speed = 0) {
+    this.speed += speed;
+    alert(`${this.name} runs with speed ${this.speed}.`);
+  }
+
+  static compare(animalA, animalB) {
+    return animalA.speed - animalB.speed;
+  }
+
+}
+
+// 继承于 Animal
+class Rabbit extends Animal {
+  hide() {
+    alert(`${this.name} hides!`);
+  }
+}
+
+let rabbits = [
+  new Rabbit("White Rabbit", 10),
+  new Rabbit("Black Rabbit", 5)
+];
+
+rabbits.sort(Rabbit.compare);
+
+rabbits[0].run(); // Black Rabbit runs with speed 5.
+
+alert(Rabbit.planet); // Earth
+```
+
+注意哟，extends创建了两个[[Prototype]]引用
+
+![image-20220401140433343](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220401140433343.png)
+
+#### 习题：
+
+[类扩展自对象？](https://zh.javascript.info/static-properties-methods#lei-kuo-zhan-zi-dui-xiang)
+
+这个习题，解析拓展的内容很绕
+
+### 9.5私有的和受保护的属性和方法
+
+[私有的和受保护的属性和方法](https://zh.javascript.info/private-protected-properties-methods)
+
+和java的大差不差，推荐看原文
+
+### 9.6扩展内建类
+
+[扩展内建类](https://zh.javascript.info/extend-natives)
+
+我感觉没人会去这么做吧……
+
+### 9.7类检查："instanceof"
+
+[类检查："instanceof"](https://zh.javascript.info/instanceof)
+
+<div style="color: red">根据 `instanceof` 的逻辑，真正决定类型的是 `prototype`，而不是构造函数。</div>
+
+#### 1.instaceof操作符
+
+语法：
+
+```javascript
+obj instanceof Class
+```
+
+如果 `obj` 隶属于 `Class` 类（或 `Class` 类的衍生类），则返回 `true`。
+
+例如：
+
+```javascript
+class Rabbit {}
+let rabbit = new Rabbit();
+
+// rabbit 是 Rabbit class 的对象吗？
+alert( rabbit instanceof Rabbit ); // true
+```
+
+它还可以与构造函数一起使用：
+
+```javascript
+// 这里是构造函数，而不是 class
+function Rabbit() {}
+
+alert( new Rabbit() instanceof Rabbit ); // true
+```
+
+……与诸如 `Array` 之类的内建 class 一起使用：
+
+```javascript
+let arr = [1, 2, 3];
+alert( arr instanceof Array ); // true
+alert( arr instanceof Object ); // true
+```
+
+##### 执行逻辑：
+
+instanceof会考虑原型链，也可以在Symbol.hasInstance中设置自定义逻辑。检查逻辑是先检查有无Symbol.hasInstance，再顺着原型链找。
+
+`obj instanceof Class` 算法的执行过程大致如下：
+
+1. 如果这儿有静态方法 `Symbol.hasInstance`，那就直接调用这个方法：
+
+   例如：
+
+   ```javascript
+   // 设置 instanceOf 检查
+   // 并假设具有 canEat 属性的都是 animal
+   class Animal {
+     static [Symbol.hasInstance](obj) {
+       if (obj.canEat) return true;
+     }
+   }
+   
+   let obj = { canEat: true };
+   
+   alert(obj instanceof Animal); // true：Animal[Symbol.hasInstance](obj) 被调用
+   ```
+
+2. 大多数 class 没有 `Symbol.hasInstance`。在这种情况下，标准的逻辑是：使用 `obj instanceOf Class` 检查 `Class.prototype` 是否等于 `obj` 的原型链中的原型之一。
+
+   换句话说就是，一个接一个地比较：
+
+   ```javascript
+   obj.__proto__ === Class.prototype?
+   obj.__proto__.__proto__ === Class.prototype?
+   obj.__proto__.__proto__.__proto__ === Class.prototype?
+   ...
+   // 如果任意一个的答案为 true，则返回 true
+   // 否则，如果我们已经检查到了原型链的尾端，则返回 false
+   ```
+
+![image-20220401144535045](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220401144535045.png)
+
+##### 一个额外方法：
+
+这里还要提到一个方法 [objA.isPrototypeOf(objB)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/object/isPrototypeOf)，如果 `objA` 处在 `objB` 的原型链中，则返回 `true`。所以，可以将 `obj instanceof Class` 检查改为 `Class.prototype.isPrototypeOf(obj)`。
+
+这很有趣，但是 `Class` 的 constructor 自身是不参与检查的！检查过程只和原型链以及 `Class.prototype` 有关。
+
+创建对象后，如果更改 `prototype` 属性，可能会导致有趣的结果。
+
+就像这样：
+
+```javascript
+function Rabbit() {}
+let rabbit = new Rabbit();
+
+// 修改了 prototype
+Rabbit.prototype = {};
+
+// ...再也不是 rabbit 了！
+alert( rabbit instanceof Rabbit ); // false
+```
+
+#### 2.另一种判断的方法
+
+[福利：使用 Object.prototype.toString 方法来揭示类型](https://zh.javascript.info/instanceof#fu-li-shi-yong-objectprototypetostring-fang-fa-lai-jie-shi-lei-xing)
+
+我感觉这个就属于奇淫技巧了
+
+### 9.8Mixin 模式
+
+[Mixin 模式](https://zh.javascript.info/mixins)
+
+让js获得多重继承的一种方式，推荐看原文
+
+## 10.错误处理
+
+### 1.try...catch
+
+[错误处理，"try...catch"](https://zh.javascript.info/try-catch)
+
+#### 1.基础
+
+`try...catch` 结构由两部分组成：`try` 和 `catch`：
+
+```javascript
+try {
+
+  // 代码...
+
+} catch (err) {
+
+  // 错误捕获
+
+}
+```
+
+它按照以下步骤执行：
+
+1. 首先，执行 `try {...}` 中的代码。
+2. 如果这里没有错误，则忽略 `catch (err)`：执行到 `try` 的末尾并跳过 `catch` 继续执行。
+3. 如果这里出现错误，则 `try` 执行停止，控制流转向 `catch (err)` 的开头。变量 `err`（我们可以使用任何名称）将包含一个 error 对象，该对象包含了所发生事件的详细信息。
+
+​	
+
+- 没有 error 的例子：显示 `alert` `(1)` 和 `(2)`：
+
+  ```javascript
+  try {
+  
+    alert('Start of try runs');  // (1) <--
+  
+    // ...这里没有 error
+  
+    alert('End of try runs');   // (2) <--
+  
+  } catch (err) {
+  
+    alert('Catch is ignored, because there are no errors'); // (3)
+  
+  }
+  ```
+
+- 包含 error 的例子：显示 `(1)` 和 `(3)` 行的 `alert` 中的内容：
+
+  ```javascript
+  try {
+  
+    alert('Start of try runs');  // (1) <--
+  
+    lalala; // Error，变量未定义！
+  
+    alert('End of try (never reached)');  // (2)
+  
+  } catch (err) {
+  
+    alert(`Error has occurred!`); // (3) <--
+  
+  }
+  ```
+
+​	两个注意点：
+
+##### 仅对运行时error生效：
+
+![image-20220402003652054](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402003652054.png)
+
+##### 同步工作：
+
+![image-20220402003802966](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402003802966.png)
+
+
+
+
+
+#### 2.Error对象
+
+发生错误时，JavaScript 生成一个包含有关其详细信息的对象。然后将该对象作为参数传递给 `catch`
+
+
+
+对于所有内建的 error，error 对象具有两个主要属性：
+
+- `name`
+
+  Error 名称。例如，对于一个未定义的变量，名称是 `"ReferenceError"`。
+
+- `message`
+
+  关于 error 的详细文字描述。
+
+还有其他非标准的属性在大多数环境中可用。其中被最广泛使用和支持的是：
+
+- `stack`
+
+  当前的调用栈：用于调试目的的一个字符串，其中包含有关导致 error 的嵌套调用序列的信息。
+
+```js
+try {
+  lalala; 
+} catch (err) {
+  console.log(err.name); 
+  console.log(err.message); 
+  console.log(err.stack); 
+
+  console.dir(err);
+}
+
+```
+
+![image-20220402004432185](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402004432185.png)
+
+#### 3.throw操作
+
+`throw` 操作符会生成一个 error 对象。
+
+```javascript
+let json = '{ "age": 30 }'; // 不完整的数据
+
+try {
+
+  let user = JSON.parse(json); // <-- 没有 error
+
+  if (!user.name) {
+    throw new SyntaxError("Incomplete data: no name"); // (*)
+  }
+
+  alert( user.name );
+
+} catch(err) {
+  alert( "JSON Error: " + err.message ); // JSON Error: Incomplete data: no name
+}
+```
+
+在 `(*)` 标记的这一行，`throw` 操作符生成了包含着我们所给定的 `message` 的 `SyntaxError`，与 JavaScript 自己生成的方式相同。`try` 的执行立即停止，控制流转向 `catch` 块。
+
+现在，`catch` 成为了所有 error 处理的唯一场所：对于 `JSON.parse` 和其他情况都适用。
+
+#### 4.catch：
+
+![image-20220324143552954](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220324143552954.png)
+
+#### 5.再次抛出
+
+“再次抛出（rethrowing）”技术可以被更详细地解释为：
+
+1. Catch 捕获所有 error。
+2. 在 `catch (err) {...}` 块中，我们对 error 对象 `err` 进行分析。
+3. 如果我们不知道如何处理它，那我们就 `throw err`。
+
+我们使用“再次抛出”，以达到在 `catch` 中只处理 `SyntaxError` 的目的：
+
+```javascript
+let json = '{ "age": 30 }'; // 不完整的数据
+try {
+
+  let user = JSON.parse(json);
+
+  if (!user.name) {
+    throw new SyntaxError("Incomplete data: no name");
+  }
+
+  blabla(); // 预料之外的 error
+
+  alert( user.name );
+
+} catch (err) {
+
+  if (err instanceof SyntaxError) {
+    alert( "JSON Error: " + err.message );
+  } else {
+    throw err; // 再次抛出 (*)
+  }
+
+}
+```
+
+如果 `(*)` 标记的这行 `catch` 块中的 error 从 `try...catch` 中“掉了出来”，那么它也可以被外部的 `try...catch` 结构（如果存在）捕获到，如果外部不存在这种结构，那么脚本就会被杀死。
+
+
+
+`catch` 块实际上只处理它知道该如何处理的 error，并“跳过”所有其他的 error。
+
+下面这个示例演示了这种类型的 error 是如何被另外一级 `try...catch` 捕获的：
+
+```javascript
+function readData() {
+  let json = '{ "age": 30 }';
+
+  try {
+    // ...
+    blabla(); // error!
+  } catch (err) {
+    // ...
+    if (!(err instanceof SyntaxError)) {
+      throw err; // 再次抛出（不知道如何处理它）
+    }
+  }
+}
+
+try {
+  readData();
+} catch (err) {
+  alert( "External catch got: " + err ); // 捕获了它！
+}
+```
+
+上面这个例子中的 `readData` 只知道如何处理 `SyntaxError`，而外部的 `try...catch` 知道如何处理任意的 error。
+
+#### 6.finally
+
+```js
+try {
+   ... 尝试执行的代码 ...
+} catch (err) {
+   ... 处理 error ...
+} finally {
+   ... 总是会执行的代码 ...
+}
+```
+
+```javascript
+try {
+  alert( 'try' );
+  if (confirm('Make an error?')) BAD_CODE();
+} catch (err) {
+  alert( 'catch' );
+} finally {
+  alert( 'finally' );
+}
+```
+
+这段代码有两种执行方式：
+
+1. 如果你对于 “Make an error?” 的回答是 “Yes”，那么执行 `try -> catch -> finally`。
+2. 如果你的回答是 “No”，那么执行 `try -> finally`。
+
+
+
+##### 注意点：
+
+1.如果我们使用 `let` 在 `try` 块中声明变量，那么该变量将只在 `try` 块中可见。
+
+2.finally和return
+
+`finally` 子句适用于 `try...catch` 的 **任何** 出口。这包括显式的 `return`。
+
+在下面这个例子中，在 `try` 中有一个 `return`。在这种情况下，`finally` 会在控制转向外部代码前被执行。
+
+```javascript
+function func() {
+
+  try {
+    return 1;
+
+  } catch (err) {
+    /* ... */
+  } finally {
+    alert( 'finally' );
+  }
+}
+
+alert( func() ); // 先执行 finally 中的 alert，然后执行这个 alert
+```
+
+#### 7.全局catch
+
+Node.JS 有 [`process.on("uncaughtException")`](https://nodejs.org/api/process.html#process_event_uncaughtexception)
+
+在浏览器中，我们可以将一个函数赋值给特殊的 [window.onerror](https://developer.mozilla.org/zh/docs/Web/API/GlobalEventHandlers/onerror) 属性，该函数将在发生未捕获的 error 时执行。
+
+语法如下：
+
+```javascript
+window.onerror = function(message, url, line, col, error) {
+  // ...
+};
+```
+
+- `message`
+
+  Error 信息。
+
+- `url`
+
+  发生 error 的脚本的 URL。
+
+- `line`，`col`
+
+  发生 error 处的代码的行号和列号。
+
+- `error`
+
+  Error 对象。
+
+例如：
+
+```js
+<script>
+  window.onerror = function(message, url, line, col, error) {
+    alert(`${message}\n At ${line}:${col} of ${url}`);
+  };
+
+  function readData() {
+    badFunc(); // 啊，出问题了！
+  }
+
+  readData();
+</script>
+```
+
+全局错误处理程序 `window.onerror` 的作用通常不是恢复脚本的执行 — 如果发生编程错误，那这几乎是不可能的，它的作用是将错误信息发送给开发者。
+
+### 2.自定义 Error，扩展 Error
+
+[自定义 Error，扩展 Error](https://zh.javascript.info/custom-errors)
+
+#### 1.扩展Error
+
+
+
+```javascript
+class ValidationError extends Error {
+  constructor(message) {
+    super(message); // (1)
+    this.name = "ValidationError"; // (2)
+  }
+}
+
+function test() {
+  throw new ValidationError("Whoops!");
+}
+
+try {
+  test();
+} catch(err) {
+  alert(err.message); // Whoops!
+  alert(err.name); // ValidationError
+  alert(err.stack); // 一个嵌套调用的列表，每个调用都有对应的行号
+}
+```
+
+请注意：在 `(1)` 行中我们调用了父类的 constructor。JavaScript 要求我们在子类的 constructor 中调用 `super`，所以这是必须的。父类的 constructor 设置了 `message` 属性。
+
+父类的 constructor 还将 `name` 属性的值设置为了 `"Error"`，所以在 `(2)` 行中，我们将其重置为了右边的值。
+
+让我们尝试在 `readUser(json)` 中使用它吧：
+
+```javascript
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+// 用法
+function readUser(json) {
+  let user = JSON.parse(json);
+
+  if (!user.age) {
+    throw new ValidationError("No field: age");
+  }
+  if (!user.name) {
+    throw new ValidationError("No field: name");
+  }
+
+  return user;
+}
+
+// try..catch 的工作示例
+
+try {
+  let user = readUser('{ "age": 25 }');
+} catch (err) {
+  if (err instanceof ValidationError) {
+    alert("Invalid data: " + err.message); // Invalid data: No field: name
+  } else if (err instanceof SyntaxError) { // (*)
+    alert("JSON Syntax Error: " + err.message);
+  } else {
+    throw err; // 未知的 error，再次抛出 (**)
+  }
+}
+```
+
+上面代码中的 `try..catch` 块既处理我们的 `ValidationError` 又处理来自 `JSON.parse` 的内建 `SyntaxError`。
+
+#### 2.深入继承
+
+就是说为了完善我们的自定义error类，可以设想其他错误场景，细化我们的error类
+
+`ValidationError` 类是非常通用的。很多东西都可能出错。对象的属性可能缺失或者属性可能有格式错误（例如 `age` 属性的值为一个字符串而不是数字）。让我们针对缺少属性的错误来制作一个更具体的 `PropertyRequiredError` 类。它将携带有关缺少的属性的相关信息。
+
+```javascript
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+class PropertyRequiredError extends ValidationError {
+  constructor(property) {
+    super("No property: " + property);
+    this.name = "PropertyRequiredError";
+    this.property = property;
+  }
+}
+
+// 用法
+function readUser(json) {
+  let user = JSON.parse(json);
+
+  if (!user.age) {
+    throw new PropertyRequiredError("age");
+  }
+  if (!user.name) {
+    throw new PropertyRequiredError("name");
+  }
+
+  return user;
+}
+
+// try..catch 的工作示例
+
+try {
+  let user = readUser('{ "age": 25 }');
+} catch (err) {
+  if (err instanceof ValidationError) {
+    alert("Invalid data: " + err.message); // Invalid data: No property: name
+    alert(err.name); // PropertyRequiredError
+    alert(err.property); // name
+  } else if (err instanceof SyntaxError) {
+    alert("JSON Syntax Error: " + err.message);
+  } else {
+    throw err; // 为止 error，将其再次抛出
+  }
+}
+```
+
+这个新的类 `PropertyRequiredError` 使用起来很简单：我们只需要传递属性名：`new PropertyRequiredError(property)`。人类可读的 `message` 是由 constructor 生成的。
+
+#### 3.包装异常
+
+[包装异常](https://zh.javascript.info/custom-errors#bao-zhuang-yi-chang)
+
+就是说我们判断异常类型时，要写很长的if else链，使用包装异常可以解决这个问题。准确说它处理低级error，创建高级error。
+
+推荐看原文。
+
+
 
 ## 11.Promise,async/await
 
 ### 11.2Promise:
+
+[Promise](https://zh.javascript.info/promise-basics)
+
+推荐看原文内容很多
 
 #### 1.Promise构造器
 
@@ -4166,15 +5328,130 @@ alert(dictionary); // "apple,__proto__"
 
 ![image-20220324143350895](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220324143350895.png)
 
+我们也把绿色框或者红色框里的promise称为settled的promise（已经结束的promise），和pending的promise（等待状态的promise）相对应.
+
+##### 注意点：
+
+1.**以 `Error` 对象 reject**
+
+如果什么东西出了问题， executor 应该调用 `reject`。这可以使用任何类型的参数来完成（就像 `resolve` 一样）。但是建议使用 `Error` 对象（或继承自 `Error` 的对象）。这样做的理由很快就会显而易见。
+
+<div style="color: red">2.这儿只能有一个结果或一个 error</div>
+
+executor 只能调用一个 `resolve` 或一个 `reject`。任何状态的更改都是最终的。
+
+所有其他的再对 `resolve` 和 `reject` 的调用都会被忽略：
+
+```javascript
+let promise = new Promise(function(resolve, reject) {
+  resolve("done");
+
+  reject(new Error("…")); // 被忽略
+  setTimeout(() => resolve("…")); // 被忽略
+});
+```
+
+这儿的宗旨是，一个被 executor 完成的工作只能有一个结果或一个 error。
+
+并且，`resolve/reject` 只需要一个参数（或不包含任何参数），并且将忽略额外的参数。
+
 
 
 #### 2.then：
 
-![image-20220324143430643](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220324143430643.png)
+语法如下：
+
+```javascript
+promise.then(
+  function(result) { /* handle a successful result */ },
+  function(error) { /* handle an error */ }
+);
+```
+
+`.then` 的第一个参数是一个函数，该函数将在 promise resolved 后运行并接收结果。
+
+`.then` 的第二个参数也是一个函数，该函数将在 promise rejected 后运行并接收 error。
+
+成功的例子：
+
+```js
+let promise = new Promise(function(resolve, reject) {
+  setTimeout(() => resolve("done!"), 1000);
+});
+
+// resolve 运行 .then 中的第一个函数
+promise.then(
+  result => alert(result), // 1 秒后显示 "done!"
+  error => alert(error) // 不运行
+);
+```
+
+失败的例子：
+
+```js
+let promise = new Promise(function(resolve, reject) {
+  setTimeout(() => reject(new Error("Whoops!")), 1000);
+});
+
+// reject 运行 .then 中的第二个函数
+promise.then(
+  result => alert(result), // 不运行
+  error => alert(error) // 1 秒后显示 "Error: Whoops!"
+);
+```
+
+只对成功感兴趣，可以只为 `.then` 提供一个函数参数：
+
+```javascript
+let promise = new Promise(resolve => {
+  setTimeout(() => resolve("done!"), 1000);
+});
+
+promise.then(alert); // 1 秒后显示 "done!"
+```
 
 #### 3.catch：
 
-![image-20220324143552954](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220324143552954.png)
+只对失败感兴趣：
+
+```javascript
+let promise = new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error("Whoops!")), 1000);
+});
+
+// .catch(f) 与 promise.then(null, f) 一样
+promise.catch(alert); // 1 秒后显示 "Error: Whoops!"
+```
+
+`.catch(f)` 调用是 `.then(null, f)` 的完全的模拟，它只是一个简写形式。
+
+#### 4.finally
+
+`f` 总是在 promise 被 settled 时运行：即 promise 被 resolve 或 reject。
+
+1. `finally` 处理程序（handler）没有参数。在 `finally` 中，我们不知道 promise 是否成功。没关系，因为我们的任务通常是执行“常规”的定稿程序（finalizing procedures）。
+
+2. `finally` 处理程序将结果和 error 传递给下一个处理程序。
+
+   例如，在这儿结果被从 `finally` 传递给了 `then`：
+
+   ```javascript
+   new Promise((resolve, reject) => {
+     setTimeout(() => resolve("result"), 2000)
+   })
+     .finally(() => alert("Promise ready"))
+     .then(result => alert(result)); // <-- .then 对结果进行处理
+   ```
+
+   在这儿，promise 中有一个 error，这个 error 被从 `finally` 传递给了 `catch`：
+
+   ```javascript
+   new Promise((resolve, reject) => {
+     throw new Error("error");
+   })
+     .finally(() => alert("Promise ready"))
+     .catch(err => alert(err));  // <-- .catch 对 error 对象进行处理
+   ```
 
 
 

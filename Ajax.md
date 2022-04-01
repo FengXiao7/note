@@ -986,7 +986,7 @@ http://localhost:3000/posts/3
 </html>
 ```
 
-# ch
+
 
 传送门：
 
@@ -998,10 +998,3 @@ http://localhost:3000/posts/3
 
 [Promise，async/await (javascript.info)](https://zh.javascript.info/async)
 
-## 有用的包：
-
-### 1.util.promisify
-
-用于将老式的`Error first callback`转换为`Promise`对象，让老项目改造变得更为轻松。
-
-传送门：[util.promisify 的那些事儿 - 掘金 (juejin.cn)](https://juejin.cn/post/6844903694807351310)
