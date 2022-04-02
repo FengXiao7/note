@@ -5557,3 +5557,489 @@ https://zh.javascript.info/searching-elements-dom#sou-suo-yuan-su
 
 
 
+
+
+# 其他文章
+
+## 正则表达式
+
+传送门：["dotall" | Can I use... Support tables for HTML5, CSS3, etc](https://caniuse.com/?search=dotall)  查看特定正则兼容性
+
+[Regulex：JavaScript Regular Expression Visualizer (jex.im)](https://jex.im/regulex/#!flags=&re=^(a|b)*%3F%24)            图像化正则表达式
+
+match，search，test，replace
+
+### 7.1模式和修饰符
+
+[模式（Patterns）和修饰符（flags）](https://zh.javascript.info/regexp-introduction)
+
+#### 1.正则表达式
+
+正则表达式（可叫作“regexp”或者“reg”）包含 **模式** 和可选的 **修饰符**。
+
+较长一点的语法：
+
+```javascript
+regexp = new RegExp("pattern", "flags");
+```
+
+…较短一点的语法，使用斜杠 `"/"`：
+
+```javascript
+regexp = /pattern/; // 没有修饰符
+regexp = /pattern/gmi; // 伴随修饰符 g、m 和 i（后面会讲到）
+```
+
+斜杠 `"/"` 会告诉 JavaScript 我们正在创建一个正则表达式。它的作用类似于字符串的引号。
+
+#### 2.用法
+
+使用 [search](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/String/search) 方法。
+
+```javascript
+let str = "I love JavaScript!"; // 将在这里搜索
+
+let regexp = /love/;
+alert( str.search(regexp) ); // 2
+```
+
+`str.search` 方法会查找模式 `/love/`，然后返回匹配项在字符串中的位置。我们可以猜到，`/love/` 是最简单的模式。它所做的就是简单的子字符串的查找。
+
+上面的代码等同于：
+
+```javascript
+let str = "I love JavaScript!"; // 将在这里搜索
+
+let substr = 'love';
+alert( str.search(substr) ); // 2
+```
+
+所以搜索 `/love/` 与搜索 `"love"` 是等价的。
+
+##### 使用new RegExp()的场合
+
+1.变量插入
+
+2.动态创建
+
+```javascript
+let search = prompt("What you want to search?", "love");
+let regexp = new RegExp(search);
+
+// 找到用户想要的任何东西
+alert( "I love JavaScript".search(regexp));
+```
+
+#### 3.最简单的修饰符：i
+
+最简单的修饰符就是 `i` 了。
+
+示例代码如下：
+
+```javascript
+let str = "I love JavaScript!";
+
+alert( str.search(/LOVE/) ); // -1（没找到）
+alert( str.search(/LOVE/i) ); // 2
+```
+
+1. 第一个搜索返回的是 `-1`（也就是没找到），因为搜索默认是区分大小写的。
+2. 使用修饰符 `/LOVE/i`，在字符串的第 2 个位置上搜索到了 `love`。
+
+### 7.2字符类
+
+[字符类](https://zh.javascript.info/regexp-character-classes)
+
+**字符类（Character classes）** 是一个特殊的符号，匹配特定集中的任何符号。
+
+#### 1.常见字符类
+
+
+
+首先，让我们探索“数字”类。它写为 `\d`，对应于“任何一个数字”。
+
+例如，让我们找到电话号码的第一个数字：
+
+```javascript
+let str = "+7(903)-123-45-67";
+
+let regexp = /\d/;
+
+alert( str.match(regexp) ); // 7
+```
+
+如果没有标志 `g`，则正则表达式仅查找第一个匹配项，即第一个数字 `\d`。
+
+让我们添加 `g`标志来查找所有数字：
+
+```javascript
+let str = "+7(903)-123-45-67";
+
+let regexp = /\d/g;
+
+alert( str.match(regexp) ); // array of matches: 7,9,0,3,1,2,3,4,5,6,7
+
+// let's make the digits-only phone number of them:
+alert( str.match(regexp).join('') ); // 79031234567
+```
+
+最常用的字符类是：
+
+- `\d`（“d” 来自 “digit”）
+
+  数字：从 `0` 到 `9` 的字符。
+
+- `\s`（“s” 来自 “space”）
+
+  空格符号：包括空格，制表符 `\t`，换行符 `\n` 和其他少数稀有字符，例如 `\v`，`\f` 和 `\r`。
+
+- `\w`（“w” 来自 “word”）
+
+  “单字”字符：拉丁字母或数字或下划线 `_`。非拉丁字母（如西里尔字母或印地文）不属于 `\w`。
+
+例如，`\d\s\w`表示“数字”，后跟“空格字符”，后跟“单字字符”，例如 `1 a`。
+
+案例：
+
+```javascript
+let str = "Is there CSS4?";
+let regexp = /CSS\d/
+
+alert( str.match(regexp) ); // CSS4
+```
+
+我们还可以使用许多字符类：
+
+```javascript
+alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // ' HTML5'
+```
+
+#### 2.反向类
+
+对于每个字符类，都有一个“反向类”，用相同的字母表示，但要以大写书写形式。
+
+“反向”表示它与所有其他字符匹配，例如：
+
+- `\D`
+
+  非数字：除 `\d` 以外的任何字符，例如字母。
+
+- `\S`
+
+  非空格符号：除 `\s` 以外的任何字符，例如字母。
+
+- `\W`
+
+  非单字字符：除 `\w` 以外的任何字符，例如非拉丁字母或空格。
+
+案例：
+
+```javascript
+let str = "+7(903)-123-45-67";
+
+alert( str.match(/\d/g).join('') ); // 79031234567
+```
+
+另一种快捷的替代方法是查找非数字 `\D` 并将其从字符串中删除：
+
+```javascript
+let str = "+7(903)-123-45-67";
+
+alert( str.replace(/\D/g, "") ); // 79031234567
+```
+
+#### 3 点.字符
+
+点 `.` 是一种特殊字符类，它与 “除换行符之外的任何字符” 匹配。
+
+例如：
+
+```javascript
+alert( "Z".match(/./) ); // Z
+```
+
+或在正则表达式中间：
+
+```javascript
+let regexp = /CS.4/;
+
+alert( "CSS4".match(regexp) ); // CSS4
+alert( "CS-4".match(regexp) ); // CS-4
+alert( "CS 4".match(regexp) ); // CS 4 (space is also a character)
+```
+
+请注意，点表示“任何字符”，而不是“缺少字符”。必须有一个与之匹配的字符：
+
+```javascript
+alert( "CS4".match(/CS.4/) ); // null, no match because there's no character for the dot
+```
+
+##### 真正意义上的匹配任意字符
+
+默认情况下，点与换行符 `\n` 不匹配。
+
+例如，正则表达式 `A.B` 匹配 `A`，然后匹配 `B` 和它们之间的任何字符，除了换行符`\n`：
+
+```javascript
+alert( "A\nB".match(/A.B/) ); // null (no match)
+```
+
+在许多情况下，当我们希望用点来表示“任何字符”（包括换行符）时。
+
+这就是标志 `s` 所做的。如果有一个正则表达式，则点 `.` 实际上匹配任何字符：
+
+```javascript
+alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
+```
+
+兼容性问题：
+
+标志s有些浏览器不支持。可以用另一种方法
+
+使用诸如 `[\s\S]` 之类的正则表达式来匹配“任何字符”。
+
+```javascript
+alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (match!)
+```
+
+模式 `[\s\S]` 从字面上说：“空格字符或非空格字符”。换句话说，“任何东西”。我们可以使用另一对互补的类，例如 `[\d\D]`。甚至是 `[^]` —— 意思是匹配任何字符，除了什么都没有。
+
+### 7.3Unicode：修饰符 “u” 和 class \p{...}
+
+[Unicode：修饰符 “u” 和 class \p{...}](https://zh.javascript.info/regexp-unicode)
+
+内容很多，扩展内容也很多。推荐看原文。
+
+我在这里只摘取几个案例：
+
+#### 1.摘取任意语言的任意字母
+
+`\p{Letter}` 表示任何语言中的一个字母。我们也可以使用 `\p{L}`，因为 `L` 是 `Letter` 的一个别名（alias）。对于每种属性而言，几乎都存在对应的缩写别名。
+
+在下面的例子中 3 种字母将会被查找出：英语、格鲁吉亚语和韩语。
+
+```javascript
+let str = "A ბ ㄱ";
+
+alert( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
+alert( str.match(/\p{L}/g) ); // null（没有匹配的文本，因为没有修饰符“u”）
+```
+
+#### 2.查找16进制数字
+
+让我们来查找 16 进制数字，写作 `xFF` 其中 `F` 是一个 16 进制的数字（0…9 或者 A…F）。
+
+一个 16 进制数字可以表示为 `\p{Hex_Digit}`：
+
+```javascript
+let regexp = /x\p{Hex_Digit}\p{Hex_Digit}/u;
+
+alert("number: xAF".match(regexp)); // xAF
+```
+
+#### 3.查找中文字符
+
+有一个 unicode 属性 `Script` （一个书写系统），这个属性可以有一个值：`Cyrillic`，`Greek`，`Arabic`，`Han` （中文）等等，[这里是一个完整的列表](https://en.wikipedia.org/wiki/Script_(Unicode))。
+
+为了实现查找一个给定的书写系统中的字符，我们需要使用 `Script=<value>`，例如对于西里尔字符：`\p{sc=Cyrillic}`, 中文字符：`\p{sc=Han}`，等等。
+
+```javascript
+let regexp = /\p{sc=Han}/gu; // returns Chinese hieroglyphs
+
+let str = `Hello Привет 你好 123_456`;
+
+alert( str.match(regexp) ); // 你,好
+```
+
+#### 4.查找货币
+
+表示货币的字符，例如 `$`，`€`，`¥`，具有 unicode 属性 `\p{Currency_Symbol}`，缩写为 `\p{Sc}`。
+
+让我们使用这一属性来查找符合“货币，接着是一个数字”的价格文本：
+
+```javascript
+let regexp = /\p{Sc}\d/gu;
+
+let  str = `Prices: $2, €1, ¥9`;
+
+alert( str.match(regexp) ); // $2,€1,¥9
+```
+
+![image-20220402150147779](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402150147779.png)
+
+### 7.4锚点（Anchors)：字符串开始 ^ 和末尾 $
+
+[锚点（Anchors)：字符串开始 ^ 和末尾 $](https://zh.javascript.info/regexp-anchors)
+
+#### 1.开始和结尾
+
+插入符号 `^` 和美元符号 `$` 在正则表达式中具有特殊的意义。它们被称为“锚点”。
+
+插入符号 `^` 匹配文本开头，而美元符号 `$` － 则匹配文本末尾。
+
+举个例子，让我们测试一下文本是否以 `Mary` 开头：
+
+```javascript
+let str1 = "Mary had a little lamb";
+alert( /^Mary/.test(str1) ); // true
+```
+
+该模式 `^Mary` 的意思是：字符串开始，接着是 “Mary”。
+
+与此类似，我们可以用 `snow$` 来测试文本是否以 `snow` 结尾:
+
+```javascript
+let str1 = "it's fleece was white as snow";
+alert( /snow$/.test(str1) ); // true
+```
+
+在以上这些具体的例子中我们实际上可以用 `startsWith/endsWith` 来代替。正则表达式应该被用于更加复杂的测试中。
+
+#### 2.完全匹配
+
+这两个锚点 `^...$` 放在一起常常被用于测试一个字符串是否完全匹配一个模式。比如，测试用户的输入是否符合正确的格式。
+
+测试是否匹配"12:34"类似时间格式
+
+```js
+let goodInput = "12:34";
+let badInput = "12:345";
+
+let regexp = /^\d\d:\d\d$/;
+alert( regexp.test(goodInput) ); // true
+alert( regexp.test(badInput) ); // false
+```
+
+![image-20220402151258437](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402151258437.png)
+
+<div style="color: red">空字符串是匹配 `^$`</div>
+
+
+
+### 7.5Flag "m" — 多行模式
+
+[Flag "m" — 多行模式](https://zh.javascript.info/regexp-multiline-mode)
+
+通过 flag `/.../m` 可以开启多行模式。
+
+这仅仅会影响 `^` 和 `$` 锚符的行为。
+
+在多行模式下，它们不仅仅匹配文本的开始与结束，还匹配每一行的开始与结束。
+
+#### 1.行的开头
+
+正则表达式 `/^\d+/gm` 将匹配每一行的开头数字：
+
+```javascript
+let str = `1st place: Winnie
+2nd place: Piglet
+33rd place: Eeyore`;
+
+alert( str.match(/^\d+/gm) ); // 1, 2, 33
+```
+
+没有 flag `/.../m` 时，仅仅是第一个数字被匹配到：
+
+```javascript
+let str = `1st place: Winnie
+2nd place: Piglet
+33rd place: Eeyore`;
+
+alert( str.match(/^\d+/g) ); // 1
+```
+
+默认情况下，锚符 `^` 仅仅匹配文本的开头，在多行模式下，它匹配行的开头。
+
+正则表达式引擎将会在文本中查找以锚符 `^` 开始的字符串，我们找到之后继续匹配 `\d+` 模式。
+
+#### 2.行的结尾
+
+正则表达式 `\w+$ 会找到每一行的最后一个单词：
+
+```javascript
+let str = `1st place: Winnie
+2nd place: Piglet
+33rd place: Eeyore`;
+
+alert( str.match(/\w+$/gim) ); // Winnie,Piglet,Eeyore
+```
+
+没有 `/.../m` flag 的话，美元符 `$` 将会仅仅匹配整个文本的结尾，所以只有最后的一个单词会被找到。
+
+### 7.6词边界：\b
+
+[词边界：\b](https://zh.javascript.info/regexp-boundary)
+
+词边界 `\b` 是一种检查，就像 `^` 和 `$` 一样。
+
+当正则表达式引擎（实现搜索正则表达式的程序模块）遇到 `\b` 时，它会检查字符串中的位置是否是词边界。
+
+有三种不同的位置可作为词边界：
+
+- 在字符串开头，如果第一个字符是单词字符 `\w`。
+- 在字符串中的两个字符之间，其中一个是单词字符 `\w`，另一个不是。
+- 在字符串末尾，如果最后一个字符是单词字符 `\w`。
+
+例如，可以在 `Hello, Java!` 中找到匹配 `\bJava\b` 的单词，其中 `Java` 是一个独立的单词，而在 `Hello, JavaScript!` 中则不行。
+
+```javascript
+alert( "Hello, Java!".match(/\bJava\b/) ); // Java
+alert( "Hello, JavaScript!".match(/\bJava\b/) ); // null
+```
+
+`\b` 既可以用于单词，也可以用于数字。
+
+例如，模式 `\b\d\d\b` 查找独立的两位数。换句话说，它查找的是两位数，其周围是与 `\w` 不同的字符，例如空格或标点符号（或文本开头/结尾）。
+
+```javascript
+alert( "1 23 456 78".match(/\b\d\d\b/g) ); // 23,78
+alert( "12,34,56".match(/\b\d\d\b/g) ); // 12,34,56
+```
+
+### 7.7转义，特殊字符
+
+[转义，特殊字符](https://zh.javascript.info/regexp-escaping)
+
+#### 1.转义
+
+使用\转义特殊字符
+
+```js
+alert( "Chapter 5.1".match(/\d\.\d/) ); // 5.1
+```
+
+```js
+alert( "function g()".match(/g\(\)/) ); // "g()"
+```
+
+#### 2.用new RegExp()的坑
+
+```js
+let reg = new RegExp("\d\.\d");
+
+alert( "Chapter 5.1".match(reg) ); // null
+```
+
+在字符串中的反斜杠表示转义或者类似 `\n` 这种只能在字符串中使用的特殊字符。这个引用会“消费”并且解释这些字符。
+
+常见的比如文件地址：
+
+```js
+let str="E:\\VScode-code\\note"
+```
+
+所以需要双斜杠，因为引用会把 `\\` 变为 `\`：
+
+```javascript
+let regStr = "\\d\\.\\d";
+alert(regStr); // \d\.\d (correct now)
+
+let regexp = new RegExp(regStr);
+
+alert( "Chapter 5.1".match(regexp) ); // 5.1
+```
+
+### 7.8集合和范围[...]
+
+[集合和范围 [...\]](https://zh.javascript.info/regexp-character-sets-and-ranges)
+

@@ -1,3 +1,15 @@
+# 版本：
+
+笔记里提到的：
+
+使用的所谓旧版☞v16.8.4
+
+所谓新版☞v17.0.1
+
+2022年3月，官方已更新至18.0.0，笔记里不会涉及到最新版内容。
+
+如果涉及到，我会在后续添加新的笔记内容
+
 # 资料：
 
 b友分享
@@ -191,7 +203,7 @@ jsx语法规则：
 ​					1.定义虚拟DOM时，不要写引号。
 ​					2.标签中混入JS表达式时要用{}。
 ​					3.样式的类名指定不要用class，要用className。 (为了和js的class类区分)
-​					4.内联样式，要用style={{key:value}}的形式去写。（第一个括号是引入JS的，第二个括号是对象）
+4.内联样式，要用style={{key:value}}的形式去写。（第一个括号是引入JS的，第二个括号是对象，里面用逗号分开）
 ​					5.只有一个根标签
 ​					6.标签必须闭合
 ​					7.标签首字母
@@ -687,7 +699,11 @@ class Person extends React.Component{
 
 组件内的标签可以定义ref属性来标识自己，和vue里的用法差不多
 
-## 1.字符串形式的refs
+官方建议不要过度使用refs
+
+https://zh-hans.reactjs.org/docs/refs-and-the-dom.html#dont-overuse-refs
+
+### 1.字符串形式的refs
 
 官方即将弃用，有效率问题，具体看官网github讨论区
 
@@ -729,7 +745,7 @@ https://zh-hans.reactjs.org/docs/refs-and-the-dom.html?#legacy-api-string-refs
 
 
 
-## 2.回调形式的refs
+### 2.回调形式的refs
 
 ```js
 //创建组件
@@ -760,13 +776,13 @@ https://zh-hans.reactjs.org/docs/refs-and-the-dom.html?#legacy-api-string-refs
 		ReactDOM.render(<Demo a="1" b="2"/>,document.getElementById('test'))
 ```
 
-## 3.回调形式refs调用次数问题
+### 3.回调形式refs调用次数问题
 
 官网说明：https://zh-hans.reactjs.org/docs/refs-and-the-dom.html?#caveats-with-callback-refs
 
 ![image-20220401212227425](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220401212227425.png)
 
-### bug展示：
+#### bug展示：
 
 ```js
  class Weather extends React.Component {
@@ -803,8 +819,608 @@ https://zh-hans.reactjs.org/docs/refs-and-the-dom.html?#legacy-api-string-refs
 
 <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/85.gif" style="zoom: 100%"></img>
 
-### 解决方案：(不解决也行)
+#### 解决方案：(不解决也行)
 
 使用内绑定的函数
 
 ![image-20220401212431454](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220401212431454.png)
+
+### 4.createRef()
+
+官方推荐使用，写的时候用几个ref就得创建几个容器
+
+```js
+class Demo extends React.Component{
+			/* 
+				React.createRef调用后可以返回一个容器，该容器可以存储被ref所标识的节点,该容器是“专人专用”的
+			 */
+			myRef = React.createRef()
+			myRef2 = React.createRef()
+			//展示左侧输入框的数据
+			showData = ()=>{
+				// alert(this.myRef.current.value);
+				console.log(this.myRef);
+			}
+			//展示右侧输入框的数据
+			showData2 = ()=>{
+				// alert(this.myRef2.current.value);
+				console.log(this.myRef2);
+			}
+			render(){
+				return(
+					<div>
+						<input ref={this.myRef} type="text" placeholder="点击按钮提示数据"/>&nbsp;
+						<button onClick={this.showData}>点我提示左侧的数据</button>&nbsp;
+						<input onBlur={this.showData2} ref={this.myRef2} type="text" placeholder="失去焦点提示数据"/>&nbsp;
+					</div>
+				)
+			}
+		}
+```
+
+![image-20220402123552373](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402123552373.png)
+
+## 9.React中的事件处理
+
+```js
+class Demo extends React.Component{
+			//创建ref容器
+			myRef = React.createRef()
+			myRef2 = React.createRef()
+
+			//展示左侧输入框的数据
+			showData = (event)=>{
+				console.log(event.target);
+				alert(this.myRef.current.value);
+			}
+
+			//展示右侧输入框的数据
+			//发生事件的元素正好是操作的元素就可以不用写ref，直接在target里拿就行
+			showData2 = (event)=>{
+				alert(event.target.value);
+			}
+
+			render(){
+				return(
+					<div>
+						<input ref={this.myRef} type="text" placeholder="点击按钮提示数据"/>&nbsp;
+						<button onClick={this.showData}>点我提示左侧的数据</button>&nbsp;
+						<input onBlur={this.showData2} type="text" placeholder="失去焦点提示数据"/>&nbsp;
+					</div>
+				)
+			}
+		}
+```
+
+​				(1).通过onXxx属性指定事件处理函数(注意大小写)
+​						a.React使用的是自定义(合成)事件, 而不是使用的原生DOM事件 —————— 为了更好的兼容性
+​						b.React中的事件是通过事件委托方式处理的(委托给组件最外层的元素) ————————为了高效
+​				(2).通过event.target得到发生事件的DOM元素对象 ——————————不要过度使用ref
+​			
+
+## 10.React收集表单数据案例
+
+### 非受控组件：
+
+```js
+class Login extends React.Component{
+			handleSubmit = (event)=>{
+				event.preventDefault() //阻止表单提交
+				const {username,password} = this
+				alert(`你输入的用户名是：${username.value},你输入的密码是：${password.value}`)
+			}
+			render(){
+				return(
+					<form onSubmit={this.handleSubmit}>
+						用户名：<input ref={c => this.username = c} type="text" name="username"/>
+						密码：<input ref={c => this.password = c} type="password" name="password"/>
+						<button>登录</button>
+					</form>
+				)
+			}
+		}
+```
+
+
+
+### 受控组件：
+
+```js
+class Login extends React.Component{
+
+			//初始化状态
+			state = {
+				username:'', //用户名
+				password:'' //密码
+			}
+
+			//保存用户名到状态中
+			saveUsername = (event)=>{
+				this.setState({username:event.target.value})
+			}
+
+			//保存密码到状态中
+			savePassword = (event)=>{
+				this.setState({password:event.target.value})
+			}
+
+			//表单提交的回调
+			handleSubmit = (event)=>{
+				event.preventDefault() //阻止表单提交
+				const {username,password} = this.state
+				alert(`你输入的用户名是：${username},你输入的密码是：${password}`)
+			}
+
+			render(){
+				return(
+					<form onSubmit={this.handleSubmit}>
+						用户名：<input onChange={this.saveUsername} type="text" name="username"/>
+						密码：<input onChange={this.savePassword} type="password" name="password"/>
+						<button>登录</button>
+					</form>
+				)
+			}
+		}
+```
+
+两个组件实现功能是一样的。
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/86.gif" style="zoom: 100%"></img>
+
+非受控组件简单理解：现用现取(我们的例子用ref取)，用了很多ref所以不好，建议使用受控组件
+
+https://zh-hans.reactjs.org/docs/refs-and-the-dom.html#dont-overuse-refs
+
+受控组件简单理解：页面里所有输入类型的dom(我们的例子是input)，随着我们的输入，react可以维护它的状态，用的时候直接从state取出来。其实就是vue里面的v-model双向数据绑定
+
+## 11.优化我们的表单案例
+
+### 1.高阶函数和函数柯里化
+
+```js
+/* 
+					高阶函数：如果一个函数符合下面2个规范中的任何一个，那该函数就是高阶函数。
+									1.若A函数，接收的参数是一个函数，那么A就可以称之为高阶函数。
+									2.若A函数，调用的返回值依然是一个函数，那么A就可以称之为高阶函数。
+									常见的高阶函数有：Promise、setTimeout、arr.map()等等
+
+					函数的柯里化：通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理的函数编码形式。 
+						function sum(a){
+							return(b)=>{
+								return (c)=>{
+									return a+b+c
+								}
+							}
+						}
+					*/
+```
+
+
+
+```js
+class Login extends React.Component{
+			//初始化状态
+			state = {
+				username:'', //用户名
+				password:'' //密码
+			}
+
+			//保存表单数据到状态中
+			saveFormData = (dataType)=>{
+				return (event)=>{
+					this.setState({[dataType]:event.target.value})
+				}
+			}
+
+			//表单提交的回调
+			handleSubmit = (event)=>{
+				event.preventDefault() //阻止表单提交
+				const {username,password} = this.state
+				alert(`你输入的用户名是：${username},你输入的密码是：${password}`)
+			}
+			render(){
+				return(
+					<form onSubmit={this.handleSubmit}>
+						用户名：<input onChange={this.saveFormData('username')} type="text" name="username"/>
+						密码：<input onChange={this.saveFormData('password')} type="password" name="password"/>
+						<button>登录</button>
+					</form>
+				)
+			}
+		}
+```
+
+[dataType]这种对象键的写法不要忘了喔，这叫计算属性
+
+传送门：[计算属性](https://zh.javascript.info/object#ji-suan-shu-xing)
+
+我们使用onChange触发同一个函数，该函数返回一个函数作为我们onChange的回调
+
+### 2.不使用高阶函数的写法
+
+```js
+class Login extends React.Component{
+			//初始化状态
+			state = {
+				username:'', //用户名
+				password:'' //密码
+			}
+
+			//保存表单数据到状态中
+			saveFormData = (dataType,event)=>{
+				this.setState({[dataType]:event.target.value})
+			}
+
+			//表单提交的回调
+			handleSubmit = (event)=>{
+				event.preventDefault() //阻止表单提交
+				const {username,password} = this.state
+				alert(`你输入的用户名是：${username},你输入的密码是：${password}`)
+			}
+			render(){
+				return(
+					<form onSubmit={this.handleSubmit}>
+						用户名：<input onChange={event => this.saveFormData('username',event) } type="text" name="username"/>
+						密码：<input onChange={event => this.saveFormData('password',event) } type="password" name="password"/>
+						<button>登录</button>
+					</form>
+				)
+			}
+		}
+```
+
+onChange触发函数回调，这个回调函数调用了saveFormData函数并且传递两个参数（dataType,event）
+
+
+
+**这两种写法实际生产中都使用的挺多的**
+
+## 12.组件的生命周期
+
+1. 组件从创建到死亡它会经历一些特定的阶段。
+
+2. React组件中包含一系列勾子函数(生命周期回调函数), 会在特定的时刻调用。
+
+3. 我们在定义组件时，会在特定的生命周期回调函数中，做特定的工作。
+
+### 1.引出组件的生命周期
+
+```js
+class Life extends React.Component{
+
+			state = {opacity:1}
+
+			death = ()=>{
+				//卸载组件
+				ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+			}
+
+			//组件挂完毕
+			componentDidMount(){
+				
+				this.timer = setInterval(() => {
+					//获取原状态
+					let {opacity} = this.state
+					//减小0.1注意精度问题
+					opacity=(opacity-0.1).toFixed(2)
+					if(opacity <= 0) opacity = 1
+					console.log(opacity);
+					//设置新的透明度
+					this.setState({opacity})
+				}, 200);
+			}
+
+			//组件将要卸载
+			componentWillUnmount(){
+				//清除定时器
+				clearInterval(this.timer)
+			}
+
+			//初始化渲染、状态更新之后
+			render(){
+				console.log('render');
+				return(
+					<div>
+						<h2 style={{opacity:this.state.opacity}}>React学不会怎么办？</h2>
+						<button onClick={this.death}>不活了</button>
+					</div>
+				)
+			}
+		}
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/87.gif" style="zoom: 100%"></img>
+
+### 2.旧版本生命周期
+
+![image-20220402182133224](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402182133224.png)
+
+#### 1.组件挂载时
+
+```js
+			//构造器
+			constructor(props){
+				console.log('Count---constructor');
+				super(props)
+				//初始化状态
+				this.state = {count:0}
+			}
+
+			//组件将要挂载的钩子
+			componentWillMount(){
+				console.log('Count---componentWillMount');
+			}
+
+			//组件挂载完毕的钩子
+			componentDidMount(){
+				console.log('Count---componentDidMount');
+				console.log("\n");
+			}
+```
+
+![image-20220402164626326](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402164626326.png)
+
+#### 2.执行setState
+
+##### 阀门没有返回值：
+
+![image-20220402165609621](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402165609621.png)
+
+##### 阀门return false：
+
+##### ![image-20220402170007947](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402170007947.png)
+
+##### 阀门return true：
+
+![image-20220402170443677](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402170443677.png)
+
+#### 3.强制更新
+
+![image-20220402171505644](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402171505644.png)
+
+#### 4.组件接收新的props
+
+```js
+//父组件A
+		class A extends React.Component{
+			//初始化状态
+			state = {carName:'奔驰'}
+
+			changeCar = ()=>{
+				this.setState({carName:'奥拓'})
+			}
+
+			render(){
+				return(
+					<div>
+						<div>我是A组件</div>
+						<button onClick={this.changeCar}>换车</button>
+						<B carName={this.state.carName}/>
+					</div>
+				)
+			}
+		}
+		
+		//子组件B
+		class B extends React.Component{
+			//组件将要接收新的props的钩子
+			componentWillReceiveProps(props){
+				console.log('B---componentWillReceiveProps',props);
+			}
+
+			//控制组件更新的“阀门”
+			shouldComponentUpdate(){
+				console.log('B---shouldComponentUpdate');
+				return true
+			}
+			//组件将要更新的钩子
+			componentWillUpdate(){
+				console.log('B---componentWillUpdate');
+			}
+
+			//组件更新完毕的钩子
+			componentDidUpdate(){
+				console.log('B---componentDidUpdate');
+				console.log("\n");
+			}
+
+			render(){
+				console.log('B---render');
+				return(
+					<div>我是B组件，接收到的车是:{this.props.carName}</div>
+				)
+			}
+		}
+		
+		//渲染组件
+		ReactDOM.render(<A/>,document.getElementById('test'))
+```
+
+![image-20220402173907344](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402173907344.png)
+
+页面挂载完毕时，是没有调用componentWillReceiveProps的
+
+<span style="color: red">这个钩子，它只是在收到新的props时才调用。</span>所以第一次没有调用，要换车才调用
+
+#### 5.卸载组件
+
+这个很简单
+
+组件将要卸载时触发componentWillUnmount，而我们使用ReactDOM.unmountComponentAtNode（节点）卸载组件。
+
+这部分在引出组件生命周期那个案例中就写的很清楚。
+
+![image-20220402174332479](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402174332479.png)
+
+### 3.新版本生命周期
+
+和旧版本一样，还是render，componentDidUpdate，componentDidMount最常用
+
+![image-20220402195425221](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402195425221.png)
+
+#### 1.新旧对比
+
+UNSAFE_
+
+![image-20220402182609284](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402182609284.png)
+
+#### 2.新增生命周期函数getDerivedStateFromProps
+
+意为从props获得派生的state
+
+官网说明：https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromprops
+
+此函数使用率极低，它适用于state 的值在任何时候都取决于 props的情况。我们不做过多讲解
+
+#### 3.新增生命周期函数getSnapshotBeforeUpdate
+
+意为从更新前获取快照。
+
+官网说明：https://zh-hans.reactjs.org/docs/react-component.html#getsnapshotbeforeupdate
+
+此函数使用率也很低……
+
+它适用于更新前可以给componentDidUpdate传递一些东西
+
+#### 4.补充说明componentDidUpdate
+
+这个生命周期函数，有三个参数，分别为prevProps, prevState（上一次的props和上一次的state）以及getSnapshotBeforeUpdate传递过来的东西
+
+## 13._DOM的Diffing算法
+
+推荐文章：[【React】组件的生命周期 - 虚拟DOM - DOM Diffing算法 - 掘金 (juejin.cn)](https://juejin.cn/post/7015766065183621156)
+
+  官方说明：https://zh-hans.reactjs.org/docs/reconciliation.html#the-diffing-algorithm
+
+```js
+	/*
+   经典面试题:
+      1). react/vue中的key有什么作用？（key的内部原理是什么？）
+      2). 为什么遍历列表时，key最好不要用index?
+      
+	1. 虚拟DOM中key的作用：
+		1). 简单的说: key是虚拟DOM对象的标识, 在更新显示时key起着极其重要的作用。
+
+		2). 详细的说: 当状态中的数据发生变化时，react会根据【新数据】生成【新的虚拟DOM】, 
+		随后React进行【新虚拟DOM】与【旧虚拟DOM】的diff比较，比较规则如下：
+
+			a. 旧虚拟DOM中找到了与新虚拟DOM相同的key：
+				(1).若虚拟DOM中内容没变, 直接使用之前的真实DOM
+				(2).若虚拟DOM中内容变了, 则生成新的真实DOM，随后替换掉页面中之前的真实DOM
+
+			b. 旧虚拟DOM中未找到与新虚拟DOM相同的key:
+				根据数据创建新的真实DOM，随后渲染到到页面
+									
+	2. 用index作为key可能会引发的问题：
+		1. 若对数据进行：逆序添加、逆序删除等破坏顺序操作:
+			会产生没有必要的真实DOM更新 ==> 界面效果没问题, 但效率低。
+
+		2. 如果结构中还包含输入类的DOM：
+			会产生错误DOM更新 ==> 界面有问题。
+												
+		3. 注意！如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key			是没有问题的。
+					
+	3. 开发中如何选择key?:
+		1.最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号、学号等唯一值。
+		2.如果确定只是简单的展示数据，用index也是可以的。
+   */
+```
+
+
+
+```js
+/* 
+		慢动作回放----使用index索引值作为key
+
+			初始数据：
+					{id:1,name:'小张',age:18},
+					{id:2,name:'小李',age:19},
+			初始的虚拟DOM：
+					<li key=0>小张---18<input type="text"/></li>
+					<li key=1>小李---19<input type="text"/></li>
+
+			更新后的数据：
+					{id:3,name:'小王',age:20},
+					{id:1,name:'小张',age:18},
+					{id:2,name:'小李',age:19},
+			更新数据后的虚拟DOM：
+					<li key=0>小王---20<input type="text"/></li>
+					<li key=1>小张---18<input type="text"/></li>
+					<li key=2>小李---19<input type="text"/></li>
+
+			此时会对比新的虚拟DOM和初始的虚拟DOM，找到key一样的，发现里面的内容变了，就会
+			生成新的真实DOM，随后替换掉页面中之前的真实DOM。我们会发现此前已经存在的小张
+			和小李，还是会更新，显然效率极低。而我们使用唯一标识作为key，就不会有这种问题
+	-----------------------------------------------------------------
+
+	慢动作回放----使用id唯一标识作为key
+
+			初始数据：
+					{id:1,name:'小张',age:18},
+					{id:2,name:'小李',age:19},
+			初始的虚拟DOM：
+					<li key=1>小张---18<input type="text"/></li>
+					<li key=2>小李---19<input type="text"/></li>
+
+			更新后的数据：
+					{id:3,name:'小王',age:20},
+					{id:1,name:'小张',age:18},
+					{id:2,name:'小李',age:19},
+			更新数据后的虚拟DOM：
+					<li key=3>小王---20<input type="text"/></li>
+					<li key=1>小张---18<input type="text"/></li>
+					<li key=2>小李---19<input type="text"/></li>
+
+			对比的时候只会更新小王
+
+	 */
+```
+
+```js
+class Person extends React.Component{
+		state = {
+			persons:[
+				{id:1,name:'小张',age:18},
+				{id:2,name:'小李',age:19},
+			]
+		}
+		add = ()=>{
+			const {persons} = this.state
+			const p = {id:persons.length+1,name:'小王',age:20}
+			this.setState({persons:[p,...persons]})
+		}
+		render(){
+			return (
+				<div>
+					<h2>展示人员信息</h2>
+					<button onClick={this.add}>添加一个小王</button>
+					<h3>使用index（索引值）作为key</h3>
+					<ul>
+						{
+							this.state.persons.map((personObj,index)=>{
+           return <li key={index}>{personObj.name}---{personObj.age}<input type="text"/></li>
+							})
+						}
+					</ul>
+					<hr/>
+					<hr/>
+					<h3>使用id（数据的唯一标识）作为key</h3>
+					<ul>
+						{
+							this.state.persons.map((personObj)=>{
+		return <li key={personObj.id}>{personObj.name}---{personObj.age}<input type="text"/></li>
+							})
+						}
+					</ul>
+				</div>
+			)
+		}
+	}
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/88.gif" style="zoom: 100%"></img>
+
+# react_staging:
+
+安装：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?p=49&spm_id_from=pageDriver)
+

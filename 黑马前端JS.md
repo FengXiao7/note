@@ -1971,7 +1971,7 @@ https://zh.javascript.info/basic-dom-node-properties#nodetype-shu-xing![image-20
     <script>
         // 常见事件对象的属性和方法
         // 1. e.target 返回的是触发事件的对象（元素）  this 返回的是绑定事件的对象（元素）
-        // 区别 ： e.target 点击了那个元素，就返回那个元素 this 那个元素绑定了这个点击事件，那么就返回谁
+        // 区别 ： e.target 点击了哪个元素，就返回那个元素 this 哪个元素绑定了这个点击事件，那么就返回谁
         var div = document.querySelector('div');
         div.addEventListener('click', function(e) {
             console.log(e.target);
@@ -1982,6 +1982,7 @@ https://zh.javascript.info/basic-dom-node-properties#nodetype-shu-xing![image-20
         ul.addEventListener('click', function(e) {
                 // 我们给ul 绑定了事件  那么this 就指向ul  
                 console.log(this);
+            	//currentTarget是我们绑定事件的元素
                 console.log(e.currentTarget);
 
                 // e.target 指向我们点击的那个对象 谁触发了这个事件 我们点击的是li e.target 指向的就是li
