@@ -12,7 +12,7 @@
 
 
 
-4.这是JS教程，不要死记硬背，要深度理解，忘记了回来再查查看看就行。
+4.这是JS教程，不要死记硬背，要深度理解，忘记了回来再查查看看就行。写在这上面的笔记，我在阅读时一定是理解了，才会写上去。（不理解的有特殊说明）所以以后回顾时，遇见不理解的地方，多回笔记里看看
 
 
 
@@ -5455,11 +5455,17 @@ promise.catch(alert); // 1 秒后显示 "Error: Whoops!"
 
 
 
+
+
+
+
+
+
 ## 13.模块
 
 ### 13.1模块简介
 
-https://zh.javascript.info/modules-intro
+[模块 (Module) 简介](https://zh.javascript.info/modules-intro)
 
 #### 1.import和export
 
@@ -5469,7 +5475,11 @@ https://zh.javascript.info/modules-intro
 
 #### 2.模块只通过 HTTP(s) 工作，而非本地
 
-#### 3.模块作用域
+如果你尝试通过 `file://` 协议在本地打开一个网页，你会发现 `import/export` 指令不起作用。你可以使用本地 Web 服务器，例如 [static-server](https://www.npmjs.com/package/static-server#getting-started)，或者使用编辑器的“实时服务器”功能，例如 VS Code 的 [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) 来测试模块。
+
+#### 3.模块作用域，严格模式
+
+模块中始终使用严格模式。
 
 每个模块都有自己的顶级作用域（top-level scope）。换句话说，一个模块中的顶级作用域变量和函数在其他脚本中是不可见的。
 
@@ -5477,7 +5487,33 @@ https://zh.javascript.info/modules-intro
 
 https://zh.javascript.info/modules-intro#mo-kuai-dai-ma-jin-zai-di-yi-ci-dao-ru-shi-bei-jie-xi
 
-我们可以利用这一点配置对象
+假设一个模块导出了一个对象：
+
+```javascript
+// 📁 admin.js
+export let admin = {
+  name: "John"
+};
+```
+
+如果这个模块被导入到多个文件中，模块仅在第一次被导入时被解析，并创建 `admin` 对象，然后将其传入到所有的导入。
+
+所有的导入都只获得了一个唯一的 `admin` 对象：
+
+```javascript
+// 📁 1.js
+import { admin } from './admin.js';
+admin.name = "Pete";
+
+// 📁 2.js
+import { admin } from './admin.js';
+alert(admin.name); // Pete
+
+// 1.js 和 2.js 引用的是同一个 admin 对象
+// 在 1.js 中对对象做的更改，在 2.js 中也是可见的
+```
+
+**这种行为实际上非常方便，因为它允许我们“配置”模块。**
 
 #### 5.在一个模块中，“this” 是 undefined
 
@@ -5491,13 +5527,293 @@ https://zh.javascript.info/modules-intro#mo-kuai-dai-ma-jin-zai-di-yi-ci-dao-ru-
 </script>
 ```
 
+#### 6.延时加载
+
+模块脚本总是会“看到”已完全加载的 HTML 页面，包括在它们下方的 HTML 元素。
+
+例如：
+
+```js
+<script type="module">
+  alert(typeof button); // object：脚本可以“看见”下面的 button
+  // 因为模块是被延迟的（deferred，所以模块脚本会在整个页面加载完成后才运行
+</script>
+
+相较于下面这个常规脚本：
+
+<script>
+  alert(typeof button); // button 为 undefined，脚本看不到下面的元素
+  // 常规脚本会立即运行，常规脚本的运行是在在处理页面的其余部分之前进行的
+</script>
+
+<button id="button">Button</button>
+```
+
+请注意：上面的第二个脚本实际上要先于前一个脚本运行！所以我们会先看到 `undefined`，然后才是 `object`。
+
+#### 7.Async属性
+
+下面的内联脚本具有 `async` 特性，因此它不会等待任何东西。
+
+它执行导入（fetch `./analytics.js`），并在准备导入完成时运行，即使 HTML 文档还未完成，或者其他脚本仍在等待处理中。
+
+这对于不依赖任何其他东西的功能来说是非常棒的，例如计数器，广告，文档级事件监听器。
+
+```js
+<!-- 所有依赖都获取完成（analytics.js）然后脚本开始运行 -->
+<!-- 不会等待 HTML 文档或者其他 <script> 标签 -->
+<script async type="module">
+  import {counter} from './analytics.js';
+
+  counter.count();
+</script>
+```
+
+#### 8.外部脚本
+
+具有 `type="module"` 的外部脚本（external script）在两个方面有所不同：
+
+1. 具有相同 `src` 的外部脚本仅运行一次：
+
+   ```html
+   <!-- 脚本 my.js 被加载完成（fetched）并只被运行一次 -->
+   <script type="module" src="my.js"></script>
+   <script type="module" src="my.js"></script>
+   ```
+
+2. 从另一个源（例如另一个网站）获取的外部脚本需要 [CORS](https://developer.mozilla.org/zh/docs/Web/HTTP/CORS) header，如我们在 [Fetch：跨源请求](https://zh.javascript.info/fetch-crossorigin) 一章中所讲的那样。换句话说，如果一个模块脚本是从另一个源获取的，则远程服务器必须提供表示允许获取的 header `Access-Control-Allow-Origin`。
+
+   ```html
+   <!-- another-site.com 必须提供 Access-Control-Allow-Origin -->
+   <!-- 否则，脚本将无法执行 -->
+   <script type="module" src="http://another-site.com/their.js"></script>
+   ```
+
+#### 9.构建工具
+
+![image-20220403134337229](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403134337229.png)
+
+
+
 ### 13.2导出和导入
 
-#### 1.Export default
+[导出和导入](https://zh.javascript.info/import-export)
 
-https://zh.javascript.info/import-export#exportdefault
+这一章内容平时使用最为频繁，推荐看原文。这里简单记录下
 
-![image-20220327140555462](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220327140555462.png)
+<div style="color: red">我们把 `import/export` 语句放在脚本的顶部或底部，都没关系。</div>
+
+#### 1.Import *
+
+通常，我们把要导入的东西列在花括号 `import {...}` 中，就像这样：
+
+```javascript
+// 📁 main.js
+import {sayHi, sayBye} from './say.js';
+
+sayHi('John'); // Hello, John!
+sayBye('John'); // Bye, John!
+```
+
+但是如果有很多要导入的内容，我们可以使用 `import * as <obj>` 将所有内容导入为一个对象，例如：
+
+```javascript
+// 📁 main.js
+import * as say from './say.js';
+
+say.sayHi('John');
+say.sayBye('John');
+```
+
+这样写其实不好，因为打包时，webpack有树摇机制。准确的命名导入更好
+
+#### 2.Import as
+
+我们也可以使用 `as` 让导入具有不同的名字。
+
+例如，简洁起见，我们将 `sayHi` 导入到局部变量 `hi`，将 `sayBye` 导入到 `bye`：
+
+```javascript
+// 📁 main.js
+import {sayHi as hi, sayBye as bye} from './say.js';
+
+hi('John'); // Hello, John!
+bye('John'); // Bye, John!
+```
+
+#### 3.Export as
+
+导出也具有类似的语法。
+
+我们将函数导出为 `hi` 和 `bye`：
+
+```javascript
+// 📁 say.js
+...
+export {sayHi as hi, sayBye as bye};
+```
+
+现在 `hi` 和 `bye` 是在外面使用时的正式名称：
+
+```javascript
+// 📁 main.js
+import * as say from './say.js';
+
+say.hi('John'); // Hello, John!
+say.bye('John'); // Bye, John!
+```
+
+#### 4.Export default
+
+模块提供了一个特殊的默认导出 `export default` 语法，以使“一个模块只做一件事”的方式看起来更好。
+
+将 `export default` 放在要导出的实体前：
+
+```javascript
+// 📁 user.js
+export default class User { // 只需要添加 "default" 即可
+  constructor(name) {
+    this.name = name;
+  }
+}
+```
+
+然后将其导入而不需要花括号：
+
+```javascript
+// 📁 main.js
+import User from './user.js'; // 不需要花括号 {User}，只需要写成 User 即可
+
+new User('John');
+```
+
+<div style="color: red">请记住，`import` 命名的导出时需要花括号，而 `import` 默认的导出时不需要花括号。</div>
+
+| 默认的导出                        | 命名的导出                |
+| :-------------------------------- | :------------------------ |
+| `export default class User {...}` | `export class User {...}` |
+| `import User from ...`            | `import {User} from ...`  |
+
+我们可以在一个模块中同时有默认的导出和命名的导出，但是实际上人们通常不会混合使用它们。模块要么是命名的导出要么是默认的导出。
+
+由于每个文件最多只能有一个默认的导出，因此导出的实体可能没有名称。
+
+例如，下面这些都是完全有效的默认的导出：
+
+```javascript
+export default class { // 没有类名
+  constructor() { ... }
+}
+export default function(user) { // 没有函数名
+  alert(`Hello, ${user}!`);
+}
+// 导出单个值，而不使用变量
+export default ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+```
+
+#### 5.重新导出
+
+“重新导出（Re-export）”语法 `export ... from ...` 允许导入内容，并立即将其导出（可能是用的是其他的名字），就像这样：
+
+```javascript
+export {sayHi} from './say.js'; // 重新导出 sayHi
+
+export {default as User} from './user.js'; // 重新导出 default
+```
+
+##### 使用场景：
+
+作者举了一个例子：
+
+我们正在编写一个 “package”：一个包含大量模块的文件夹，其中一些功能是导出到外部的（像 NPM 这样的工具允许我们发布和分发这样的 package，但我们不是必须要去使用它们），并且其中一些模块仅仅是供其他 package 中的模块内部使用的 “helpers”。
+
+文件结构可能是这样的：
+
+```none
+auth/
+    index.js
+    user.js
+    helpers.js
+    tests/
+        login.js
+    providers/
+        github.js
+        facebook.js
+        ...
+```
+
+我们希望通过单个入口暴露包的功能。
+
+换句话说，想要使用我们的包的人，应该只从“主文件” `auth/index.js` 导入。
+
+像这样：
+
+```javascript
+import {login, logout} from 'auth/index.js'
+```
+
+我们可能需要这样做：
+
+由于实际导出的功能分散在 package 中，所以我们可以将它们导入到 `auth/index.js`，然后再从中导出它们：
+
+```javascript
+// 📁 auth/index.js
+
+// 导入 login/logout 然后立即导出它们
+import {login, logout} from './helpers.js';
+export {login, logout};
+
+// 将默认导出导入为 User，然后导出它
+import User from './user.js';
+export {User};
+```
+
+
+
+现在使用我们 package 的人可以 `import {login} from "auth/index.js"`。
+
+<div style="color: red">语法 export ... from ... 只是下面这种导入-导出的简写：</div>
+
+```javascript
+// 📁 auth/index.js
+// 重新导出 login/logout
+export {login, logout} from './helpers.js';
+
+// 将默认导出重新导出为 User
+export {default as User} from './user.js';
+```
+
+##### 重新导出默认导出：
+
+重新导出时，默认导出需要单独处理。
+
+假设我们有一个 `user.js` 脚本，其中写了 `export default class User`，并且我们想重新导出类 `User`：
+
+```javascript
+// 📁 user.js
+export default class User {
+  // ...
+}
+```
+
+我们可能会遇到两个问题：
+
+1. `export User from './user.js'` 无效。这会导致一个语法错误。
+
+   要重新导出默认导出，我们必须明确写出 `export {default as User}`，就像上面的例子中那样。
+
+2. `export * from './user.js'` 重新导出只导出了命名的导出，但是忽略了默认的导出。
+
+   如果我们想将命名的导出和默认的导出都重新导出，那么需要两条语句：
+
+   ```javascript
+   export * from './user.js'; // 重新导出命名的导出
+   export {default} from './user.js'; // 重新导出默认的导出
+   ```
+
+重新导出一个默认导出的这种奇怪现象，是某些开发者不喜欢默认导出，而是喜欢命名的导出的原因之一。
+
+
 
 ### 13.3动态导入
 
@@ -5561,13 +5877,83 @@ https://zh.javascript.info/searching-elements-dom#sou-suo-yuan-su
 
 # 其他文章
 
+## 网络请求
+
+### 3.1Fetch
+
+[Fetch](https://zh.javascript.info/fetch)
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 正则表达式
+
+忘了学，学了忘……正则怎么这么难记！！！
 
 传送门：["dotall" | Can I use... Support tables for HTML5, CSS3, etc](https://caniuse.com/?search=dotall)  查看特定正则兼容性
 
 [Regulex：JavaScript Regular Expression Visualizer (jex.im)](https://jex.im/regulex/#!flags=&re=^(a|b)*%3F%24)            图像化正则表达式
 
-match，search，test，replace
+![image-20220405011540682](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405011540682.png)
+
+![image-20220405014135499](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405014135499.png)
+
+### 7.0常用方法：
+
+这个是我自己添加的，书里没详细写
+
+#### match：
+
+ **`match()`** 方法检索返回一个字符串匹配正则表达式的结果。
+
+- 如果使用g标志，则将返回与完整正则表达式匹配的所有结果，但不会返回捕获组。
+- 如果未使用g标志，则仅返回第一个完整匹配及其相关的捕获组（`Array`）。 在这种情况下，返回的项目将具有如下所述的其他属性。
+
+```js
+alert( "Mop top".match(/[tm]op/gi) ); // "Mop", "top"两者构成的数组
+alert( "Mop top".match(/[tm]op/i) ); // "Mop"
+```
+
+#### search：
+
+如果匹配成功，则 `search()` 返回正则表达式在字符串中首次匹配项的索引;否则，返回 `-1`。
+
+```js
+alert( "Mop top".search(/top/gi) ); // 4
+alert( "Mop top".search(/[H]op/i) ); // -1
+```
+
+#### test：
+
+test方法执行一个检索，用来查看正则表达式与指定的字符串是否匹配。返回 `true` 或 `false`。
+
+```js
+alert( /top/gi.test("Mop top") ); // true
+alert( /[H]op/i.test("Mop top") ); // false
+```
+
+#### replace:
+
+**`replace()`** 方法返回一个由替换值（`replacement`）替换部分或所有的模式（`pattern`）匹配项后的新字符串。模式可以是一个字符串或者一个[正则表达式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp)，替换值可以是一个字符串或者一个每次匹配都要调用的回调函数。**如果`pattern`是字符串，则仅替换第一个匹配项。**
+
+原字符串不会改变。
+
+```js
+let str = "+7(903)-123-45-67";
+
+alert( str.replace(/\D/g, "") ); // 79031234567
+```
+
+
 
 ### 7.1模式和修饰符
 
@@ -5810,6 +6196,10 @@ alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (match!)
 
 内容很多，扩展内容也很多。推荐看原文。
 
+![image-20220405005108924](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405005108924.png)
+
+XRegExp:http://xregexp.com/
+
 我在这里只摘取几个案例：
 
 #### 1.摘取任意语言的任意字母
@@ -6043,3 +6433,210 @@ alert( "Chapter 5.1".match(regexp) ); // 5.1
 
 [集合和范围 [...\]](https://zh.javascript.info/regexp-character-sets-and-ranges)
 
+<div style="color: red">在方括号 `[…]` 中的几个字符或者字符类意味着“搜索给定的字符中的任意一个”。</div>
+
+#### 1.集合
+
+比如说，`[eao]` 意味着查找在 3 个字符 `'a'`、`'e'` 或者 `‘o’ 中的任意一个。
+
+这被叫做一个**集合**。集合可以在正则表达式中和其它常规字符一起使用。
+
+```javascript
+// 查找 [t 或者 m]，然后再匹配 “op”
+alert( "Mop top".match(/[tm]op/gi) ); // "Mop", "top"
+```
+
+请注意尽管在集合中有多个字符，但它们在匹配中只会对应其中的一个。
+
+所以下面的示例并不会匹配上：
+
+```javascript
+// 查找 “V”，然后匹配 [o 或者 i]，之后再匹配 “la”
+alert( "Voila".match(/V[oi]la/) ); // null，并没有匹配上
+```
+
+#### 2.范围
+
+方括号也可以包含**字符范围**。
+
+比如说，`[a-z]` 会匹配从 `a` 到 `z` 范围内的字母，`[0-5]` 表示从 `0` 到 `5` 的数字。
+
+在下面的示例中，我们会查询首先匹配 `"x"` 字符，再匹配两个数字或者位于 `A` 到 `F` 范围内的字符。
+
+```javascript
+alert( "Exception 0xAF".match(/x[0-9A-F][0-9A-F]/g) ); // xAF
+```
+
+`[0-9A-F]` 表示两个范围：它搜索一个字符，满足数字 `0` 到 `9` 或字母 `A` 到 `F`。
+
+也可以添加字符类
+
+**字符类是某些字符集的简写**
+
+例如：
+
+- **\d** —— 和 `[0-9]` 相同，
+- **\w** —— 和 `[a-zA-Z0-9_]` 相同，
+- **\s** —— 和 `[\t\n\v\f\r ]` 外加少量罕见的 unicode 空格字符相同。
+
+#### 3.排除范围
+
+除了普通的范围匹配，还有类似 `[^…]` 的“排除”范围匹配。
+
+它们通过在匹配查询的开头添加插入符号 `^` 来表示，它会匹配所有**除了给定的字符**之外的任意字符。
+
+比如说：
+
+- `[^aeyo]` —— 匹配任何除了 `'a'`、`'e'`、`'y'` 或者 `'o'` 之外的字符。
+- `[^0-9]` —— 匹配任何除了数字之外的字符，也可以使用 `\D` 来表示。
+- `[^\s]` —— 匹配任何非空字符，也可以使用 `\S` 来表示。
+
+下面的示例查询除了字母，数字和空格之外的任意字符：
+
+```javascript
+alert( "alice15@gmail.com".match(/[^\d\sA-Z]/gi) ); // @ and .
+```
+
+#### 4.[]中不用转义
+
+<div style="color: red">有特例，在不是开头的位置表示一个插入符号（在开头位置该符号表示的是排除）`'^'`</div>
+
+第二个特例：
+
+<div style="color: red">破折号 `'-'` 在方括号中有特殊含义，但这个含义只有当它位于其它字符之间而不是开头或结尾时才会发生作用，所以我们并不需要转义它。</div>
+
+案例：
+
+`[-().^+]` 会查找 `-().^+` 的其中任意一个字符：
+
+```javascript
+// 并不需要转义
+let reg = /[-().^+]/g;
+
+alert( "1 + 2 - 3".match(reg) ); // 匹配 +，-
+```
+
+。。。但是如果你为了“以防万一”转义了它们，这也不会有任何问题：
+
+```javascript
+//转义其中的所有字符
+let reg = /[\-\(\)\.\^\+]/g;
+
+alert( "1 + 2 - 3".match(reg) ); // 仍能正常工作：+，-
+```
+
+#### 5.代理对记得使用u
+
+```js
+alert( '𝒳'.match(/[𝒳𝒴]/u) ); // 𝒳
+```
+
+### 7.9量词
+
+[量词 `+,*,?` 和 `{n}`](https://zh.javascript.info/regexp-quantifiers)
+
+#### 1.数量{n}
+
+- 确切的位数：`{5}`
+
+  `\d{5}` 表示 5 位的数字，如同 `\d\d\d\d\d`。接下来的例子将会查找一个五位数的数字：`alert( "I'm 12345 years old".match(/\d{5}/) ); //  "12345"`我们可以添加 `\b` 来排除更多位数的数字：`\b\d{5}\b`。
+
+- 某个范围的位数：`{3,5}`
+
+  我们可以将限制范围的数字放入括号中，来查找位数为 3 至 5 位的数字：`\d{3,5}``alert( "I'm not 12, but 1234 years old".match(/\d{3,5}/) ); // "1234"`我们可以省略上限。那么正则表达式 `\d{3,}` 就会查找位数大于或等于 3 的数字：`alert( "I'm not 12, but 345678 years old".match(/\d{3,}/) ); // "345678"`
+
+对于字符串 `+7(903)-123-45-67` 来说，我们如果需要一个或多个连续的数字，就使用 `\d{1,}`：
+
+```javascript
+let str = "+7(903)-123-45-67";
+
+let numbers = str.match(/\d{1,}/g);
+
+alert(numbers); // 7,903,123,45,67
+```
+
+#### 2.缩写
+
+大多数常用的量词都可以有缩写：
+
+我觉得需要注意的地方是他们都是写在后面的
+
+- `+`
+
+  代表“一个或多个”，相当于 `{1,}`。例如，`\d+` 用来查找所有数字：`
+
+  ```js
+  let str = "+7(903)-123-45-67"; alert( str.match(/\d+/g) ); // 7,903,123,45,67
+  ```
+
+- `?`
+
+  代表“零个或一个”，相当于 `{0,1}`。换句话说，它使得符号变得可选。例如，模式 `ou?r` 查找 `o`，后跟零个或一个 `u`，然后是 `r`。所以他能够在 `color` 中找到 `or`，以及在 `colour` 中找到 `our`：
+
+  ```js
+  let str = "Should I write color or colour?"; alert( str.match(/colou?r/g) ); // color, colour
+  ```
+
+- `*`
+
+  代表着“零个或多个”，相当于 `{0,}`。也就是说，这个字符可以多次出现或不出现。接下来的例子将要寻找一个后跟任意数量的 0 的数字：
+
+  ```js
+  alert( "100 10 1".match(/\d0*/g) ); // 100, 10, 1
+  ```
+
+  将它与 `'+'`（一个或多个）作比较：
+
+  ```js
+  alert( "100 10 1".match(/\d0+/g) ); // 100, 10
+  ```
+
+  #### 习题：
+
+  这个还是有很多坑的
+
+  [针对 HTML 颜色的正则表达式](https://zh.javascript.info/regexp-quantifiers#zhen-dui-html-yan-se-de-zheng-ze-biao-da-shi)
+
+### 7.10贪婪量词和惰性量词
+
+[贪婪量词和惰性量词](https://zh.javascript.info/regexp-greedy-and-lazy)
+
+这部分写的太好了！强烈推荐看原文
+
+#### 1.贪婪  + 和*
+
+**在贪婪模式下（默认情况下），量词都会尽可能地重复多次。**
+
+#### 2.惰性 量词后再加一个？
+
+**懒惰模式只能够通过带 `?` 的量词启用，量词都会尽可能少的触发。**
+
+量词有两种工作模式：
+
+- 贪婪模式
+
+  默认情况下，正则表达式引擎会尝试尽可能多地重复量词。例如，`\d+` 检测所有可能的字符。当不可能检测更多（没有更多的字符或到达字符串末尾）时，然后它再匹配模式的剩余部分。如果没有匹配，则减少重复的次数（回溯），并再次尝试。
+
+- 懒惰模式
+
+  通过在量词后添加问号 `?` 来启用。在每次重复量词之前，引擎会尝试去匹配模式的剩余部分。
+
+正如我们所见，懒惰模式并不是针对贪婪搜索的灵丹妙药。另一种方式是“微调”贪婪搜索，我们很快就会见到更多的例子。
+
+经典案例：
+
+```javascript
+alert( "123 456".match(/\d+ \d+?/g) ); // 123 4
+```
+
+1. 模式 `\d+` 尝试匹配尽可能多的数字（贪婪模式），因此在它找到 `123` 时停止，因为下一个字符为空格 `' '`。
+
+2. 匹配到一个空格。
+
+3. 由于 `\d+?`。量词是出于懒惰模式的，所以它匹配一个数字 `4` 并且尝试去检测模式的剩余部分是否匹配。
+
+   。。。但是在 `\d+?` 之后没有其它的匹配项了。
+
+   懒惰模式不会在不必要的情况下重复任何事情。模式结束，所以我们找到了匹配项 `123 4`。
+
+#### 习题：

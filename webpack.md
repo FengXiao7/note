@@ -73,8 +73,6 @@
   },
 ```
 
-## 
-
 # 视频：
 
 [尚硅谷新版Webpack5实战教程(从入门到精通)_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1e7411j7T5?spm_id_from=333.999.0.0)
@@ -2006,7 +2004,7 @@ document.getElementById('btn').onclick = function() {
 
 ## 4.8PWA
 
-就是让你没有网也能浏览一些内容
+就是让你没有网也能浏览一些内容,这是一个技术方向，国外很火。国内大家用小程序更多一点
 
 ### webpack.config.js：
 

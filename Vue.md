@@ -69,7 +69,7 @@
 
 具体做法见[尚硅谷Vue2.0+Vue3.0全套教程丨vuejs从入门到精通_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Zy4y1K7SH?p=72)
 
-18:00开始
+18:00开始，其实就是传函数
 
 
 

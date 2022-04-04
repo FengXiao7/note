@@ -18,7 +18,17 @@ https://pan.baidu.com/s/1hS746pu37B78glu5u-TaPw
 
 提取码：1dz2
 
+# 官网：
 
+[React 官方中文文档 – 用于构建用户界面的 JavaScript 库 (reactjs.org)](https://zh-hans.reactjs.org/)
+
+脚手架：（无中文）
+
+[Create React App (create-react-app.dev)](https://create-react-app.dev/)
+
+路由：
+
+[React Router: Declarative Routing for React.js (docschina.org)](https://react-router.docschina.org/)
 
 # react_basic:
 
@@ -153,7 +163,7 @@ const VDOM = React.createElement('h1',{id:'title'},React.createElement('span',{}
 
 ## 3.JSX语法规则
 
-```html
+```js
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -212,7 +222,7 @@ jsx语法规则：
 
 ## 4.JSX小练习
 
-```html
+```js
 <!DOCTYPE html>
 <html lang="en">
 
@@ -289,7 +299,7 @@ jsx语法规则：
 
 ### 函数式组件：
 
-```html
+```jsx
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1350,7 +1360,9 @@ UNSAFE_
 
 			此时会对比新的虚拟DOM和初始的虚拟DOM，找到key一样的，发现里面的内容变了，就会
 			生成新的真实DOM，随后替换掉页面中之前的真实DOM。我们会发现此前已经存在的小张
-			和小李，还是会更新，显然效率极低。而我们使用唯一标识作为key，就不会有这种问题
+			和小李，还是会更新，显然效率极低。而我们使用唯一标识作为key，就不会有这种问题。
+			当然如果我们把小王加到数组末尾也不会有这种问题。所以说用index作为key，不一定会
+			有问题，慎用。
 	-----------------------------------------------------------------
 
 	慢动作回放----使用id唯一标识作为key
@@ -1376,7 +1388,7 @@ UNSAFE_
 	 */
 ```
 
-```js
+```jsx
 class Person extends React.Component{
 		state = {
 			persons:[
@@ -1422,5 +1434,483 @@ class Person extends React.Component{
 
 # react_staging:
 
-安装：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?p=49&spm_id_from=pageDriver)
+安装：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?p=49&spm_id_from=pageDriver)   13min15s
 
+我git下来的，只需要yarn install即可
+
+## 1.脚手架文件介绍：
+
+脚手架默认帮我们配置了很多文件，但大部分我们都不是很需要使用，除非有特定的业务场景。
+
+最重要的就是index.html,App.js,index.js
+
+### 概览：
+
+ public ---- 静态资源文件夹
+
+​          favicon.icon ------ 网站页签图标
+
+​          **index.html --------** **主页面**
+
+​          logo192.png ------- logo图
+
+​          logo512.png ------- logo图
+
+​          manifest.json ----- 应用加壳的配置文件
+
+​          robots.txt -------- 爬虫协议文件
+
+src ---- 源码文件夹
+
+​          App.css -------- App组件的样式
+
+​          **App.js --------- App****组件**
+
+​          App.test.js ---- 用于给App做测试
+
+​          index.css ------ 样式
+
+​          **index.js -------** **入口文件**
+
+​          logo.svg ------- logo图
+
+​          reportWebVitals.js
+
+​                 --- 页面性能分析文件(需要web-vitals库的支持)
+
+​          setupTests.js
+
+​                 ---- 组件单元测试的文件(需要jest-dom库的支持)
+
+### public:
+
+详细见：https://www.bilibili.com/video/BV1wy4y1D7JT?p=50
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<!-- %PUBLIC_URL%代表public文件夹的路径 -->
+	<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+	<!-- 开启理想视口，用于做移动端网页的适配 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- 用于配置浏览器页签+地址栏的颜色(仅支持安卓手机浏览器) -->
+	<meta name="theme-color" content="red" />
+	<meta name="description" content="Web site created using create-react-app" />
+	<!-- 用于指定网页添加到手机主屏幕后的图标 -->
+	<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+	<!-- 应用加壳时的配置文件 -->
+	<!-- 就是把网页加壳变成.apk文件 -->
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+	<title>React App</title>
+</head>
+
+<body>
+	<!-- 若llq不支持js则展示标签中的内容 -->
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div id="root"></div>
+</body>
+
+</html>
+```
+
+### src：
+
+https://www.bilibili.com/video/BV1wy4y1D7JT?p=51
+
+### 说明：
+
+默认启动端口是3000，我在之前学习webpack缓存时使用了该端口，最好换一个。
+
+传送门：
+
+[(25条消息) React脚手架启动修改默认端口号_杀猪刀-墨林的博客-CSDN博客_react 脚手架如何修改端口](https://blog.csdn.net/qq_38948398/article/details/88573111)
+
+## 2.TOODO_List案例：
+
+### 概览：
+
+![image-20220403194013867](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403194013867.png)
+
+### 1.添加item
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/89.gif" style="zoom: 100%"></img>
+
+
+
+![image-20220403194528703](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403194528703.png)
+
+![image-20220403194916290](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403194916290.png)
+
+把todos跟新后，List遍历自然多了一个item
+
+### 2.鼠标滑动显示删除按钮
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/90.gif" style="zoom: 100%"></img>
+
+![image-20220403195824206](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403195824206.png)
+
+### 3.更新勾选栏状态
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/91.gif" style="zoom: 100%"></img>
+
+我们修改item里面勾选栏的状态，需要更新todos的值，但todos在App里面。App和item相当于爷孙关系（中间隔了个父亲list）。我们目前还是父给子用props传函数的形式实现组件之间的通讯，后续会有更好的方法
+
+![image-20220403201051874](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403201051874.png)
+
+注意这里面{...todo}的写法，我们之前在props那一章有过介绍
+
+![image-20220403201254398](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403201254398.png)
+
+![image-20220403201731817](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403201731817.png)
+
+### 4.删除item
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/92.gif" style="zoom: 100%"></img>
+
+这部分逻辑和第3点：更新勾选栏状态很像。都是通过List当中间商。这里我就只截App的图了
+
+![image-20220403204003019](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403204003019.png)
+
+还可以用confirm优化一下用户体验，注意要加window不然会报错
+
+![image-20220403204540542](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403204540542.png)
+
+然后就是关于删除数组元素性能问题
+
+传送门：
+
+[比较 javascript 中 filter 和 splice 删除数组的性能 | 木头的博客 (mutoe.com)](https://blog.mutoe.com/2019/compare-filter-vs-splice-in-javascript/)
+
+### 5.全选/全不选/删除已选中
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/93.gif" style="zoom: 100%"></img>
+
+![image-20220403213912541](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403213912541.png)
+
+![image-20220403214237065](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403214237065.png)
+
+### 总结：
+
+1.拆分组件、实现静态组件，注意：className、style的写法
+
+ 2.动态初始化列表，如何确定将数据放在哪个组件的state中？
+
+​          ——某个组件使用：放在其自身的state中
+
+​          ——某些组件使用：放在他们共同的父组件state中（官方称此操作为：状态提升）
+
+ 3.关于父子之间通信：
+
+​        1.【父组件】给【子组件】传递数据：通过props传递
+
+​        2.【子组件】给【父组件】传递数据：通过props传递，要求父提前给子传递一个函数
+
+ 4.注意defaultChecked 和 checked的区别，类似的还有：defaultValue 和 value
+
+ 5.状态在哪里，操作状态的方法就在哪里
+
+## 3.配置代理服务器
+
+传送门：
+
+（这个是脚手架的官网喔，没有中文）
+
+官网：[Proxying API Requests in Development | Create React App (create-react-app.dev)](https://create-react-app.dev/docs/proxying-api-requests-in-development/#configuring-the-proxy-manually)
+
+摘自官网：
+
+> **注意：**您无需在任何地方导入此文件。当您启动开发服务器时，它会自动注册。
+
+> **注意：**此文件仅支持 Node 的 JavaScript 语法。确保仅使用支持的语言功能（即不支持 Flow、ES 模块等）。
+>
+> 就是CJS语法
+
+![image-20220404145412990](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404145412990.png)
+
+```js
+//这个包react脚手架已经下载好了
+const proxy = require('http-proxy-middleware')
+
+module.exports = function(app){
+	app.use(
+		proxy('/api1',{ //遇见/api1前缀的请求，就会触发该代理配置
+			target:'http://localhost:5000', //请求转发给谁
+			changeOrigin:true,//控制服务器收到的请求头中Host的值
+			pathRewrite:{'^/api1':''} //重写请求路径(必须)，就是把/api1置空
+		}),
+		proxy('/api2',{
+			target:'http://localhost:5001',
+			changeOrigin:true,
+			pathRewrite:{'^/api2':''}
+		}),
+	)
+}
+```
+
+### react脚手架配置代理总结
+
+（这个总结是老师自己写的，我自己添加了一些信息，我的是9000端口，老师用的是3000）
+
+#### 方法一
+
+> 在package.json中追加如下配置
+
+```json
+"proxy":"http://localhost:5000"
+```
+
+说明：
+
+1. 优点：配置简单，前端请求资源时可以不加任何前缀。
+2. 缺点：不能配置多个代理。
+3. 工作方式：上述方式配置代理，当请求了3000不存在的资源时，那么该请求会转发给5000 （优先匹配前端资源）
+
+
+
+#### 方法二
+
+1. 第一步：创建代理配置文件
+
+   ```
+   在src下创建配置文件：src/setupProxy.js
+   ```
+
+2. 编写setupProxy.js配置具体代理规则：
+
+   ```js
+   const proxy = require('http-proxy-middleware')
+   
+   module.exports = function(app) {
+     app.use(
+       proxy('/api1', {  //api1是需要转发的请求(所有带有/api1前缀的请求都会转发给5000)
+         target: 'http://localhost:5000', //配置转发目标地址(能返回数据的服务器地址)
+         changeOrigin: true, //控制服务器接收到的请求头中host字段的值
+         /*
+          changeOrigin设置为true时，服务器收到的请求头中的host为：localhost:5000
+          changeOrigin设置为false时，服务器收到的请求头中的host为：localhost:3000
+          changeOrigin默认值为false，但我们一般将changeOrigin值设为true
+         */
+         pathRewrite: {'^/api1': ''} //去除请求前缀，保证交给后台服务器的是正常请求地址(必须配置)
+       }),
+         //可以配置多个代理
+       proxy('/api2', { 
+         target: 'http://localhost:5001',
+         changeOrigin: true,
+         pathRewrite: {'^/api2': ''}
+       })
+     )
+   }
+   ```
+
+说明：
+
+1. 优点：可以配置多个代理，可以灵活的控制请求是否走代理。
+2. 缺点：配置繁琐，前端请求资源时必须加前缀。
+
+## 4.gitHub搜索案例：
+
+老师为演示配置代理服务器的又写了个案例，没什么新东西，和之前学习的vue的那个案例一样，我就没有自己敲了。
+
+我在这里简单介绍一下这个案例：
+
+### 简单写写：
+
+只有两个组件List和Search
+
+设置代理：
+
+![image-20220404170753328](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404170753328.png)
+
+搜索成功：
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/94.gif" style="zoom: 100%"></img>
+
+搜索失败：（我改了源码，把url故意拼错）
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/95.gif" style="zoom: 100%"></img>
+
+![image-20220404165855969](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404165855969.png)
+
+![image-20220404170319251](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404170319251.png)
+
+![image-20220404170705194](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404170705194.png)
+
+
+
+React里面好像不怎么容易实现类似v-show这样的功能，最终用的是连续的三元运算符？解决。
+
+传送门：[多个 ‘?’](https://zh.javascript.info/ifelse#duo-ge)
+
+总结：
+
+### 消息订阅与发布：
+
+[mroderick/PubSubJS: Dependency free publish/subscribe for JavaScript (github.com)](https://github.com/mroderick/PubSubJS)
+
+消息订阅与发布，组件通信的另一种方式，可以实现任意两个组件的通信。
+
+还是以gitHub搜素案例为例
+
+![image-20220404173038415](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404173038415.png)
+
+![image-20220404173141909](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404173141909.png)
+
+![image-20220404173254691](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404173254691.png)
+
+### fetch：
+
+使用率很低，因为兼容性不好，旧浏览器需要垫片才能用，但是是原生的，内部不使用XmlHttpRequest对象发送请求。
+
+传送门：[网络请求 (javascript.info)](https://zh.javascript.info/network)
+
+老师这里讲的很基础。
+
+原生未优化的
+
+```js
+ 		fetch(`/api1/search/users2?q=${keyWord}`).then(
+			response => {
+				console.log('联系服务器成功了');
+				return response.json()
+			},
+			error => {
+				console.log('联系服务器失败了',error);
+                //这里返回pending状态的Promise，中断链
+                //如果没这个return的话，默认return undefined，undefined是非Promise类型
+                //所以会返回一个resolved的Promise，value为undefined
+				return new Promise(()=>{})
+			}
+		).then(
+			response => {console.log('获取数据成功了',response);},
+			error => {console.log('获取数据失败了',error);}
+		) 
+```
+
+拿个catch兜底也行
+
+```js
+fetch(`/api1/search/users2?q=${keyWord}`).then(
+			response => {
+				console.log('联系服务器成功了');
+				return response.json()
+			},
+		).then(
+			response => {console.log('获取数据成功了',response);},
+		).catch(
+    		error => console.log('获取数据失败了',error)
+		)
+```
+
+使用try-catch+async+await优化
+
+外侧最近一个函数加一个async
+
+```js
+		try {
+			const response= await fetch(`/api1/search/users2?q=${keyWord}`)
+			const data = await response.json()
+			console.log(data);
+			//PubSub.publish('atguigu',{isLoading:false,users:data.items})
+		} catch (error) {
+			console.log('请求出错',error);
+			//PubSub.publish('atguigu',{isLoading:false,err:error.message})
+		}
+```
+
+### 总结：
+
+	1.设计状态时要考虑全面，例如带有网络请求的组件，要考虑请求失败怎么办。
+	2.ES6小知识点：解构赋值+重命名
+				let obj = {a:{b:1}}
+				const {a} = obj; //传统解构赋值
+				const {a:{b}} = obj; //连续解构赋值
+				const {a:{b:value}} = obj; //连续解构赋值+重命名
+	3.消息订阅与发布机制
+				1.先订阅，再发布（理解：有一种隔空对话的感觉）
+				2.适用于任意组件间通信
+				3.要在组件的componentWillUnmount中取消订阅
+	4.fetch发送请求（关注分离的设计思想）
+				try {
+					const response= await fetch(`/api1/search/users2?q=${keyWord}`)
+					const data = await response.json()
+					console.log(data);
+				} catch (error) {
+					console.log('请求出错',error);
+				}
+
+## 5.路由
+
+### 路由的基本使用：
+
+路由这个概念不用多说，已经很熟悉了。重点介绍一下在React中使用路由。
+
+传送门：[React Router: Declarative Routing for React.js (docschina.org)](https://react-router.docschina.org/)
+
+我们学习WEB路由。
+
+老师的版本是5，后续也会讲6版本。
+
+```js
+"react-router-dom": "^5.2.0"
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/96.gif" style="zoom: 100%"></img>
+
+![image-20220404211821353](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404211821353.png)
+
+![image-20220404211615982](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404211615982.png)
+
+![image-20220404211707813](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404211707813.png)
+
+![image-20220404212027227](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404212027227.png)
+
+#### 总结：
+
+ 		1.明确好界面中的导航区、展示区
+ 		2.导航区的a标签改为Link标签
+ 					<Link to="/xxxxx">Demo</Link>
+ 		3.展示区写Route标签进行路径的匹配
+ 					<Route path='/xxxx' component={Demo}/>
+ 		4.<App>的最外侧包裹了一个<BrowserRouter>或<HashRouter>
+
+目前我们不过多探讨<BrowserRouter>或<HashRouter>的区别
+
+### 路由组件和一般组件的区别：
+
+		1.写法不同：
+					一般组件：<Demo/>
+					路由组件：<Route path="/demo" component={Demo}/>
+		2.存放位置不同：
+					一般组件：components
+					路由组件：pages
+		3.接收到的props不同：
+					一般组件：写组件标签时传递了什么，就能收到什么
+					路由组件：接收到三个固定的属性
+					(这里列出我们最常使用的属性)
+										history:
+													go: ƒ go(n)
+													goBack: ƒ goBack()
+													goForward: ƒ goForward()
+													push: ƒ push(path, state)
+													replace: ƒ replace(path, state)
+										location:
+													pathname: "/about"
+													search: ""
+													state: undefined
+										match:
+													params: {}
+													path: "/about"
+													url: "/about"
+
+### NavLink与封装NavLink：
+
+NavLink可以实现路由链接的高亮，通过activeClassName指定样式名
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/97.gif" style="zoom: 100%"></img>
+
+![image-20220404214454757](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404214454757.png)
+
+![image-20220404214551689](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404214551689.png)

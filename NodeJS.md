@@ -143,16 +143,6 @@ md5
 
 安装 `@escook/express-joi` 中间件，来实现自动对表单数据进行验证的功能：
 
-# 收集的有用的工具：
-
-## 1.util.promisify
-
-用于将老式的`Error first callback`转换为`Promise`对象，让老项目改造变得更为轻松。
-
-传送门：[util.promisify 的那些事儿 - 掘金 (juejin.cn)](https://juejin.cn/post/6844903694807351310)
-
-
-
 
 
 # 第一天：
@@ -1745,7 +1735,7 @@ module.exports = router
 
 #### 请求跨域问题：
 
-协议，url，接口不同都会有跨域问题
+协议，域名，端口不同都会有跨域问题
 
 传送门：
 
