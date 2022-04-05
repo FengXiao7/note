@@ -1040,11 +1040,11 @@ class Login extends React.Component{
 		}
 ```
 
-[dataType]这种对象键的写法不要忘了喔，这叫计算属性
+[dataType]这种对象键的写法不要忘了喔，这叫计算属性。
 
 传送门：[计算属性](https://zh.javascript.info/object#ji-suan-shu-xing)
 
-我们使用onChange触发同一个函数，该函数返回一个函数作为我们onChange的回调
+我们使用onChange触发一个函数，该函数返回一个函数作为我们onChange的回调
 
 ### 2.不使用高阶函数的写法
 
@@ -1079,7 +1079,7 @@ class Login extends React.Component{
 		}
 ```
 
-onChange触发函数回调，这个回调函数调用了saveFormData函数并且传递两个参数（dataType,event）
+onChange触发函数，这个回调函数内部调用了saveFormData函数并且传递两个参数（dataType,event）
 
 
 
@@ -1843,7 +1843,7 @@ fetch(`/api1/search/users2?q=${keyWord}`).then(
 
 ## 5.路由
 
-### 路由的基本使用：
+### 5.1路由的基本使用：
 
 路由这个概念不用多说，已经很熟悉了。重点介绍一下在React中使用路由。
 
@@ -1851,7 +1851,7 @@ fetch(`/api1/search/users2?q=${keyWord}`).then(
 
 我们学习WEB路由。
 
-老师的版本是5，后续也会讲6版本。
+老师的版本是5，后续也会讲6版本，我也会在后续添加6版本的写法
 
 ```js
 "react-router-dom": "^5.2.0"
@@ -1878,7 +1878,7 @@ fetch(`/api1/search/users2?q=${keyWord}`).then(
 
 目前我们不过多探讨<BrowserRouter>或<HashRouter>的区别
 
-### 路由组件和一般组件的区别：
+### 5.2路由组件和一般组件的区别：
 
 		1.写法不同：
 					一般组件：<Demo/>
@@ -1896,6 +1896,7 @@ fetch(`/api1/search/users2?q=${keyWord}`).then(
 													goForward: ƒ goForward()
 													push: ƒ push(path, state)
 													replace: ƒ replace(path, state)
+												(history里也有location对象和下面这个location是一样的)
 										location:
 													pathname: "/about"
 													search: ""
@@ -1905,7 +1906,7 @@ fetch(`/api1/search/users2?q=${keyWord}`).then(
 													path: "/about"
 													url: "/about"
 
-### NavLink与封装NavLink：
+### 5.3NavLink与封装NavLink：
 
 NavLink可以实现路由链接的高亮，通过activeClassName指定样式名
 
@@ -1914,3 +1915,708 @@ NavLink可以实现路由链接的高亮，通过activeClassName指定样式名
 ![image-20220404214454757](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404214454757.png)
 
 ![image-20220404214551689](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404214551689.png)
+
+#### 封装：
+
+<div style="color: red">标签体是特殊的标签属性children</div>
+
+![image-20220405132244890](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405132244890.png)
+
+所以这两行代码是一个意思
+
+```jsx
+<NavLink activeClassName="atguigu" className="list-group-item" to="/home">Home</NavLink>
+<NavLink activeClassName="atguigu" className="list-group-item" to="/about" children="About"/>
+```
+
+我们把公共部分抽离出来形成MyNavLink：
+
+![image-20220405132752271](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405132752271.png)
+
+![image-20220405133004566](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405133004566.png)
+
+### 5.4Switch：
+
+1.通常情况下，path和component是一一对应的关系。
+
+2.Switch可以提高路由匹配效率(单一匹配)。
+
+不加switch的情况
+
+![image-20220405135025377](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405135025377.png)
+
+![image-20220405134923309](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405134923309.png)
+
+加switch：
+
+![image-20220405135133213](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405135133213.png)
+
+![image-20220405135048764](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405135048764.png)
+
+### 5.5样式丢失问题：
+
+#### 前置知识：
+
+我的public目录结构：
+
+![image-20220405140740447](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405140740447.png)
+
+内置的的webpack-dev-server服务器以public为根目录。
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/98.gif" style="zoom: 100%"></img>
+
+找不到的路径会默认返回index.html
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/99.gif" style="zoom: 100%"></img>
+
+#### 展示问题：
+
+![image-20220405141723213](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405141723213.png)
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/100.gif" style="zoom: 100%"></img>
+
+可以看到访问bootstrap.css的url变成了下面这个
+
+(http://localhost:9000/atguigu/css/bootstrap.css)
+
+那么直接就返回index.html
+
+#### 解决办法：
+
+##### 1.相对路径
+
+![image-20220405142731091](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405142731091.png)
+
+##### 2.绝对路径
+
+![image-20220405142837088](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405142837088.png)
+
+##### 3.HashRouter
+
+![image-20220405143348711](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405143348711.png)
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/101.gif" style="zoom: 100%"></img>
+
+这是因为#后的路径都当做前端资源，不会发送请求给后台
+
+#### 总结：
+
+​		1.public/index.html 中 引入样式时不写 ./ 写 / （常用）
+
+​        2.public/index.html 中 引入样式时不写 ./ 写 %PUBLIC_URL% （常用）（这个只适用于React）
+
+​        3.使用HashRouter（不常用）
+
+### 5.6模糊匹配和精准匹配
+
+![image-20220405144422121](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405144422121.png)
+
+![image-20220405144512834](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405144512834.png)
+
+![image-20220405144836323](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405144836323.png)
+
+#### 总结：
+
+​		1.默认使用的是模糊匹配（简单记：【输入的路径】必须包含要【匹配的路径】，且顺序要一致）
+
+​        2.开启严格匹配：<Route exact={true} path="/about" component={About}/>
+
+<div style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.严格匹配不要随便开启，需要再开，有些时候开启会导致无法继续匹配二级路由</div>
+
+### 5.7Redirect
+
+重定向
+
+![image-20220405145335852](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405145335852.png)
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/102.gif" style="zoom: 100%"></img>
+
+```
+				1.一般写在所有路由注册的最下方，当所有路由都无法匹配时，跳转到Redirect指定的路由
+				2.具体编码：
+						<Switch>
+							<Route path="/about" component={About}/>
+							<Route path="/home" component={Home}/>
+							<Redirect to="/about"/>
+						</Switch>
+```
+
+### 5.8嵌套路由
+
+![image-20220405145850943](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405145850943.png)
+
+![image-20220405150135162](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405150135162.png)
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/103.gif" style="zoom: 100%"></img>
+
+```
+				1.注册子路由时要写上父路由的path值
+				2.路由的匹配是按照注册路由的顺序进行的
+				3.嵌套路由，不要在父级路由里面开启精准匹配
+```
+
+### 5.9路由组件传递参数
+
+#### params：
+
+![image-20220405152536754](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405152536754.png)
+
+Message路由组件：
+
+```jsx
+export default class Message extends Component {
+	state = {
+		messageArr: [
+			{ id: '01', title: '消息1' },
+			{ id: '02', title: '消息2' },
+			{ id: '03', title: '消息3' },
+		]
+	}
+	render() {
+		const { messageArr } = this.state
+		return (
+			<div>
+				<ul>
+					{
+						messageArr.map((msgObj) => {
+							return (
+								<li key={msgObj.id}>
+									{/* 向路由组件传递params参数 */}
+									<Link to={`/home/message/detail/${msgObj.id}/${msgObj.title}`}>{msgObj.title}</Link>
+								</li>
+							)
+						})
+					}
+				</ul>
+				<hr />
+				{/* 声明接收params参数 */}
+				<Route path="/home/message/detail/:id/:title" component={Detail} />
+			</div>
+		)
+	}
+}
+```
+
+Detail路由组件：
+
+```jsx
+const DetailData = [
+	{id:'01',content:'你好，中国'},
+	{id:'02',content:'你好，尚硅谷'},
+	{id:'03',content:'你好，未来的自己'}
+]
+export default class Detail extends Component {
+	render() {
+		console.log(this.props);
+		// 接收params参数
+		const {id,title} = this.props.match.params
+		const findResult = DetailData.find((detailObj)=>{
+			return detailObj.id === id
+		})
+		return (
+			<ul>
+				<li>ID:{id}</li>
+				<li>TITLE:{title}</li>
+				<li>CONTENT:{findResult.content}</li>
+			</ul>
+		)
+	}
+}
+```
+
+#### search：
+
+这个search就是vue里面的query参数
+
+![image-20220405160417032](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405160417032.png)
+
+![image-20220405160600397](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405160600397.png)
+
+![image-20220405153750699](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405153750699.png)
+
+解析字符串，老师用的是node里的qs。自己写正则也可以很轻松实现。但是我这个正则不支持对象参数，看看就好
+
+```js
+const {search} = this.props.location
+let str = '{"'+search.slice(1).replace(/&/g,'","').replace(/=/g,'":"')+'"}'
+console.log(str)
+let search_obj = JSON.parse(str)
+console.log(search_obj)
+```
+
+![image-20220405155839547](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405155839547.png)
+
+searc_obj就是由search参数构成的的对象了。
+
+slice（1）返回除？外的字符串，把‘&’替换为‘","’，把‘=’替换为‘","’，再用{" "}括起来，用JSON.parse转化为对象就行。
+
+因为JSON字符串要求比较严格，键值对都得用""包起来。
+
+#### state：
+
+![image-20220405162608582](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405162608582.png)
+
+![image-20220405162828835](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405162828835.png)
+
+![image-20220405162943969](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405162943969.png)
+
+刷新也没有问题：
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/104.gif" style="zoom: 100%"></img>
+
+新开页面会得到undefined，所以一定要写 ||{}
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/105.gif" style="zoom: 100%"></img>
+
+#### 总结：
+
+1.params参数
+            		   路由链接(携带参数)：<Link to='/demo/test/tom/18'}>详情</Link>
+                        注册路由(声明接收)：<Route path="/demo/test/:name/:age" component={Test}/>
+					   接收参数：this.props.match.params
+
+2.search参数
+						  路由链接(携带参数)：<Link to='/demo/test?name=tom&age=18'}>详情</Link>
+						 注册路由(无需声明，正常注册即可)：<Route path="/demo/test" component={Test}/>
+						 接收参数：this.props.location.search
+						 备注：获取到的search是urlencoded编码字符串，需要借助qs解析
+3.state参数
+						路由链接(携带参数)：<Link to={{pathname:'/demo/test',state:{name:'tom',age:18}}}>详情</Link>			    						注册路由(无需声明，正常注册即可)：<Route path="/demo/test" component={Test}/>
+						接收参数：this.props.location.state
+						备注：刷新也可以保留住参数，但是操作state对象要加一个 || {}，防止报错
+
+### 5.10push和replace
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/106.gif" style="zoom: 100%"></img>
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/107.gif" style="zoom: 100%"></img>
+
+![image-20220405173849092](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405173849092.png)
+
+
+
+### 5.11编程式路由导航
+
+这个地方和vue的编程式路由导航差别不大。一般我们想在跳转路由时额外写一些逻辑，就用编程式路由导航
+
+![image-20220405175703592](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220405175703592.png)
+
+所有三种模式，都必须和其规则匹配。这里三种之前都写过了，以parms为例
+
+Message：
+
+```jsx
+import React, { Component } from 'react'
+import {Link,Route} from 'react-router-dom'
+import Detail from './Detail'
+
+export default class Message extends Component {
+	state = {
+		messageArr:[
+			{id:'01',title:'消息1'},
+			{id:'02',title:'消息2'},
+			{id:'03',title:'消息3'},
+		]
+	}
+
+	replaceShow = (id,title)=>{
+		//replace跳转+携带params参数
+		this.props.history.replace(`/home/message/detail/${id}/${title}`)
+
+		//replace跳转+携带search参数
+		// this.props.history.replace(`/home/message/detail?id=${id}&title=${title}`)
+
+		//replace跳转+携带state参数
+		//这个要特殊一点，需要额外携带state参数
+		// this.props.history.replace(`/home/message/detail`,{id,title})
+	}
+
+	pushShow = (id,title)=>{
+		//push跳转+携带params参数
+		this.props.history.push(`/home/message/detail/${id}/${title}`)
+
+		//push跳转+携带search参数
+		// this.props.history.push(`/home/message/detail?id=${id}&title=${title}`)
+
+		//push跳转+携带state参数
+		// this.props.history.push(`/home/message/detail`,{id,title})
+		
+	}
+
+	back = ()=>{
+		this.props.history.goBack()
+	}
+
+	forward = ()=>{
+		this.props.history.goForward()
+	}
+
+	go = ()=>{
+		// -2就是回退2步，3就是前进3步
+		this.props.history.go(-2)
+	}
+
+	render() {
+		const {messageArr} = this.state
+		return (
+			<div>
+				<ul>
+					{
+                        messageArr.map((msgObj)=>{
+							return (
+								<li key={msgObj.id}>
+
+									{/* 向路由组件传递params参数 */}
+	<Link to={`/home/message/detail/${msgObj.id}/${msgObj.title}`}>{msgObj.title}</Link>
+
+									{/* 向路由组件传递search参数 */}
+{/* <Link to={`/home/message/detail/?id=${msgObj.id}&title=${msgObj.title}`}>{msgObj.title}</Link> */}
+
+									{/* 向路由组件传递state参数 */}
+{/* <Link to={{pathname:'/home/message/detail',state:{id:msgObj.id,title:msgObj.title}}}>{msgObj.title}</Link> */}
+
+                         {/*这是不使用高阶函数的写法*/}
+	&nbsp;<button onClick={()=> this.pushShow(msgObj.id,msgObj.title)}>push查看</button>
+   &nbsp;<button onClick={()=> this.replaceShow(msgObj.id,msgObj.title)}>replace查看</button>
+								</li>
+							)
+						})
+					}
+				</ul>
+				<hr/>
+				{/* 声明接收params参数 */}
+				<Route path="/home/message/detail/:id/:title" component={Detail}/>
+
+				{/* search参数无需声明接收，正常注册路由即可 */}
+				{/* <Route path="/home/message/detail" component={Detail}/> */}
+
+				{/* state参数无需声明接收，正常注册路由即可 */}
+				{/* <Route path="/home/message/detail" component={Detail}/> */}
+
+				<button onClick={this.back}>回退</button>&nbsp;
+				<button onClick={this.forward}>前进</button>&nbsp;
+				<button onClick={this.go}>go</button>
+			</div>
+		)
+	}
+}
+
+```
+
+Detail：
+
+```jsx
+import React, { Component } from 'react'
+// import qs from 'qs'
+
+const DetailData = [
+	{id:'01',content:'你好，中国'},
+	{id:'02',content:'你好，尚硅谷'},
+	{id:'03',content:'你好，未来的自己'}
+]
+export default class Detail extends Component {
+	render() {
+		console.log(this.props);
+
+		// 接收params参数
+		const {id,title} = this.props.match.params 
+
+		// 接收search参数
+		// const {search} = this.props.location
+		// const {id,title} = qs.parse(search.slice(1))
+
+		// 接收state参数
+		// const {id,title} = this.props.location.state || {}
+
+		const findResult = DetailData.find((detailObj)=>{
+			return detailObj.id === id
+		}) || {}
+		return (
+			<ul>
+				<li>ID:{id}</li>
+				<li>TITLE:{title}</li>
+				<li>CONTENT:{findResult.content}</li>
+			</ul>
+		)
+	}
+}
+
+```
+
+#### 总结：
+
+```
+					借助this.prosp.history对象上的API对操作路由跳转、前进、后退
+							-this.prosp.history.push()
+							-this.prosp.history.replace()
+							-this.prosp.history.goBack()
+							-this.prosp.history.goForward()
+							-this.prosp.history.go()
+```
+
+### 5.12withRouter
+
+这个东西就是让非路由组件拥有路由组件的那些API
+
+Header：（这是个一般组件）
+
+```jsx
+import React, { Component } from 'react'
+import {withRouter} from 'react-router-dom'
+
+class Header extends Component {
+
+	back = ()=>{
+		this.props.history.goBack()
+	}
+
+	forward = ()=>{
+		this.props.history.goForward()
+	}
+
+	go = ()=>{
+		this.props.history.go(-2)
+	}
+
+	render() {
+		console.log('Header组件收到的props是',this.props);
+		return (
+			<div className="page-header">
+				<h2>React Router Demo</h2>
+				<button onClick={this.back}>回退</button>&nbsp;
+				<button onClick={this.forward}>前进</button>&nbsp;
+				<button onClick={this.go}>go</button>
+			</div>
+		)
+	}
+}
+
+export default withRouter(Header)
+
+//withRouter可以加工一般组件，让一般组件具备路由组件所特有的API
+//withRouter的返回值是一个新组件
+
+```
+
+效果也能实现，就不截图了
+
+### 5.13BrowserRouter与HashRouter的区别
+
+​      1.底层原理不一样：
+
+​            BrowserRouter使用的是H5的history API，不兼容IE9及以下版本。
+
+​            HashRouter使用的是URL的哈希值。
+
+​      2.path表现形式不一样
+
+​            BrowserRouter的路径中没有#,例如：localhost:3000/demo/test
+
+​            HashRouter的路径包含#,例如：localhost:3000/#/demo/test。
+
+​	#后的路径都当做前端资源，不会返回给后台。
+
+​      3.刷新后对路由state参数的影响
+
+​            (1).BrowserRouter没有任何影响，因为state保存在history对象中。
+
+​            (2).HashRouter刷新后会导致路由state参数的丢失！！！因为底层HashRouter就没用这个history API
+
+​      4.备注：HashRouter可以用于解决一些路径错误相关的问题。但我们一般都有更好的方案。见5.5
+
+## 6.antDesign
+
+官网：[Ant Design - The world's second most popular React UI framework](https://ant.design/)
+
+建议看官方文档
+
+# redux_test
+
+理解：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?p=98&spm_id_from=pageDriver)  从30分钟开始看
+
+1. 英文文档: https://redux.js.org/
+
+2. 中文文档: http://www.redux.org.cn/
+
+3. Github: https://github.com/reactjs/redux
+
+我们写一个求和案例，来解释redux的基本使用
+
+## 1.纯react
+
+这个很简单，没啥好说的
+
+```jsx
+import React, { Component } from 'react'
+
+export default class Count extends Component {
+    state = { count: 0 }
+    myRef = React.createRef()
+    //+
+    increment = () => {
+        const {value} = this.myRef.current
+        const {count} = this.state
+        this.setState({count:count+(+value)})
+    }
+    //-
+    decrement = () => {
+        const {value} = this.myRef.current
+        const {count} = this.state
+        this.setState({count:count-(+value)})
+    }
+    //奇数+
+    incrementIfOdd = () => {
+        const {value} = this.myRef.current
+        const {count} = this.state
+        if(count%2!=0){
+            this.setState({count:count+(+value)})
+        }
+    }
+    //异步+
+    incrementAsync = () => {
+        const {value} = this.myRef.current
+        const {count} = this.state
+        setTimeout(()=>{
+            this.setState({count:count+(+value)})
+        },200)
+    }
+    render() {
+        return (
+            <div>
+                <h1>当前求和为：{this.state.count}</h1>
+                <select ref={this.myRef}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <button onClick={this.increment}>+</button>
+                <button onClick={this.decrement}>-</button>
+                <button onClick={this.incrementIfOdd}>当前求和为奇数再加</button>
+                <button onClick={this.incrementAsync}>异步加</button>
+            </div>
+        )
+    }
+}
+
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/108.gif" style="zoom: 100%"></img>
+
+## 2.redux精简版
+
+这个版本没有ActionCreators
+
+
+
+redux/store.js  (主管)
+
+```js
+/* 
+	该文件专门用于暴露一个store对象，整个应用只有一个store对象
+*/
+
+//引入createStore，专门用于创建redux中最为核心的store对象
+import {createStore} from 'redux'
+//引入为Count组件服务的reducer
+import countReducer from './count_reducer'
+//暴露store
+export default createStore(countReducer)
+```
+
+redux/count_reducer.js （后厨）
+
+```js
+/* 
+	1.该文件是用于创建一个为Count组件服务的reducer，reducer的本质就是一个函数
+	2.reducer函数会接到两个参数，分别为：之前的状态(preState)，动作对象(action)
+*/
+
+function countReducer(preState=0,action){
+	console.log(preState,action)
+	//从action对象中获取：type、data
+	const {type,data} = action
+	//根据type决定如何加工数据
+	switch(type){
+		//奇数+，异步+reducer不管。
+		//菜里不加香菜，厨师不管！
+		case '+':
+			return preState+data;
+		case '-':
+			return preState-=data;
+		default:
+			return preState;
+	}
+}
+export default countReducer
+```
+
+Count/index.jsx
+
+```jsx
+import React, { Component } from 'react'
+import store from '../../redux/store'
+
+export default class Count extends Component {
+    myRef = React.createRef()
+
+    componentDidMount(){
+		//检测redux中状态的变化，只要变化，就调用render
+		store.subscribe(()=>{
+            //这里假更新，调用render
+			this.setState({})
+            //强制更新也行
+            // this.forceUpdate()
+		})
+	} 
+
+    //+
+    increment = () => {
+        const {value} = this.myRef.current
+        //在这里修改状态，但是不会执行render渲染
+        //主管传菜单给后厨
+        store.dispatch({type:"+",data:+value})
+    }
+    //-
+    decrement = () => {
+        const {value} = this.myRef.current
+        store.dispatch({type:"-",data:+value})
+    }
+    //奇数再加
+	incrementIfOdd = ()=>{
+		const {value} = this.myRef.current
+		const count = store.getState()
+		if(count % 2 !== 0){
+			store.dispatch({type:'+',data:+value})
+		}
+	}
+	//异步加
+	incrementAsync = ()=>{
+		const {value} = this.myRef.current
+		setTimeout(()=>{
+			store.dispatch({type:'+',data:+value})
+		},200)
+	}
+    render() {
+        return (
+            <div>
+                {/*获取store里最新的状态*/}
+                <h1>当前求和为：{store.getState()}</h1>
+                <select ref={this.myRef}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <button onClick={this.increment}>+</button>
+                <button onClick={this.decrement}>-</button>
+                <button onClick={this.incrementIfOdd}>当前求和为奇数再加</button>
+                <button onClick={this.incrementAsync}>异步加</button>
+            </div>
+        )
+    }
+}
+
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/109.gif" style="zoom: 100%"></img>
