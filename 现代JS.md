@@ -1,6 +1,6 @@
 # 说明：
 
-1.此笔记记录我对电子书现代 JavaScript 教程学习情况。电子书中记录了很多新特性，不乏ES2020里面的新特性。甚至还有处于提案的语法，比如私有属性关键字#之类的。且保持更新，很值得深入阅读多次阅读。
+1.此笔记记录我对电子书现代 JavaScript 教程学习情况。电子书中记录了很多新特性，不乏ES2020里面的新特性。且保持更新，很值得深入阅读多次阅读。
 
 
 
@@ -5909,7 +5909,7 @@ https://zh.javascript.info/searching-elements-dom#sou-suo-yuan-su
 
 ### 7.0常用方法：
 
-这个是我自己添加的，书里没详细写
+这个是我自己添加的，书里没详细写，或者说写的比较分散
 
 #### match：
 
@@ -5918,9 +5918,13 @@ https://zh.javascript.info/searching-elements-dom#sou-suo-yuan-su
 - 如果使用g标志，则将返回与完整正则表达式匹配的所有结果，但不会返回捕获组。
 - 如果未使用g标志，则仅返回第一个完整匹配及其相关的捕获组（`Array`）。 在这种情况下，返回的项目将具有如下所述的其他属性。
 
+<div style="color: red">所以有多个匹配结果最好还是使用matchAll,这样可以获得完整的捕获组</div> 
+
+详见7.11捕获组
+
 ```js
 alert( "Mop top".match(/[tm]op/gi) ); // "Mop", "top"两者构成的数组
-alert( "Mop top".match(/[tm]op/i) ); // "Mop"
+alert( "Mop top".match(/[tm]op/i) ); // "Mop"  只有一个元素的数组
 ```
 
 #### search：
@@ -5947,13 +5951,26 @@ alert( /[H]op/i.test("Mop top") ); // false
 
 原字符串不会改变。
 
+还有一个替换捕获组的用法，见7.11第4点
+
 ```js
 let str = "+7(903)-123-45-67";
 
 alert( str.replace(/\D/g, "") ); // 79031234567
 ```
 
+#### matchAll:
 
+[搜索所有具有组的匹配项：matchAll](https://zh.javascript.info/regexp-groups#sou-suo-suo-you-ju-you-zu-de-pi-pei-xiang-matchall)
+
+就像 `match` 一样，它寻找匹配项，但有 3 个区别：
+
+1. 它返回的不是数组，而是一个可迭代的对象。
+2. 当标志 `g` 存在时，它将每个匹配组作为一个数组返回。
+3. 如果没有匹配项，则不返回 `null`，而是返回一个空的可迭代对象。
+4. 有多个匹配项，必须加标志g。否则报错（这是我自己发现的）
+
+我们可以用Array.from把可迭代对象转换为数组
 
 ### 7.1模式和修饰符
 
@@ -6639,4 +6656,237 @@ alert( "123 456".match(/\d+ \d+?/g) ); // 123 4
 
    懒惰模式不会在不必要的情况下重复任何事情。模式结束，所以我们找到了匹配项 `123 4`。
 
+### 7.11捕获组
+
+[捕获组](https://zh.javascript.info/regexp-groups)
+
+模式的一部分可以用括号括起来 `(...)`。这称为“捕获组（capturing group）”。
+
+这有两个影响：
+
+1. 它允许将匹配的一部分作为结果数组中的单独项。（这个直接看案例就行）
+2. 如果我们将量词放在括号后，则它将括号视为一个整体。
+
+#### 验证第一点：
+
+括号从左到右编号。正则引擎会记住它们各自匹配的内容，并允许在结果中获得它。
+
+方法 `str.match(regexp)`，如果 `regexp` 没有 `g` 标志，将查找第一个匹配并将它作为一个数组返回：
+
+1. 在索引 `0` 处：完全匹配。
+2. 在索引 `1` 处：第一个括号的内容。
+3. 在索引 `2` 处：第二个括号的内容。
+4. …等等…
+
+我们想找到 HTML 标记 `<.*?>` 并进行处理。这将很方便的把标签内容（尖括号内的内容）放在单独的变量中。
+
+让我们将内部内容包装在括号中，像这样：`<(.*?)>`。
+
+现在，我们能在结果数组中获取标签的整体 `<h1>` 及其内容 `h1`：
+
+```javascript
+let str = '<h1>Hello, world!</h1>';
+
+let tag = str.match(/<(.*?)>/);
+
+alert( tag[0] ); // <h1>
+alert( tag[1] ); // h1
+alert( tag[2] ); // undefined 因为只有一个括号
+```
+
+#### 验证第二点：
+
+不带括号，模式 `go+` 表示 `g` 字符，其后 `o` 重复一次或多次。例如 `goooo` 或 `gooooooooo`。
+
+括号将字符组合，所以 `(go)+` 匹配 `go`，`gogo`，`gogogo`等。
+
+```javascript
+alert( 'Gogogo now!'.match(/(go)+/i) ); // "Gogogo"
+```
+
+
+
+#### 1.嵌套组：
+
+
+
+`result` 的零索引始终保持完全匹配。
+
+然后按左括号将组从左到右编号。第一组返回为 `result[1]`。它包含了整个标签内容。
+
+然后 `result[2]` 从第二个开始的括号中进入该组 `([a-z]+)` —— 标签名称，然后在 `result[3]` 标签中：`([^>]*)`。
+
+字符串中每个组的内容：
+
+![image-20220406010849955](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220406010849955.png)
+
+```js
+let str = '<span class="my">';
+
+let regexp = /<(([a-z]+)\s*([^>]*))>/;
+//这个是没有括号的版本，看起来有清楚些
+// let regexp = /<[a-z]+\s*[^>]*>/;
+
+let result = str.match(regexp);
+alert(result[0]); // <span class="my">
+alert(result[1]); // span class="my"
+alert(result[2]); // span
+alert(result[3]); // class="my"
+```
+
+#### 2.可选组：
+
+让我们考虑正则 `a(z)?(c)?`。它寻找 `"a"` ，然后是可选的 `"z"`，然后是可选的 `"c"`。
+
+如果我们在单个字母的字符串上运行 `a`，则结果为：
+
+```javascript
+let match = 'a'.match(/a(z)?(c)?/);
+
+alert( match.length ); // 3
+alert( match[0] ); // a（完全匹配）
+alert( match[1] ); // undefined
+alert( match[2] ); // undefined
+```
+
+数组的长度为 `3`，但所有组均为空。
+
+这是字符串的一个更复杂的匹配 `ac`：
+
+```javascript
+let match = 'ac'.match(/a(z)?(c)?/)
+
+alert( match.length ); // 3
+alert( match[0] ); // ac（完全匹配）
+alert( match[1] ); // undefined，因为 (z)? 没匹配项
+alert( match[2] ); // c
+```
+
+数组长度是恒定的：`3`。但是对于组 `(z)?` 而言，什么都没有，所以结果是 `["ac", undefined, "c"]`。
+
+#### 3.命名组
+
+用数字记录组很困难。对于简单模式，它是可行的，但对于更复杂的模式，计算括号很不方便。我们有一个更好的选择：给括号起个名字。
+
+这是通过在开始括号之后立即放置 `?<name>` 来完成的。
+
+例如，让我们查找 “year-month-day” 格式的日期：
+
+```js
+//不带命名组的版本
+let dateRegexp = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+
+let str = "2019-04-30";
+
+let array= str.match(dateRegexp)
+
+console.log(array);
+```
+
+![image-20220406012806594](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220406012806594.png)
+
+```js
+//带命名组的版本
+let dateRegexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/;
+
+let str = "2019-04-30";
+
+let array= str.match(dateRegexp)
+
+console.log(array);
+```
+
+![image-20220406013037244](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220406013037244.png)
+
+如果有多个匹配对象，最好使用matchAll，而不是使用match+g的方法，因为后者只会返回匹配结果，不会返回捕获组。
+
+我们看看区别：
+
+使用matchAll：
+
+注意一定要加标志g否则会报错
+
+```js
+let dateRegexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/g;
+
+let str = "2019-04-30 2020-01-01";
+
+//str.match(dateRegexp)返回的是一个由一个元素构成的数组
+let array= Array.from(str.matchAll(dateRegexp)) 
+
+console.log(array);
+```
+
+正确返回命名组
+
+![image-20220406014819998](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220406014819998.png)
+
+使用match：
+
+```js
+let dateRegexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/g;
+
+let str = "2019-04-30 2020-01-01";
+
+//str.match(dateRegexp)返回的是一个由一个元素构成的数组
+let array= str.match(dateRegexp) 
+
+console.log(array);
+```
+
+![image-20220406014924387](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220406014924387.png)
+
+#### 4替换捕获组
+
+方法 `str.replace(regexp, replacement)` 用 `replacement` 替换 `str` 中匹配 `regexp` 的所有捕获组。这使用 `$n` 来完成，其中 `n` 是组号。
+
+例如，
+
+```javascript
+let str = "John Bull";
+let regexp = /(\w+) (\w+)/;
+
+alert( str.replace(regexp, '$2, $1') ); // Bull, John
+```
+
+对于命名括号，引用为 `$<name>`。
+
+例如，让我们将日期格式从 “year-month-day” 更改为 “day.month.year”：
+
+```javascript
+let regexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/g;
+
+let str = "2019-10-30, 2020-01-01";
+
+alert( str.replace(regexp, '$<day>.$<month>.$<year>') );
+// 30.10.2019, 01.01.2020
+```
+
+#### 5.非捕获组
+
+有时我们需要括号才能正确应用量词，但我们不希望它们的内容出现在结果中。
+
+可以通过在开头添加 `?:` 来排除组。
+
+例如，如果我们要查找 `(go)+`，但不希望括号内容（`go`）作为一个单独的数组项，则可以编写：`(?:go)+`。
+
+在下面的示例中，我们仅将名称 `John` 作为匹配项的单独成员：
+
+```javascript
+let str = "Gogogo John!";
+
+// ?: 从捕获组中排除 'go'
+let regexp = /(?:go)+ (\w+)/i;
+
+let result = str.match(regexp);
+
+alert( result[0] ); // Gogogo John（完全匹配）
+alert( result[1] ); // John
+alert( result.length ); // 2（数组中没有更多项）
+```
+
 #### 习题：
+
+除了最后一个，其他的都很简单，但看了答案后，最后一个也不难
+
+[任务](https://zh.javascript.info/regexp-groups#tasks)
