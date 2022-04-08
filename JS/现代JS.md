@@ -6656,7 +6656,7 @@ alert( "123 456".match(/\d+ \d+?/g) ); // 123 4
 
    懒惰模式不会在不必要的情况下重复任何事情。模式结束，所以我们找到了匹配项 `123 4`。
 
-### 7.11捕获组
+### 7.11捕获组（）
 
 [捕获组](https://zh.javascript.info/regexp-groups)
 
@@ -6838,7 +6838,7 @@ console.log(array);
 
 #### 4替换捕获组
 
-方法 `str.replace(regexp, replacement)` 用 `replacement` 替换 `str` 中匹配 `regexp` 的所有捕获组。这使用 `$n` 来完成，其中 `n` 是组号。
+方法 `str.replace(regexp, replacement)` 用 `replacement` 替换 `str` 中匹配 `regexp` 的所有捕获组。这使用 `$n` 来完成，其中 `n` 是组号。在替换字符串中，`$&` 表示匹配本身
 
 例如，
 
@@ -6890,3 +6890,146 @@ alert( result.length ); // 2（数组中没有更多项）
 除了最后一个，其他的都很简单，但看了答案后，最后一个也不难
 
 [任务](https://zh.javascript.info/regexp-groups#tasks)
+
+### 7.12模式中的反向引用：\N 和 \k
+
+[模式中的反向引用：\N 和 \k](https://zh.javascript.info/regexp-backreferences)
+
+#### 按编号反向引用\N:
+
+```javascript
+let str = `He said: "She's the one!".`;
+
+let regexp = /(['"])(.*?)\1/g;
+
+alert( str.match(regexp) ); // "She's the one!"
+```
+
+正则表达式引擎会找到第一个引号 `(['"])` 并记住其内容。那是第一个捕获组。
+
+`\1` 在模式中进一步的含义是“查找与第一（捕获）分组相同的文本”，在我们的示例中为完全相同的引号。
+
+与此类似，`\2` 表示第二（捕获）分组的内容，`\3` – 第三分组，依此类推。
+
+#### 按命名反向引用\k<name>:
+
+如果正则表达式中有很多括号对（注：捕获组），给它们起个名字方便引用。
+
+要引用命名组，我们可以使用：`\k<name>`。
+
+在下面的示例中引号组命名为 `?<quote>`，因此反向引用为 `\k<quote>`：
+
+```javascript
+let str = `He said: "She's the one!".`;
+
+let regexp = /(?<quote>['"])(.*?)\k<quote>/g;
+
+alert( str.match(regexp) ); // "She's the one!"
+```
+
+### 7.13选择OR
+
+[选择（OR）|](https://zh.javascript.info/regexp-alternation)
+
+就是或的意思
+
+我们已知的一个相似符号 —— 方括号。就允许在许多字符中进行选择，例如 `gr[ae]y` 匹配 `gray` 或 `grey`。
+
+选择符号并非在字符级别生效，而是在表达式级别。正则表达式 `A|B|C` 意思是命中 `A`、`B` 或 `C` 其一均可。
+
+例如：
+
+- `gr(a|e)y` 严格等同 `gr[ae]y`。
+- `gra|ey` 匹配 “gra” or “ey”。
+
+我们通常用圆括号把模式中的选择部分括起来，像这样 `before(XXX|YYY)after`。
+
+#### 习题：
+
+[任务](https://zh.javascript.info/regexp-alternation#tasks)
+
+4道题都值得看看，1和4比较简单，但有坑；2,3比较难
+
+
+
+### 7.14前瞻断言与后瞻断言,也叫环视
+
+[前瞻断言与后瞻断言](https://zh.javascript.info/regexp-lookahead-lookbehind)
+
+![image-20220407014728111](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220407014728111.png)
+
+#### 1.前瞻断言：
+
+语法为：`x(?=y)`，它表示“仅在后面是 `y` 的情况匹配 `x`”。
+
+那么对于一个后面跟着 `€` 的整数金额，它的正则表达式应该为：`\d+(?=€)`。
+
+```javascript
+let str = "1 turkey costs 30€";
+
+alert( str.match(/\d+(?=€)/) ); // 30 （正确地跳过了单个的数字 1）
+```
+
+
+
+让我们来看另一种情况：这次我们想要一个数量，它是一个不被 `€` 跟着的数值。
+
+这里就要用到前瞻否定断言了。
+
+语法为：`x(?!y)`，意思是 “查找 `x`, 但是仅在不被 `y` 跟随的情况下匹配成功”。
+
+```javascript
+let str = "2 turkeys cost 60€";
+
+alert( str.match(/\d+(?!€)/) ); // 2（正确地跳过了价格）
+```
+
+#### 2.后瞻断言
+
+语法为:
+
+- 后瞻肯定断言：`(?<=y)x`, 匹配 `x`, 仅在前面是 `y` 的情况。
+- 后瞻否定断言：`(?<!y)x`, 匹配 `x`, 仅在前面不是 `y` 的情况。
+
+举个例子，让我们把价格换成美元。美元符号通常在数字之前，所以要查找 `$30` 我们将使用 `(?<=\$)\d+` —— 一个前面带 `$` 的数值：
+
+```javascript
+let str = "1 turkey costs $30";
+
+alert( str.match(/(?<=\$)\d+/) ); // 30 （跳过了单个的数字 1）
+```
+
+另外，为了找到数量 —— 一个前面不带 `$` 的数字，我们可以使用否定后瞻断言：`(?<!\$)\d+`
+
+```javascript
+let str = "2 turkeys cost $60";
+
+alert( str.match(/(?<!\$)\d+/) ); // 2 (跳过了价格)
+```
+
+#### 3.捕获组
+
+在模式 `\d+(?!€)` 中，`€` 符号就不会出现在匹配结果中。
+
+但是如果我们想要捕捉整个环视表达式或其中的一部分，那也是有可能的。只需要将其包裹在另加的括号中。
+
+例如，这里货币符号 `(€|kr)` 和金额一起被捕获了：
+
+```javascript
+let str = "1 turkey costs 30€";
+let reg = /\d+(?=(€|kr))/; // €|kr 两边有额外的括号
+
+alert( str.match(reg) ); // 30, €
+```
+
+#### 习题：
+
+[任务](https://zh.javascript.info/regexp-lookahead-lookbehind#tasks)
+
+两个题的值得做，1题有坑；2题解法太巧妙了
+
+### 7.15灾难性回溯
+
+建议看原文
+
+[灾难性回溯](https://zh.javascript.info/regexp-catastrophic-backtracking)

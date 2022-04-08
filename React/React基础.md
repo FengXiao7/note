@@ -1,4 +1,12 @@
+# 说明：
+
+视频地址：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?spm_id_from=333.337.search-card.all.click)
+
+笔记记录此视频学习情况，天禹老师讲的很好，但不够深入，但还是很感谢老师。
+
 # 版本：
+
+## React:
 
 笔记里提到的：
 
@@ -8,17 +16,21 @@
 
 2022年3月，官方已更新至18.0.0，笔记里不会涉及到最新版内容。
 
-如果涉及到，我会在后续添加新的笔记内容
+如果涉及到，我会在后续添加新的笔记内容.
+
+## React-Router：
+
+老师讲了5和6两个版本
 
 # 资料：
 
-b友分享
+https://pan.baidu.com/s/15XwT-CdN9PBwZrkQBbU1Kg
 
-https://pan.baidu.com/s/1hS746pu37B78glu5u-TaPw 
-
-提取码：1dz2
+提取码：1hxn
 
 # 官网：
+
+react：
 
 [React 官方中文文档 – 用于构建用户界面的 JavaScript 库 (reactjs.org)](https://zh-hans.reactjs.org/)
 
@@ -29,6 +41,16 @@ https://pan.baidu.com/s/1hS746pu37B78glu5u-TaPw
 路由：
 
 [React Router: Declarative Routing for React.js (docschina.org)](https://react-router.docschina.org/)
+
+redux：
+
+1. 英文文档: https://redux.js.org/
+
+2. 中文文档: http://www.redux.org.cn/
+
+3. Github: https://github.com/reactjs/redux
+
+4. [Redux 入门教程（一）：基本用法 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html) 阮老师写的更深入一点
 
 # react_basic:
 
@@ -1172,6 +1194,18 @@ class Life extends React.Component{
 
 #### 2.执行setState
 
+控制阀门开关的生命周期函数可以接收两个参数：见
+
+```
+ shouldComponentUpdate(nextProps,nextState){
+		console.log(this.props,this.state); //目前的props和state
+		console.log(nextProps,nextState); //接下要变化的目标props，目标state
+		return true
+	} 
+```
+
+
+
 ##### 阀门没有返回值：
 
 ![image-20220402165609621](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220402165609621.png)
@@ -1523,6 +1557,8 @@ https://www.bilibili.com/video/BV1wy4y1D7JT?p=51
 ### 说明：
 
 默认启动端口是3000，我在之前学习webpack缓存时使用了该端口，最好换一个。
+
+ "start": "set PORT=9000 && react-scripts start",
 
 传送门：
 
@@ -3125,6 +3161,8 @@ let mapDispatchToProps = {
 
 React-Redux 提供`Provider`组件，可以让容器组件拿到`state`。
 
+React里面的Context里面也有个Provider，功能是类似的
+
 index.js
 
 ```js
@@ -3436,4 +3474,1170 @@ export default createStore(AllReducer,composeWithDevTools(applyMiddleware(thunk)
 
 <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/111.gif" style="zoom: 100%"></img>
 
-我想说我在写下笔级时，已经完全掌握redux的基础使用。以后肯定会忘的，常回来看看！
+我想说我在写下笔记时，已经完全掌握redux的基础使用。以后不用肯定会忘的，常回来看看！
+
+# react_extension
+
+## 1.setState
+
+官网：[组件状态 – React (reactjs.org)](https://zh-hans.reactjs.org/docs/faq-state.html#what-does-setstate-do)
+
+### setState是异步的：
+
+```jsx
+import React, { Component } from 'react'
+
+export default class Demo extends Component {
+
+  state = { count: 0 }
+
+  add = () => {
+    let { count } = this.state
+    this.setState({ count: count + 1 })
+    console.log("count:"+count)
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>当前求和为：{this.state.count}</h1>
+        <button onClick={this.add}>点我+1</button>
+      </div>
+    )
+  }
+}
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/112.gif" style="zoom: 100%"></img>
+
+setState第二个参数是一个可选的回调参数，在状态更新完毕、界面也更新后(render调用后)才被调用
+
+```jsx
+ add = () => {
+    let { count } = this.state
+    this.setState({ count: count + 1 },()=>{
+      console.log("count:"+this.state.count)
+    })
+  }
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/113.gif" style="zoom: 100%"></img>
+
+### 函数式setState：
+
+对象形式是函数形式的语法糖
+
+函数形式接收两个参数，第一个参数是函数：这个函数有两个参数sate和props，最后应该返回状态对象。第二个参数是回调函数
+
+```jsx
+  add = () => {
+    this.setState((state,props)=>{
+      console.log(state,props)
+      return {count:state.count+1}
+    },()=>{
+      console.log("回调函数count:"+this.state.count)
+    })
+  }
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/114.gif" style="zoom: 100%"></img>
+
+
+
+```
+	(1). setState(stateChange, [callback])------对象式的setState
+            1.stateChange为状态改变对象(该对象可以体现出状态的更改)
+            2.callback是可选的回调函数, 它在状态更新完毕、界面也更新后(render调用后)才被调用
+					
+	(2). setState(updater, [callback])------函数式的setState
+            1.updater为返回stateChange对象的函数。
+            2.updater可以接收到state和props。
+            4.callback是可选的回调函数, 它在状态更新、界面也更新后(render调用后)才被调用。
+总结:
+		1.对象式的setState是函数式的setState的简写方式(语法糖)
+		2.使用原则：
+				(1).如果新状态不依赖于原状态 ===> 使用对象方式
+				(2).如果新状态依赖于原状态 ===> 使用函数方式
+				(3).如果需要在setState()执行后获取最新的状态数据, 
+					要在第二个callback函数中读取
+```
+
+我的建议是，只有需要props时，可以使用函数方式。这样比较方便
+
+## 2.懒加载
+
+官网：https://zh-hans.reactjs.org/docs/code-splitting.html#reactlazy
+
+可以看到我们的项目一打开就自动加载了所有路由组件，组件一多客户端压力还是挺大的。
+
+所以需要按需加载，也就是用户点击了哪个组件按钮，才加载对应组件，这就是路由懒加载。
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/115.gif" style="zoom: 100%"></img>
+
+### 使用lazy引入组件：
+
+```jsx
+import React, { Component, lazy, Suspense } from 'react'
+import { NavLink, Route } from 'react-router-dom'
+//Loading是专门写好的组件，这个组件就不用懒加载了
+import Loading from './Loading'
+
+
+const Home = lazy(() => import('./Home'))
+const About = lazy(() => import('./About'))
+```
+
+### 注册时使用Suspense包裹：
+
+```jsx
+{/*fallback 属性接受任何在组件加载过程中你想展示的React 元素  */}
+<Suspense fallback={<Loading/>}>
+{/* 注册路由 */}
+	<Route path="/about" component={About}/>
+	<Route path="/home" component={Home}/>
+</Suspense>
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/116.gif" style="zoom: 100%"></img>
+
+## 3.Hooks
+
+传送门：
+
+官网：[Hook 简介 – React (reactjs.org)](https://zh-hans.reactjs.org/docs/hooks-intro.html)
+
+铺垫了好久，我们用Hooks就可以让函数式组件使用state，props和refs（props其实也可以使用，就是函数组件的第一个参数）
+
+### useState：
+
+```jsx
+import React from 'react';
+
+const Demo = () => {
+    const [count,setCount] =React.useState(0)
+
+    function add(){
+        //第一种写法
+        // setCount(count+1)
+        //第二种写法
+        setCount(count =>count+1)
+    }
+
+    return (
+        <div>
+            <h1>当前和为：{count}</h1>
+            <button onClick={add}>点我+1</button>
+        </div>
+    );
+}
+
+export default Demo;
+
+```
+
+
+
+```
+(1). State Hook让函数组件也可以有state状态, 并进行状态数据的读写操作
+(2). 语法: const [xxx, setXxx] = React.useState(initValue)  
+(3). useState()说明:
+        参数: 第一次初始化指定的值在内部作缓存
+        返回值: 包含2个元素的数组, 第1个为内部当前状态值, 第2个为更新状态值的函数
+(4). setXxx()2种写法:
+        setXxx(newValue): 参数为非函数值, 直接指定新的状态值, 内部用其覆盖原来的状态值
+        setXxx(value => newValue): 参数为函数, 接收原本的状态值, 返回新的状态值, 内部用其覆盖原来的状态值
+```
+
+### useEffect：
+
+这里阮老师讲得很好。
+
+传送门：
+
+[轻松学会 React 钩子：以 useEffect() 为例 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2020/09/react-hooks-useeffect-tutorial.html)
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom'
+
+const Demo = () => {
+    const [count,setCount] =React.useState(0)
+	//第一个参数是一个函数，它就是所要完成的副效应（改变网页标题）。组件加载以后，React 就会执行这个函数。
+    React.useEffect(()=>{
+        let timer = setInterval(()=>{
+            setCount(count=>count+1)
+        },500)
+		//useEffect()允许返回一个函数，在组件卸载时，执行该函数，清理副效应。如果不需要清理副效应，			useEffect()就不用返回任何值。
+        return ()=> {clearInterval(timer)}
+       //第二个参数是一个数组，指定只有count发生变化，副效应函数才会执行。
+        //如果不写第二个参数，那么useEffect就会每次渲染都执行
+    },[count])
+	/*
+	如果第二个参数是一个空数组，就表明副效应参数没有任何依赖项。因此，副效应函数这时只会在组件加载进入 DOM 后执行一次，后面组件重新渲染，就不会再次执行。这很合理，由于副效应不依赖任何变量，所以那些变量无论怎么变，副效应函数的执行结果都不会改变，所以运行一次就够了。
+	*/
+    
+    function destroy(){
+        ReactDOM.unmountComponentAtNode(document.getElementById("root"))
+    }
+
+
+    return (
+        <div>
+            <h1>当前和为：{count}</h1>
+            <button onClick={destroy}>卸载组件</button>
+        </div>
+    );
+}
+
+export default Demo;
+
+```
+
+
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/117.gif" style="zoom: 100%"></img>
+
+```js
+(1). Effect Hook 可以让你在函数组件中执行副作用操作(用于模拟类组件中的生命周期钩子)
+(2). React中的副作用操作:
+        发ajax请求数据获取
+        设置订阅 / 启动定时器
+        手动更改真实DOM
+(3). 语法和说明: 
+        useEffect(() => { 
+          // 在此可以执行任何带副作用操作
+          return () => { // 在组件卸载前执行
+            // 在此做一些收尾工作, 比如清除定时器/取消订阅等
+          }
+        }, [stateValue]) // 如果指定的是[], 回调函数只会在第一次render()后执行
+    
+(4). 可以把 useEffect Hook 看做如下三个函数的组合
+        componentDidMount()
+        componentDidUpdate()
+    	componentWillUnmount() 
+```
+
+### useRef：
+
+```jsx
+import React from 'react';
+
+const Demo = () => {
+
+    let myRef = React.useRef()
+
+    function show() {
+        alert(myRef.current.value)
+    }
+
+    return (
+        <div>
+            <input type="text" ref={myRef} />
+            <button onClick={show}>点我提示数据</button>
+        </div>
+    );
+}
+
+export default Demo;
+
+
+```
+
+
+
+```
+(1). Ref Hook可以在函数组件中存储/查找组件内的标签或任意其它数据
+(2). 语法: const refContainer = useRef()
+(3). 作用:保存标签对象,功能与React.createRef()一样
+```
+
+
+
+## 4.Fragment
+
+官网：[Fragments – React (reactjs.org)](https://zh-hans.reactjs.org/docs/fragments.html#gatsby-focus-wrapper)
+
+使用
+
+	<Fragment><Fragment>
+	<></> 这种不能有key
+
+作用
+
+> 可以不用必须有一个真实的DOM根标签了
+
+## 5.Context
+
+官网：https://zh-hans.reactjs.org/docs/context.html
+
+适用于祖组件和孙组件通信
+
+```jsx
+import React, { Component } from 'react'
+import './index.css'
+
+//创建Context对象
+const MyContext = React.createContext()
+const {Provider,Consumer} = MyContext
+export default class A extends Component {
+
+	state = {username:'tom',age:18}
+
+	render() {
+		const {username,age} = this.state
+		return (
+			<div className="parent">
+				<h3>我是A组件</h3>
+				<h4>我的用户名是:{username}</h4>
+				<Provider value={{username,age}}>
+					<B/>
+				</Provider>
+			</div>
+		)
+	}
+}
+
+class B extends Component {
+	render() {
+		return (
+			<div className="child">
+				<h3>我是B组件</h3>
+				<C/>
+			</div>
+		)
+	}
+}
+
+/* class C extends Component {
+	//声明接收context
+	static contextType = MyContext
+	render() {
+		const {username,age} = this.context
+		return (
+			<div className="grand">
+				<h3>我是C组件</h3>
+				<h4>我从A组件接收到的用户名:{username},年龄是{age}</h4>
+			</div>
+		)
+	}
+} */
+
+function C(){
+	return (
+		<div className="grand">
+			<h3>我是C组件</h3>
+			<h4>我从A组件接收到的用户名:
+			<Consumer>
+				{value => `${value.username},年龄是${value.age}`}
+			</Consumer>
+			</h4>
+		</div>
+	)
+}
+```
+
+![image-20220407170903535](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220407170903535.png)
+
+```js
+1) 创建Context容器对象：
+	const XxxContext = React.createContext()  
+	
+2) 渲染子组时，外面包裹xxxContext.Provider, 通过value属性给后代组件传递数据：
+	<xxxContext.Provider value={数据}>
+		子组件
+    </xxxContext.Provider>
+    
+3) 后代组件读取数据：
+
+	//第一种方式:仅适用于类组件 
+	  static contextType = xxxContext  // 声明接收context
+	  this.context // 读取context中的value数据
+	  
+	//第二种方式: 函数组件与类组件都可以
+	  <xxxContext.Consumer>
+	    {
+	      value => ( // value就是context中的value数据
+	        要显示的内容
+	      )
+	    }
+	  </xxxContext.Consumer>
+```
+
+在应用开发中一般不用context, 一般都用它的封装react插件
+
+## 6.优化组件：
+
+### Component的2个问题 
+
+> 1. 只要执行setState(),即使不改变状态数据, 组件也会重新render() ==> 效率低
+>
+> 2. 只当前组件重新render(), 就会自动重新render子组件，纵使子组件没有用到父组件的任何数据 ==> 效率低
+
+```jsx
+import React, { Component } from 'react'
+import './index.css'
+
+export default class Parent extends Component {
+
+	state = { carName: "奔驰c63" }
+
+	changeCar = () => {
+		this.setState({})
+	}
+
+	render() {
+		console.log('Parent---render');
+		const { carName } = this.state
+		return (
+			<div className="parent">
+				<h3>我是Parent组件</h3>
+				<span>我的车名字是：{carName}</span><br />
+				<button onClick={this.changeCar}>点我换车</button>
+				{/* <Child carName={carName} /> */}
+				<Child/>
+			</div>
+		)
+	}
+}
+
+class Child extends Component {
+
+	render() {
+		console.log('Child---render');
+		return (
+			<div className="child">
+				<h3>我是Child组件</h3>
+				{/* <span>我接到的车是：{this.props.carName}</span> */}
+			</div>
+		)
+	}
+}
+
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/118.gif" style="zoom: 100%"></img>
+
+### 解决方案：PureComponent
+
+我们可以通过一个生命周期函数实现
+
+```js
+shouldComponentUpdate(nextProps,nextState){
+	//是否开关阀门
+    //我们拿到当前的this.props,this.state与新的nextProps,nextState
+    //对比就可以判断是否关闭阀门
+}
+```
+
+React为我们提供了一个更好的解决方案：PureComponent
+
+官网：https://zh-hans.reactjs.org/docs/react-api.html#reactpurecomponent
+
+其实PureComponent它的底层就是干的控制阀门是否关闭这件事，不过它的比较方式是浅层次的对比
+
+```jsx
+	changeCar = ()=>{
+		//this.setState({carName:'迈巴赫'})
+		const obj = this.state
+		obj.carName = '迈巴赫'
+		console.log(obj === this.state);
+		this.setState(obj)
+	}
+```
+
+所以以上代码State不会改变，因为obj还是this.state。要替换新对象才行。
+
+这个地方和我们在React-Redux中所说的Reducer必须是纯函数是一个道理。
+
+
+
+如果是函数组件用memo
+
+### 总结：
+
+```
+办法1: 
+	重写shouldComponentUpdate()方法
+	比较新旧state或props数据, 如果有变化才返回true, 如果没有返回false
+办法2:  
+	使用PureComponent
+	PureComponent重写了shouldComponentUpdate(), 只有state或props数据有变化才返回true
+	注意: 
+		只是进行state和props数据的浅比较, 如果只是数据对象内部数据变了, 返回false  
+		不要直接修改state数据, 而是要产生新数据
+项目中一般使用PureComponent来优化
+```
+
+## 7.Render Props
+
+[Render Props – React (reactjs.org)](https://zh-hans.reactjs.org/docs/render-props.html)
+
+这是种写法，没有新知识。
+
+```jsx
+import React, { Component } from 'react'
+import './index.css'
+
+export default class Parent extends Component {
+	render() {
+		return (
+			<div className="parent">
+				<h3>我是Parent组件</h3>
+                {/*
+                	Parent挂载A，A有个props叫render，它是个回调函数。
+                	我们在A组件里面触发这个回调函数，同时还带了个参数name。
+                	这个回调函数的触发结果就是：
+                	A里面挂载一个B组件，并且A通过props把name传给了B
+                */}
+				<A render={(name)=><B name={name}/>}/>
+			</div>
+		)
+	}
+}
+
+class A extends Component {
+	state = {name:'tom'}
+	render() {
+		const {name} = this.state
+		return (
+			<div className="a">
+				<h3>我是A组件</h3>
+				{this.props.render(name)}
+			</div>
+		)
+	}
+}
+
+class B extends Component {
+	render() {
+		return (
+			<div className="b">
+				<h3>我是B组件,{this.props.name}</h3>
+			</div>
+		)
+	}
+}
+
+```
+
+![image-20220407200914074](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220407200914074.png)
+
+如何向组件内部动态传入带内容的结构(标签)?
+
+	Vue中: 
+		使用slot技术, 也就是通过组件标签体传入结构  <A><B/></A>
+	React中:
+		使用children props: 通过组件标签体传入结构
+		使用render props: 通过组件标签属性传入结构,而且可以携带数据，一般用render函数属性
+
+children props
+
+	<A>
+	  <B>xxxx</B>
+	</A>
+	A里面再加一句：
+	{this.props.children}
+	我们在路由封装那里说过children
+	问题: 如果B组件需要A组件内的数据, ==> 做不到 
+
+render props
+
+	<A render={(data) => <C data={data}></C>}></A>
+	A组件: {this.props.render(内部state数据)}
+	C组件: 读取A组件传入的数据显示 {this.props.data} 
+
+## 8.错误边界Error boundary
+
+在容易发生错误的子组件里，我们在父组件里面做点手脚，不要让子组件里面的错误扩散
+
+官网：[错误边界 – React (reactjs.org)](https://zh-hans.reactjs.org/docs/error-boundaries.html#introducing-error-boundaries)
+
+
+
+错误边界(Error boundary)：用来捕获后代组件错误，渲染出备用页面
+
+特点：
+
+只能捕获后代组件生命周期产生的错误，不能捕获自己组件产生的错误和其他组件在合成事件、定时器中产生的错误
+
+使用方式：
+
+在父组件中
+
+getDerivedStateFromError配合componentDidCatch
+
+```jsx
+import React, { Component } from 'react'
+import Child from './Child'
+
+export default class Parent extends Component {
+
+	state = {
+		hasError:'' //用于标识子组件是否产生错误
+	}
+
+	//当Parent的子组件出现报错时候，会触发getDerivedStateFromError调用，并携带错误信息
+	static getDerivedStateFromError(error){
+		console.log('@@@',error);
+		return {hasError:error}
+	}
+
+	componentDidCatch(){
+		console.log('此处统计错误，反馈给服务器，用于通知编码人员进行bug的解决');
+	}
+
+	render() {
+		return (
+			<div>
+				<h2>我是Parent组件</h2>
+				{this.state.hasError ? <h2>当前网络不稳定，稍后再试</h2> : <Child/>}
+			</div>
+		)
+	}
+}
+
+```
+
+
+
+```jsx
+// 生命周期函数，一旦后台组件报错，就会触发
+static getDerivedStateFromError(error) {
+    console.log(error);
+    // 在render之前触发
+    // 返回新的state
+    return {
+        hasError: true,
+    };
+}
+
+componentDidCatch(error, info) {
+    // 统计页面的错误。发送请求发送到后台去
+    console.log(error, info);
+}
+```
+
+## 9. 组件通信方式总结
+
+#### 组件间的关系：
+
+- 父子组件
+- 兄弟组件（非嵌套组件）
+- 祖孙组件（跨级组件）
+
+#### 几种通信方式：
+
+		1.props：
+			(1).children props
+			(2).render props
+		2.消息订阅-发布：
+			pubs-sub、event等等
+		3.集中式管理：
+			redux、dva、mobx等等
+		4.conText:
+			生产者-消费者模式
+
+#### 比较好的搭配方式：
+
+		父子组件：props
+		兄弟组件：消息订阅-发布、集中式管理
+		祖孙组件(跨级组件)：消息订阅-发布、集中式管理、conText(开发用的少，封装插件用的多)
+
+# react-router6_test
+
+## 1.概述
+
+1. React Router 以三个不同的包发布到 npm 上，它们分别为：
+
+   1. react-router: 路由的核心库，提供了很多的：组件、钩子。
+   2. <strong style="color:#dd4d40">**react-router-dom:**</strong > <strong style="color:#dd4d40">包含react-router所有内容，并添加一些专门用于 DOM 的组件，例如 `<BrowserRouter>`等 </strong>。
+   3. react-router-native: 包括react-router所有内容，并添加一些专门用于ReactNative的API，例如:`<NativeRouter>`等。
+
+2. 与React Router 5.x 版本相比，改变了什么？
+
+   1. 内置组件的变化：移除`<Switch/>` ，新增 `<Routes/>`等。
+
+   2. 语法的变化：`component={About}` 变为 `element={<About/>}`等。
+
+   3. 新增多个hook：`useParams`、`useNavigate`、`useMatch`等。
+
+   4. <strong style="color:#dd4d40">官方明确推荐函数式组件了！！！</strong>
+
+      ......
+
+## 2.Component
+
+### 1. `<BrowserRouter>`
+
+1. 说明：`<BrowserRouter> `用于包裹整个应用。
+
+2. 示例代码：
+
+   ```jsx
+   import React from "react";
+   import ReactDOM from "react-dom";
+   import { BrowserRouter } from "react-router-dom";
+   
+   ReactDOM.render(
+     <BrowserRouter>
+       {/* 整体结构（通常为App组件） */}
+     </BrowserRouter>,root
+   );
+   ```
+
+### 2. `<HashRouter>`
+
+1. 说明：作用与`<BrowserRouter>`一样，但`<HashRouter>`修改的是地址栏的hash值。
+2. 备注：6.x版本中`<HashRouter>`、`<BrowserRouter> ` 的用法与 5.x 相同。
+
+### 3. `<Routes/> 与 <Route/>`
+
+1. v6版本中移出了先前的`<Switch>`，引入了新的替代者：`<Routes>`。
+
+2. `<Routes>` 和 `<Route>`要配合使用，且必须要用`<Routes>`包裹`<Route>`。
+
+3. `<Route>` 相当于一个 if 语句，如果其路径与当前 URL 匹配，则呈现其对应的组件。
+
+4. `<Route caseSensitive>` 属性用于指定：匹配时是否区分大小写（默认为 false）。
+
+5. 当URL发生变化时，`<Routes> `都会查看其所有子` <Route>` 元素以找到最佳匹配并呈现组件 。
+
+6. `<Route>` 也可以嵌套使用，且可配合`useRoutes()`配置 “路由表” ，但需要通过 `<Outlet>` 组件来渲染其子路由。
+
+7. 示例代码：
+
+   ```jsx
+   <Routes>
+       /*path属性用于定义路径，element属性用于定义当前路径所对应的组件*/
+       <Route path="/login" element={<Login />}></Route>
+   
+   		/*用于定义嵌套路由，home是一级路由，对应的路径/home*/
+       <Route path="home" element={<Home />}>
+          /*test1 和 test2 是二级路由,对应的路径是/home/test1 或 /home/test2*/
+         <Route path="test1" element={<Test/>}></Route>
+         <Route path="test2" element={<Test2/>}></Route>
+   		</Route>
+   	
+   		//Route也可以不写element属性, 这时就是用于展示嵌套的路由 .所对应的路径是/users/xxx
+       <Route path="users">
+          <Route path="xxx" element={<Demo />} />
+       </Route>
+   </Routes>
+   ```
+
+### 4. `<Link>`
+
+1. 作用: 修改URL，且不发送网络请求（路由链接）。
+
+2. 注意: 外侧需要用`<BrowserRouter>`或`<HashRouter>`包裹。
+
+3. 示例代码：
+
+   ```jsx
+   import { Link } from "react-router-dom";
+   
+   function Test() {
+     return (
+       <div>
+       	<Link to="/路径">按钮</Link>
+       </div>
+     );
+   }
+   ```
+
+### 5. `<NavLink>`
+
+1. 作用: 与`<Link>`组件类似，且可实现导航的“高亮”效果。
+
+2. 示例代码：
+
+   ```jsx
+   // 注意: NavLink默认类名是active，下面是指定自定义的class
+   
+   //自定义样式
+   <NavLink
+       to="login"
+       className={({ isActive }) => {
+           console.log('home', isActive)
+           return isActive ? 'base one' : 'base'
+       }}
+   >login</NavLink>
+   
+   /*
+   	默认情况下，当Home的子组件匹配成功，Home的导航也会高亮，
+   	当NavLink上添加了end属性后，若Home的子组件匹配成功，则Home的导航没有高亮效果。
+   */
+   <NavLink to="home" end >home</NavLink>
+   ```
+
+3.我写的
+
+```jsx
+<NavLink className={isActive=>isActive ? 'list-group-item atguigu' : 'list-group-item'} to="/about">About</NavLink>
+```
+
+className接收一个回调函数，通过参数isActive改变我们的样式
+
+### 6. `<Navigate>`
+
+用来重定向
+
+1. 作用：只要`<Navigate>`组件被渲染，就会修改路径，切换视图。
+
+2. `replace`属性用于控制跳转模式（push 或 replace，默认是push）。
+
+3. 示例代码：
+
+   ```jsx
+   import React,{useState} from 'react'
+   import {Navigate} from 'react-router-dom'
+   
+   export default function Home() {
+   	const [sum,setSum] = useState(1)
+   	return (
+   		<div>
+   			<h3>我是Home的内容</h3>
+   			{/* 根据sum的值决定是否切换视图 */}
+   			{sum === 1 ? <h4>sum的值为{sum}</h4> : <Navigate to="/about" replace={true}/>}
+   			<button onClick={()=>setSum(2)}>点我将sum变为2</button>
+   		</div>
+   	)
+   }
+   ```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/119.gif" style="zoom: 100%"></img>
+
+### 7. `<Outlet>`
+
+1. 当`<Route>`产生嵌套时，渲染其对应的后续子路由。
+
+2. 示例代码：
+
+   ```jsx
+   //根据路由表生成对应的路由规则
+   const element = useRoutes([
+     {
+       path:'/about',
+       element:<About/>
+     },
+     {
+       path:'/home',
+       element:<Home/>,
+       children:[
+         {
+           path:'news',
+           element:<News/>
+         },
+         {
+           path:'message',
+           element:<Message/>,
+         }
+       ]
+     }
+   ])
+   
+   //Home.js
+   import React from 'react'
+   import {NavLink,Outlet} from 'react-router-dom'
+   
+   export default function Home() {
+   	return (
+   		<div>
+   			<h2>Home组件内容</h2>
+   			<div>
+   				<ul className="nav nav-tabs">
+   					<li>
+   						<NavLink className="list-group-item" to="news">News</NavLink>
+   					</li>
+   					<li>
+   						<NavLink className="list-group-item" to="message">Message</NavLink>
+   					</li>
+   				</ul>
+   				{/* 指定路由组件呈现的位置 */}
+   				<Outlet />
+   			</div>
+   		</div>
+   	)
+   }
+   
+   ```
+
+## 3.Hooks
+
+传送门：[React Hooks 入门教程 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/09/react-hooks.html)
+
+[轻松学会 React 钩子：以 useEffect() 为例 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2020/09/react-hooks-useeffect-tutorial.html)
+
+### 1. useRoutes()
+
+1. 作用：根据路由表，动态创建`<Routes>`和`<Route>`。
+
+2. 示例代码：
+
+   ```jsx
+   //路由表配置：src/routes/index.js
+   import About from '../pages/About'
+   import Home from '../pages/Home'
+   import {Navigate} from 'react-router-dom'
+   
+   export default [
+   	{
+   		path:'/about',
+   		element:<About/>
+   	},
+   	{
+   		path:'/home',
+   		element:<Home/>
+   	},
+   	{
+   		path:'/',
+   		element:<Navigate to="/about"/>
+   	}
+   ]
+   
+   //App.jsx
+   import React from 'react'
+   import {NavLink,useRoutes} from 'react-router-dom'
+   import routes from './routes'
+   
+   export default function App() {
+   	//根据路由表生成对应的路由规则
+   	const element = useRoutes(routes)
+   	return (
+   		<div>
+   			......
+         {/* 注册路由 */}
+         {element}
+   		  ......
+   		</div>
+   	)
+   }
+   
+   ```
+
+### 2. useNavigate()
+
+1. 作用：返回一个函数用来实现编程式导航。
+
+2. 示例代码：
+
+   ```jsx
+   import React from 'react'
+   import {useNavigate} from 'react-router-dom'
+   
+   export default function Demo() {
+     const navigate = useNavigate()
+     const handle = () => {
+       //第一种使用方式：指定具体的路径
+       navigate('/login', {
+         replace: false,
+         state: {a:1, b:2}
+       }) 
+       //第二种使用方式：传入数值进行前进或后退，类似于5.x中的 history.go()方法
+       navigate(-1)
+     }
+     
+     return (
+       <div>
+         <button onClick={handle}>按钮</button>
+       </div>
+     )
+   }
+   ```
+
+### 3. useParams()
+
+1. 作用：回当前匹配路由的`params`参数，类似于5.x中的`match.params`。
+
+2. 示例代码：
+
+   ```jsx
+   import React from 'react';
+   import { Routes, Route, useParams } from 'react-router-dom';
+   import User from './pages/User.jsx'
+   
+   function ProfilePage() {
+     // 获取URL中携带过来的params参数
+     let { id } = useParams();
+   }
+   
+   function App() {
+     return (
+       <Routes>
+         <Route path="users/:id" element={<User />}/>
+       </Routes>
+     );
+   }
+   ```
+
+### 4. useSearchParams()
+
+1. 作用：用于读取和修改当前位置的 URL 中的查询字符串。
+
+2. 返回一个包含两个值的数组，内容分别为：当前的seaech参数、更新search的函数。
+
+3. 示例代码：
+
+   ```jsx
+   import React from 'react'
+   import {useSearchParams} from 'react-router-dom'
+   
+   export default function Detail() {
+   	const [search,setSearch] = useSearchParams()
+   	const id = search.get('id')
+   	const title = search.get('title')
+   	const content = search.get('content')
+   	return (
+   		<ul>
+   			<li>
+   				<button onClick={()=>setSearch('id=008&title=哈哈&content=嘻嘻')}>点我更新一下收到的search参数</button>
+   			</li>
+   			<li>消息编号：{id}</li>
+   			<li>消息标题：{title}</li>
+   			<li>消息内容：{content}</li>
+   		</ul>
+   	)
+   }
+   
+   ```
+
+### 5. useLocation()
+
+1. 作用：获取当前 location 信息，对标5.x中的路由组件的`location`属性。
+
+2. 示例代码：
+
+   ```jsx
+   import React from 'react'
+   import {useLocation} from 'react-router-dom'
+   
+   export default function Detail() {
+   	const x = useLocation()
+   	console.log('@',x)
+     // x就是location对象: 
+   	/*
+   		{
+         hash: "",
+         key: "ah9nv6sz",
+         pathname: "/login",
+         search: "?name=zs&age=18",
+         state: {a: 1, b: 2}
+       }
+   	*/
+   	return (
+   		<ul>
+   			<li>消息编号：{id}</li>
+   			<li>消息标题：{title}</li>
+   			<li>消息内容：{content}</li>
+   		</ul>
+   	)
+   }
+   
+     
+   
+   
+   ```
+
+### 6. useMatch()
+
+1. 作用：返回当前匹配信息，对标5.x中的路由组件的`match`属性。
+
+2. 示例代码：
+
+   ```jsx
+   <Route path="/login/:page/:pageSize" element={<Login />}/>
+   <NavLink to="/login/1/10">登录</NavLink>
+   
+   export default function Login() {
+     const match = useMatch('/login/:x/:y')
+     console.log(match) //输出match对象
+     //match对象内容如下：
+     /*
+     	{
+         params: {x: '1', y: '10'}
+         pathname: "/LoGin/1/10"  
+         pathnameBase: "/LoGin/1/10"
+         pattern: {
+         	path: '/login/:x/:y', 
+         	caseSensitive: false, 
+         	end: false
+         }
+       }
+     */
+     return (
+     	<div>
+         <h1>Login</h1>
+       </div>
+     )
+   }
+   ```
+
+### 7. useInRouterContext()
+
+​			作用：如果组件在 `<Router>` 的上下文中呈现，则 `useInRouterContext` 钩子返回 true，否则返回 false。
+
+### 8. useNavigationType()
+
+1. 作用：返回当前的导航类型（用户是如何来到当前页面的）。
+2. 返回值：`POP`、`PUSH`、`REPLACE`。
+3. 备注：`POP`是指在浏览器中直接打开了这个路由组件（刷新页面）。
+
+### 9. useOutlet()
+
+1. 作用：用来呈现当前组件中渲染的嵌套路由。
+
+2. 示例代码：
+
+   ```jsx
+   const result = useOutlet()
+   console.log(result)
+   // 如果嵌套路由没有挂载,则result为null
+   // 如果嵌套路由已经挂载,则展示嵌套的路由对象
+   ```
+
+### 10.useResolvedPath()
+
+1. 作用：给定一个 URL值，解析其中的：path、search、hash值。
+
+
+
+# 扩展：
+
+这里我会写一些自己发现的新用法。
+
+## 0.React.memo
+
+传送门：[为什么要在函数组件中使用React.memo？ - 七日打卡 - 掘金 (juejin.cn)](https://juejin.cn/post/6917629321112731662)
+
+
+
+## 1.新钩子
+
+
+
+## 2..Hooks取代React-Redux
+
+主要原理是利用useReducer()和Context。
+
+### 前置知识：
+
+用到的钩子useReducer(),useContext(),useMemo()这三个钩子老师都没讲过。这里只放一下链接。不详细讲
+
+#### useReducer()和useContext():
+
+这个两个部分，可以看阮老师的博客。比较简单
+
+传送门：
+
+[React Hooks 入门教程 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/09/react-hooks.html)
+
+
+
+#### useCallBack()和useMemo():
+
+useMemo()和useCallBack()很像，所以顺便看看useCallBack()吧
+
+传送门：
+
+[详解 React useCallback & useMemo - 掘金 (juejin.cn)](https://juejin.cn/post/6844904101445124110)
+
