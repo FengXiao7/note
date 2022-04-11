@@ -2,11 +2,17 @@
 
 视频地址：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?spm_id_from=333.337.search-card.all.click)
 
-笔记记录此视频学习情况，天禹老师讲的很好，但不够深入，但还是很感谢老师。
+笔记记录此视频学习情况，天禹老师讲的很好，但不够深入，还是很感谢老师。
 
 # 版本：
 
 ## React:
+
+1.
+
+大部分时间老师都用的是类式组件，我不知道实际企业中哪个用的多。但官方明确推荐函数式组件，用Hooks，相比类式组件函数式组件更‘轻’，但思想上更‘重’，甚至可以替代Redux做状态管理。函数式编程确实百花齐放啊，但带来的问题就是不好维护啊，可读性差呀，村从这一点上来说有强制语法规范的类式组件也不错呢。
+
+2.
 
 笔记里提到的：
 
@@ -14,9 +20,11 @@
 
 所谓新版☞v17.0.1
 
+3.
+
 2022年3月，官方已更新至18.0.0，笔记里不会涉及到最新版内容。
 
-如果涉及到，我会在后续添加新的笔记内容.
+如果涉及到，我会在后续写一篇新的笔记记录.
 
 ## React-Router：
 
@@ -89,7 +97,9 @@ redux：
 
 ## 2.虚拟DOM的两种创建方式
 
-不用JS，因为嵌套标签写起来很麻烦。用JSX创建dom就很方便。但是最终JSX还是会被Babel转换为JS
+不用JS，因为嵌套标签写起来很麻烦。用JSX创建dom就很方便。但是最终JSX还是会被Babel转换为JS。
+
+所以说JSX是语法糖
 
 ### JSX：
 
@@ -1066,7 +1076,9 @@ class Login extends React.Component{
 
 传送门：[计算属性](https://zh.javascript.info/object#ji-suan-shu-xing)
 
-我们使用onChange触发一个函数，该函数返回一个函数作为我们onChange的回调
+我们使用onChange触发一个函数，该函数返回一个箭头函数作为我们onChange的回调。用箭头函数是为了防止
+
+丢失this
 
 ### 2.不使用高阶函数的写法
 
@@ -1329,6 +1341,10 @@ UNSAFE_
 #### 4.补充说明componentDidUpdate
 
 这个生命周期函数，有三个参数，分别为prevProps, prevState（上一次的props和上一次的state）以及getSnapshotBeforeUpdate传递过来的东西
+
+#### 5.componentDidCatch, getDerivedStateFromError
+
+在错误边界那一章里补充说明了componentDidCatch, getDerivedStateFromError少见的生命周期函数
 
 ## 13._DOM的Diffing算法
 
@@ -1953,6 +1969,8 @@ NavLink可以实现路由链接的高亮，通过activeClassName指定样式名
 ![image-20220404214551689](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220404214551689.png)
 
 #### 封装：
+
+<a name="children">锚点</a>
 
 <div style="color: red">标签体是特殊的标签属性children</div>
 
@@ -2918,7 +2936,7 @@ import {connect} from 'react-redux'
 //这个connect会为我们创建容器组件
 //我们连接CountUI,另一个需要连接的redux
 //只需要连接store.js这个最关键的主管就行
-//连接逻辑写在App里
+//它通过App的传递props连接里
 export default connect()(CountUI)
 ```
 
@@ -3125,11 +3143,13 @@ export default class Count extends Component {
 
 ## 6.优化
 
+之前的写法
+
 ### mapDispatchToProps：
 
 mapDispatchToProps不仅可以写成一个函数，还可以写成一个对象。
 
-如果`mapDispatchToProps`是一个对象，它的每个键名也是对应 UI 组件的同名参数，键值应该是一个函数，会被当作 Action creator ，返回的 Action 会由 Redux 自动发出。
+如果`mapDispatchToProps`是一个对象，它的每个键名也是对应 UI 组件的同名参数，键值应该是一个函数，会被当作 Action creator ，返回的 Action 会由 Redux 自动发出。我们就不用手动dispatch了
 
 函数写法：
 
@@ -3161,7 +3181,7 @@ let mapDispatchToProps = {
 
 React-Redux 提供`Provider`组件，可以让容器组件拿到`state`。
 
-React里面的Context里面也有个Provider，功能是类似的
+React里面的Context里面也有个Provider，功能是类似的。让深层次的组件方便拿到祖组件的props
 
 index.js
 
@@ -3225,7 +3245,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(CountUI)
 			(4).mapDispatchToProps也可以简单的写成一个对象
 			(5).一个组件要和redux“打交道”要经过哪几步？
 							(1).定义好UI组件---不暴露
-							(2).引入connect生成一个容器组件，并暴露，写法如下：
+							(2).引入connect生成一个容器组件，并暴露，最简写法如下：
 									connect(
 										state => ({key:value}), //映射状态
 										{key:xxxxxAction} //映射操作状态的方法
@@ -3258,7 +3278,7 @@ import {AllReducer} from './reducers/all'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-//又用了开发者工具，又用了异步Action就得这么写
+//既用了开发者工具，又用了异步Action就得这么写
 export default createStore(AllReducer,composeWithDevTools(applyMiddleware(thunk)))
 //只用开发者工具，没用异步Action这么写
 // export default createStore(AllReducer,composeWithDevTools))
@@ -3606,7 +3626,7 @@ const About = lazy(() => import('./About'))
 
 官网：[Hook 简介 – React (reactjs.org)](https://zh-hans.reactjs.org/docs/hooks-intro.html)
 
-铺垫了好久，我们用Hooks就可以让函数式组件使用state，props和refs（props其实也可以使用，就是函数组件的第一个参数）
+铺垫了好久，我们用Hooks就可以让函数式组件使用state，props和refs（props其实也可以使用，就是函数组件的第一个参数）。天禹老师讲的极其基础，我会新开一个笔记记录ReactHooks
 
 ### useState：
 
@@ -3620,6 +3640,7 @@ const Demo = () => {
         //第一种写法
         // setCount(count+1)
         //第二种写法
+        //逻辑比较复杂时，推荐用第二种
         setCount(count =>count+1)
     }
 
@@ -3662,7 +3683,7 @@ import ReactDOM from 'react-dom'
 
 const Demo = () => {
     const [count,setCount] =React.useState(0)
-	//第一个参数是一个函数，它就是所要完成的副效应（改变网页标题）。组件加载以后，React 就会执行这个函数。
+	//第一个参数是一个函数，它就是所要完成的副效应。组件加载以后，React 就会执行这个函数。
     React.useEffect(()=>{
         let timer = setInterval(()=>{
             setCount(count=>count+1)
@@ -3947,11 +3968,13 @@ React为我们提供了一个更好的解决方案：PureComponent
 
 所以以上代码State不会改变，因为obj还是this.state。要替换新对象才行。
 
-这个地方和我们在React-Redux中所说的Reducer必须是纯函数是一个道理。
+这个地方和useEffect的依赖项是一个道理。
 
 
 
-如果是函数组件用memo
+如果是函数组件用React.memo，配合useCallback和useMemo可以提高性能。
+
+传送门：[React 顶层 API – React (reactjs.org)](https://zh-hans.reactjs.org/docs/react-api.html#reactmemo)
 
 ### 总结：
 
@@ -3972,7 +3995,7 @@ React为我们提供了一个更好的解决方案：PureComponent
 
 [Render Props – React (reactjs.org)](https://zh-hans.reactjs.org/docs/render-props.html)
 
-这是种写法，没有新知识。
+这是种写法，没有新知识。用它可以实现vue中插槽的效果
 
 ```jsx
 import React, { Component } from 'react'
@@ -3984,10 +4007,10 @@ export default class Parent extends Component {
 			<div className="parent">
 				<h3>我是Parent组件</h3>
                 {/*
-                	Parent挂载A，A有个props叫render，它是个回调函数。
+                	Parent挂载A，A有个props叫render，它是个回调函数。(习惯用这个名)
                 	我们在A组件里面触发这个回调函数，同时还带了个参数name。
                 	这个回调函数的触发结果就是：
-                	A里面挂载一个B组件，并且A通过props把name传给了B
+                	在A里面挂载一个B组件，并且A通过props把name传给了B
                 */}
 				<A render={(name)=><B name={name}/>}/>
 			</div>
@@ -4031,6 +4054,8 @@ class B extends Component {
 		使用render props: 通过组件标签属性传入结构,而且可以携带数据，一般用render函数属性
 
 children props
+
+<a href="#children">Link</a>
 
 	<A>
 	  <B>xxxx</B>
@@ -4601,43 +4626,7 @@ className接收一个回调函数，通过参数isActive改变我们的样式
 
 
 
-# 扩展：
+# 
 
-这里我会写一些自己发现的新用法。
-
-## 0.React.memo
-
-传送门：[为什么要在函数组件中使用React.memo？ - 七日打卡 - 掘金 (juejin.cn)](https://juejin.cn/post/6917629321112731662)
-
-
-
-## 1.新钩子
-
-
-
-## 2..Hooks取代React-Redux
-
-主要原理是利用useReducer()和Context。
-
-### 前置知识：
-
-用到的钩子useReducer(),useContext(),useMemo()这三个钩子老师都没讲过。这里只放一下链接。不详细讲
-
-#### useReducer()和useContext():
-
-这个两个部分，可以看阮老师的博客。比较简单
-
-传送门：
-
-[React Hooks 入门教程 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/09/react-hooks.html)
-
-
-
-#### useCallBack()和useMemo():
-
-useMemo()和useCallBack()很像，所以顺便看看useCallBack()吧
-
-传送门：
-
-[详解 React useCallback & useMemo - 掘金 (juejin.cn)](https://juejin.cn/post/6844904101445124110)
+## 
 
