@@ -4,11 +4,10 @@
 
 [React Hooks Course - CodeSandbox](https://codesandbox.io/s/react-hooks-course-20vzg?file=/src/01/Counter.js)
 
-老师没有视频，只有口述加文档，代码在线编辑，不过我下了下来，方便看代码。
-
-md里面不好折叠代码，最好在IDE里面看。
-
-
+1. 老师没有视频，只有口述加文档，代码在线编辑，不过我下了下来，方便看代码。
+2. md里面不好折叠代码，最好在IDE里面看。代码比较长的，在线沙箱里看。
+3. 整体教程难度偏高，没点开发经验真的会看不懂。案例也比较偏靠实战些
+4. 笔记多为摘录老师的精简原文和代码。
 
 # 基础篇：
 
@@ -16,7 +15,7 @@ md里面不好折叠代码，最好在IDE里面看。
 
 <a name="userList">userList</a>
 
-这个例子我觉得写的太好了，我以前确实不知道怎么优雅地写异步发送请求。
+*这个例子我觉得写的太好了，我以前确实不知道怎么优雅地写异步发送请求。*
 
 ```jsx
 import React from "react";
@@ -305,7 +304,14 @@ function Counter() {
 
 ### useMemo：缓存计算的结果
 
+```
 
+useMemo(fn, deps);
+```
+
+这里的 fn 是产生所需数据的一个计算函数。通常来说，fn 会使用 deps 中声明的一些变量来生成一个结果，用来渲染出最终的 UI。
+
+这个场景应该很容易理解：**如果某个数据是通过其它数据计算得到的，那么只有当用到的数据，也就是依赖的数据发生变化的时候，才应该需要重新计算。**
 
 举个例子，对于一个显示用户信息的列表，现在需要对用户名进行搜索，且 UI 上需要根据搜索关键字显示过滤后的用户，那么这样一个功能需要有两个状态：
 
@@ -364,7 +370,7 @@ export default function SearchUserList() {
 
 在这个例子中，无论组件为何要进行一次重新渲染，实际上都需要进行一次过滤的操作。但其实你只需要在 users 或者 searchKey 这两个状态中的某一个发生变化时，重新计算获得需要展示的数据就行了。那么，这个时候，我们就可以用 useMemo 这个 Hook 来实现这个逻辑，缓存计算的结果：
 
-**简单来说就是传递一个创建函数和依赖项，创建函数会需要返回一个值，只有在依赖项发生改变的时候，才会重新调用此函数，返回一个新的值。**
+**简单来说就是传递一个创建函数和依赖项，函数的返回值是我们需要的，只有在依赖项发生改变的时候，才会重新调用此函数，返回一个新的值。**
 
 ```jsx
 
@@ -734,7 +740,14 @@ export default Counter
 
 <a name="useAsync">useAsync</a>
 
-把逻辑抽取出来
+把逻辑抽取出来.
+
+这个钩子接收一个异步请求函数，返回值有4个：
+
+1. 
+2. loading：异步请求的loading状态,true或者false
+3. data：异步请求获得的数据对象
+4. error:异步请求获得的错误对象
 
 ```jsx
 
@@ -896,7 +909,11 @@ export default ScrollTop
 
 做法很简单，就是**尽量将相关的逻辑做成独立的 Hooks，然后在函数组中使用这些 Hooks，通过参数传递和返回值让 Hooks 之间完成交互。**
 
+
+
 #### 例子：
+
+老师这个例子太复杂了，而且没有接口。了解其中的拆分思想即可
 
 ```jsx
 
@@ -1037,3 +1054,209 @@ export default function BlogList() {
 }
 ```
 
+## 7.redux
+
+### 基础：
+
+*基础部分就不记录了，以前摸的很清楚了。记录下react-redux新推出的两个钩子 useSelector和useDispatch()，可以用这种方案替代connect了。*
+
+*传送门：*
+
+*[redux中使用useSelector、useDispatch替代connect - 掘金 (juejin.cn)](https://juejin.cn/post/6918685722229063688)*
+
+*我会在扩展里面试验下作者的想法*
+
+下面是精简原文：
+
+Hooks 的本质就是提供了让 React 组件能够绑定到某个可变的数据源的能力。在这里，当 Hooks 用到 Redux 时可变的对象就是 Store，而 useSelector 则让一个组件能够在 Store 的某些数据发生变化时重新 render。我在这里仍然以官方给的计数器例子为例，来给你讲解如何在 React 中使用 Redux：
+
+```jsx
+
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+export function Counter() {
+  // 从 state 中获取当前的计数值
+  const count = useSelector(state => state.value)
+
+  // 获得当前 store 的 dispatch 方法
+  const dispatch = useDispatch()
+
+  // 在按钮的 click 时间中去分发 action 来修改 store
+  return (
+    <div>
+      <button
+        onClick={() => dispatch({ type: 'counter/incremented' })}
+      >+</button>
+      <span>{count}</span>
+      <button
+        onClick={() => dispatch({ type: 'counter/decremented' })}
+      >-</button>
+    </div>
+  )
+}
+
+```
+
+![image-20220412134001016](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220412134001016.png)
+
+需要强调的是，在实际的使用中，我们无需关心 View 是如何绑定到 Store 的某一部分数据的，因为 React-Redux 帮我们做了这件事情。总结来说，通过这样一种简单的机制，Redux 统一了更新数据状态的方式，让整个应用程序更加容易开发、维护、调试和测试。
+
+
+
+### 异步Action：
+
+在 Redux 的 Store 中，我们不仅维护着业务数据，同时维护着应用程序的状态。比如对于发送请求获取数据这样一个异步的场景，我们来看看涉及到 Store 数据会有哪些变化：
+
+1. 请求发送出去时：设置 state.pending = true，用于 UI 显示加载中的状态；
+2. 请求发送成功时：设置 state.pending = false, state.data = result。即取消 UI 的加载状态，同时将获取的数据放到 store 中用于 UI 的显示。
+3. 请求发送失败时：设置 state.pending = false, state.error = error。即取消 UI 的加载状态，同时设置错误的状态，用于 UI 显示错误的内容。
+
+
+
+前面提到，任何对 Store 的修改都是由 action 完成的。那么**对于一个异步请求，上面的三次数据修改显然必须要三个 action 才能完成**。那么假设我们在 React 组件中去做这个发起请求的动作，代码逻辑应该类似如下：
+
+```jsx
+
+function DataList() {
+  const dispatch = useDispatch();
+  // 在组件初次加载时发起请求
+  useEffect(() => {
+    // 请求发送时
+    dispatch({ type: 'FETCH_DATA_BEGIN' });
+    fetch('/some-url').then(res => {
+      // 请求成功时
+      dispatch({ type: 'FETCH_DATA_SUCCESS', data: res });
+    }).catch(err => {
+      // 请求失败时
+      dispatch({ type: 'FETCH_DATA_FAILURE', error: err });
+    })
+  }, []);
+  
+  // 绑定到 state 的变化
+  const data = useSelector(state => state.data);
+  const pending = useSelector(state => state.pending);
+  const error = useSelector(state => state.error);
+  
+  // 根据 state 显示不同的状态
+  if (error) return 'Error.';
+  if (pending) return 'Loading...';
+  return <Table data={data} />;
+}
+```
+
+从这段代码可以看到，我们使用了三个（同步）Action 完成了这个异步请求的场景。这里我们将 Store 完全作为一个存放数据的地方，至于数据哪里来， Redux 并不关心。尽管这样做是可行的。
+
+但是很显然，发送请求获取数据并进行错误处理这个逻辑是不可重用的。假设我们希望在另外一个组件中也能发送同样的请求，就不得不将这段代码重新实现一遍。因此，Redux 中提供了 middleware 这样一个机制，让我们可以巧妙地实现所谓异步 Action 的概念。
+
+简单来说，**middleware 可以让你提供一个拦截器在 reducer 处理 action 之前被调用。在这个拦截器中，你可以自由处理获得的 action。无论是把这个 action 直接传递到 reducer，或者构建新的 action 发送到 reducer，都是可以的。**
+
+![image-20220412134036146](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220412134036146.png)
+
+从上面这张图可以看到，Middleware 正是在 Action 真正到达 Reducer 之前提供的一个额外处理 Action 的机会。
+
+*（下面老师详细介绍了如何使用异步Action，在使用上我在基础篇已经很清楚，但是这里王老师讲的更深入）*
+
+**Redux 中的 Action 不仅仅可以是一个 Object，它可以是任何东西，也可以是一个函数。利用这个机制，Redux 提供了 redux-thunk 这样一个中间件，它如果发现接受到的 action 是一个函数，那么就不会传递给 Reducer，而是执行这个函数，并把 dispatch 作为参数传给这个函数，从而在这个函数中你可以自由决定何时，如何发送 Action。**
+
+假设我们在创建 Redux Store 时指定了 redux-thunk 这个中间件：
+
+```jsx
+
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import rootReducer from './reducer'
+
+const composedEnhancer = applyMiddleware(thunkMiddleware)
+const store = createStore(rootReducer, composedEnhancer)
+```
+
+那么在我们 dispatch action 时就可以 dispatch 一个函数用于来发送请求，通常，我们会写成如下的结构：
+
+```jsx
+
+function fetchData() {
+  return dispatch => {
+    dispatch({ type: 'FETCH_DATA_BEGIN' });
+    fetch('/some-url').then(res => {
+      dispatch({ type: 'FETCH_DATA_SUCCESS', data: res });
+    }).catch(err => {
+      dispatch({ type: 'FETCH_DATA_FAILURE', error: err });
+    })
+  }
+}
+```
+
+那么在我们 dispatch action 时就可以 dispatch 一个函数用于来发送请求，通常，我们会写成如下的结构：
+
+```jsx
+
+import fetchData from './fetchData';
+
+function DataList() {
+  const dispatch = useDispatch();
+  // dispatch 了一个函数由 redux-thunk 中间件去执行
+  dispatch(fetchData());
+}
+```
+
+**可以看到，通过这种方式，我们就实现了异步请求逻辑的重用。那么这一套结合 redux-thunk 中间件的机制，我们就称之为异步 Action。**
+
+**所以说异步 Action 并不是一个具体的概念，而可以把它看作是 Redux 的一个使用模式。它通过组合使用同步 Action ，在没有引入新概念的同时，用一致的方式提供了处理异步逻辑的方案。**
+
+# 实战篇：
+
+## 1.复杂状态处理
+
+### 原则一：保证状态最小化
+
+就是说，**某些数据如果能从已有的 State 中计算得到，那么我们就应该始终在用的时候去计算，而不要把计算的结果存到某个 State 中**。这样的话，才能简化我们的状态处理逻辑。
+
+举个例子。你要做一个功能，需要对一个列表的结果进行关键字搜索，我们假设是一个显示电影标题的列表，需要能够对标题进行搜索。最终的效果如下图所示：
+
+![image-20220412143817475](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220412143817475.png)
+
+可以看到，这个功能包括一个搜索框和一个电影标题的列表。那么，在考虑怎么实现这个功能的时候，应该从哪里着手呢？按照 React 的状态驱动 UI 的思想，第一步就是要考虑整个功能有哪几个状态。
+
+
+
+直观上来说，页面可能包含三个状态：
+
+电影列表的数据：可能来自某个 API 请求；
+
+用户输入的关键字：来自用户的输入；
+
+搜索的结果数据：来自原始数据结合关键字的过滤结果。那么很多同学这时候就会在组件中去定义这三个状态，一般的实现代码如下：
+
+```jsx
+function FilterList({ data }) {
+  // 设置关键字的 State
+  const [searchKey, setSearchKey] = useState('');
+  // 设置最终要展示的数据状态，并用原始数据作为初始值
+  const [filtered, setFiltered] = useState(data);
+
+  // 处理用户的搜索关键字
+  const handleSearch = useCallback(evt => {
+    setSearchKey(evt.target.value);
+    setFiltered(
+      data.filter(item => {
+        return item.title.includes(evt.target.value);
+      })
+    );
+  }, [filtered])
+  return (
+    <div>
+      <input value={searchKey} onChange={handleSearch} />
+      {/* 根据 filtered 数据渲染 UI */}
+    </div>
+  );
+}
+```
+
+
+
+最终实际代码：[React Hooks Course - CodeSandbox](https://codesandbox.io/s/react-hooks-course-20vzg?file=/src/08/FilterList.js)
+
+虽然这是一个比较简单的例子，但是在实际开发的过程中，很多复杂场景之所以变得复杂，如果抽丝剥茧来看，你会发现它们都有**定义多余状态**现象的影子，而问题的根源就在于它们**没有遵循状态最小化的原则**。
+
+所以我们在定义一个新的状态之前，都要再三拷问自己：**这个状态是必须的吗？是否能通过计算得到呢？**在得到肯定的回答后，我们再去定义新的状态，就能避免大部分多余的状态定义问题了，也就能在简化状态管理的同时，保证状态的一致性。

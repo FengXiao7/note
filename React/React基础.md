@@ -4,13 +4,19 @@
 
 笔记记录此视频学习情况，天禹老师讲的很好，但不够深入，还是很感谢老师。
 
+# 资料：
+
+https://pan.baidu.com/s/15XwT-CdN9PBwZrkQBbU1Kg
+
+提取码：1hxn
+
 # 版本：
 
 ## React:
 
 1.
 
-大部分时间老师都用的是类式组件，我不知道实际企业中哪个用的多。但官方明确推荐函数式组件，用Hooks，相比类式组件函数式组件更‘轻’，但思想上更‘重’，甚至可以替代Redux做状态管理。函数式编程确实百花齐放啊，但带来的问题就是不好维护啊，可读性差呀，村从这一点上来说有强制语法规范的类式组件也不错呢。
+大部分时间老师都用的是类式组件，我不知道实际企业中哪个用的多。但16.8版本后官方明确推荐函数式组件，相比类式组件函数式组件更‘轻’，但思想上更‘重’，用Hooks甚至可以替代Redux做状态管理。函数式编程确实百花齐放啊，但带来的问题就是不好维护啊，可读性差，从这一点上来说有强制语法规范的类式组件也不错呢。
 
 2.
 
@@ -30,27 +36,25 @@
 
 老师讲了5和6两个版本
 
-# 资料：
 
-https://pan.baidu.com/s/15XwT-CdN9PBwZrkQBbU1Kg
-
-提取码：1hxn
 
 # 官网：
 
-react：
+## React：
 
 [React 官方中文文档 – 用于构建用户界面的 JavaScript 库 (reactjs.org)](https://zh-hans.reactjs.org/)
 
-脚手架：（无中文）
+## 脚手架：（无中文）
 
 [Create React App (create-react-app.dev)](https://create-react-app.dev/)
 
-路由：
+## 路由：
 
-[React Router: Declarative Routing for React.js (docschina.org)](https://react-router.docschina.org/)
+[React Router: Declarative Routing for React.js (docschina.org)](https://react-router.docschina.org/) 中文网
 
-redux：
+[Declarative routing for React apps at any scale | React Router](https://reactrouter.com/) 官网
+
+## Redux：
 
 1. 英文文档: https://redux.js.org/
 
@@ -4170,6 +4174,8 @@ componentDidCatch(error, info) {
 
 # react-router6_test
 
+这部分是老师自己写的笔记，我也添加了些自己的想法
+
 ## 1.概述
 
 1. React Router 以三个不同的包发布到 npm 上，它们分别为：
@@ -4217,9 +4223,9 @@ componentDidCatch(error, info) {
 
 ### 3. `<Routes/> 与 <Route/>`
 
-1. v6版本中移出了先前的`<Switch>`，引入了新的替代者：`<Routes>`。
+1. v6版本中移出了先前的`<Switch>`，引入了新的替代者：`<Routes>`。Switch的规则Routes也支持
 
-2. `<Routes>` 和 `<Route>`要配合使用，且必须要用`<Routes>`包裹`<Route>`。
+2. **`<Routes>` 和 `<Route>`要配合使用，且必须要用`<Routes>`包裹`<Route>`。**
 
 3. `<Route>` 相当于一个 if 语句，如果其路径与当前 URL 匹配，则呈现其对应的组件。
 
@@ -4230,6 +4236,8 @@ componentDidCatch(error, info) {
 6. `<Route>` 也可以嵌套使用，且可配合`useRoutes()`配置 “路由表” ，但需要通过 `<Outlet>` 组件来渲染其子路由。
 
 7. 示例代码：
+
+   我们用的是路由表，实际上也是嵌套使用`<Route>`
 
    ```jsx
    <Routes>
@@ -4270,7 +4278,9 @@ componentDidCatch(error, info) {
    }
    ```
 
-### 5. `<NavLink>`
+### 5. `<NavLink>`高亮
+
+和以前直接用activeClassName指定样式名不同，我们需要给className传一个函数
 
 1. 作用: 与`<Link>`组件类似，且可实现导航的“高亮”效果。
 
@@ -4301,15 +4311,13 @@ componentDidCatch(error, info) {
 <NavLink className={isActive=>isActive ? 'list-group-item atguigu' : 'list-group-item'} to="/about">About</NavLink>
 ```
 
-className接收一个回调函数，通过参数isActive改变我们的样式
+className接收一个回调函数，通过参数isActive改变我们的样式。多次使用建议抽取出来成一个新的函数
 
-### 6. `<Navigate>`
-
-用来重定向
+### 6. `<Navigate>`用来重定向，动态跳转
 
 1. 作用：只要`<Navigate>`组件被渲染，就会修改路径，切换视图。
 
-2. `replace`属性用于控制跳转模式（push 或 replace，默认是push）。
+2. `replace`属性可以用于控制跳转模式（push 或 replace，默认是push）。
 
 3. 示例代码：
 
@@ -4332,7 +4340,9 @@ className接收一个回调函数，通过参数isActive改变我们的样式
 
 <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/119.gif" style="zoom: 100%"></img>
 
-### 7. `<Outlet>`
+### 7. `<Outlet>` 渲染子路由
+
+和vue的router-view很像喔
 
 1. 当`<Route>`产生嵌套时，渲染其对应的后续子路由。
 
@@ -4350,6 +4360,7 @@ className接收一个回调函数，通过参数isActive改变我们的样式
        element:<Home/>,
        children:[
          {
+             //没有斜杠了
            path:'news',
            element:<News/>
          },
@@ -4372,6 +4383,8 @@ className接收一个回调函数，通过参数isActive改变我们的样式
    			<div>
    				<ul className="nav nav-tabs">
    					<li>
+                           {/*to不写父路径了，不写斜杠了，这是./news的简写方式*/}
+                           {/*千万不要写成/news，这样写相当于一级路由了*/}
    						<NavLink className="list-group-item" to="news">News</NavLink>
    					</li>
    					<li>
@@ -4389,11 +4402,11 @@ className接收一个回调函数，通过参数isActive改变我们的样式
 
 ## 3.Hooks
 
-传送门：[React Hooks 入门教程 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/09/react-hooks.html)
+传送门：[React Router | API Reference](https://reactrouter.com/docs/en/v6/api)
 
-[轻松学会 React 钩子：以 useEffect() 为例 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2020/09/react-hooks-useeffect-tutorial.html)
+官网里的例子比较好，可以研究研究。同时注意是时候学习typeScript了
 
-### 1. useRoutes()
+### 1. useRoutes() 路由表
 
 1. 作用：根据路由表，动态创建`<Routes>`和`<Route>`。
 
@@ -4440,9 +4453,19 @@ className接收一个回调函数，通过参数isActive改变我们的样式
    
    ```
 
-### 2. useNavigate()
+### 2. useNavigate() 编程式路由导航
+
+我们在一般组件中也可以用useNavigate()就不使用withRouter()了
 
 1. 作用：返回一个函数用来实现编程式导航。
+
+   该函数第一个参数是跳转路径，第二个可选参数是一个配置对象，可以配置replace和state参数。
+
+   也就是说我们如果想传params参数或者search参数直接写在跳转路径里面，state参数就写在配置对象里面。
+
+   
+
+   该函数还有第二种使用方法，直接传数字，实现以前前进和后退的功能
 
 2. 示例代码：
 
@@ -4470,7 +4493,11 @@ className接收一个回调函数，通过参数isActive改变我们的样式
    }
    ```
 
-### 3. useParams()
+### 3. useParams()  路由params参数
+
+我测试过直接通过props是收不到参数的，还是得用对应的钩子。
+
+路由params参数声明写在路由表里面咯，和vue基本一样了。
 
 1. 作用：回当前匹配路由的`params`参数，类似于5.x中的`match.params`。
 
@@ -4483,6 +4510,7 @@ className接收一个回调函数，通过参数isActive改变我们的样式
    
    function ProfilePage() {
      // 获取URL中携带过来的params参数
+      //传过来的是个params参数对象，直接解构就行
      let { id } = useParams();
    }
    
@@ -4495,11 +4523,15 @@ className接收一个回调函数，通过参数isActive改变我们的样式
    }
    ```
 
-### 4. useSearchParams()
+### 4. useSearchParams() 路由search参数
+
+返回的两个东西，比较复杂。建议看官网
 
 1. 作用：用于读取和修改当前位置的 URL 中的查询字符串。
 
 2. 返回一个包含两个值的数组，内容分别为：当前的seaech参数、更新search的函数。
+
+   这个search
 
 3. 示例代码：
 
@@ -4526,7 +4558,11 @@ className接收一个回调函数，通过参数isActive改变我们的样式
    
    ```
 
-### 5. useLocation()
+### 5. useLocation() 路由location对象+state参数
+
+这里面当然也包含search，只想要search还是用useSearchParams钩子更好，因为不用解析字符串了
+
+<div style="color: red">我们用state参数，也是用这个钩子</div>
 
 1. 作用：获取当前 location 信息，对标5.x中的路由组件的`location`属性。
 
@@ -4558,12 +4594,34 @@ className接收一个回调函数，通过参数isActive改变我们的样式
    	)
    }
    
-     
-   
-   
    ```
 
-### 6. useMatch()
+3.state参数
+
+路由声明
+
+![image-20220411173219047](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220411173219047.png)
+
+接收state参数：
+
+这里用了个连续解构赋值直接取出来，接收就行
+
+```jsx
+const {state:{id,title,content}} = useLocation()
+	return (
+		<ul>
+			<li>消息编号：{id}</li>
+			<li>消息标题：{title}</li>
+			<li>消息内容：{content}</li>
+		</ul>
+	)
+```
+
+### 6. useMatch() 路由Match对象
+
+如果只是想拿路由的params参数，推荐就用useParams（）钩子了。
+
+想要match对象的其他参数就用这个钩子
 
 1. 作用：返回当前匹配信息，对标5.x中的路由组件的`match`属性。
 
@@ -4597,9 +4655,11 @@ className接收一个回调函数，通过参数isActive改变我们的样式
    }
    ```
 
-### 7. useInRouterContext()
+### 7. useInRouterContext() 
 
 ​			作用：如果组件在 `<Router>` 的上下文中呈现，则 `useInRouterContext` 钩子返回 true，否则返回 false。
+
+这个实际开发中用的很少，因为我们的App一般都被BrowserRouter包住的，所有子组件调用useInRouterContext始终返回true，开发第三方程序比较有用。
 
 ### 8. useNavigationType()
 
@@ -4624,9 +4684,8 @@ className接收一个回调函数，通过参数isActive改变我们的样式
 
 1. 作用：给定一个 URL值，解析其中的：path、search、hash值。
 
+```
+console.log('@@',useResolvedPath('/user?id=001&name=tom#qwe'))
+```
 
-
-# 
-
-## 
-
+![image-20220411201031326](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220411201031326.png)
