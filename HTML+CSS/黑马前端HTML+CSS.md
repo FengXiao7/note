@@ -8,13 +8,21 @@ https://gitee.com/xiaoqiang001/html_css_material.git
 
 [黑马程序员pink老师前端入门教程，零基础必看的h5(html5)+css3+移动端前端视频教程_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV14J4114768?p=1)
 
-# 重点：
+# 疑问：
+
+## 1.Grid
 
 Grid布局：(这部分pink老师没讲，看阮老师的博客)
 
 [CSS Grid 网格布局教程 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html)
 
+## 2.第五天第19
 
+19-padding不会影响盒子大小情况
+
+## 3.overflow
+
+## 4.圆角边框原理
 
 # 需要注意的地方：
 
@@ -24,7 +32,7 @@ Grid布局：(这部分pink老师没讲，看阮老师的博客)
 
 ## 3.浏览器设置67%页面大小好切图。（本机显示屏1920*1200）
 
-## 4.dl,dt,dd 三个html标签
+## 
 
 ## 5.多行文本溢出显示省略号后台怎么实现呢？见高阶技巧第6点
 
@@ -185,6 +193,8 @@ F8
 ![image-20220309130455989](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309130455989.png)
 
 ## 6.块，行内，行内块元素
+
+传送门：[一次性搞懂行内元素和块级元素的区别 - 掘金 (juejin.cn)](https://juejin.cn/post/6964644611822190622)
 
 ### 块元素：
 
@@ -434,6 +444,8 @@ auto:让浏览器自己选择一个合适的外边距。有时，在一些特殊
     <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220308114001717.png" width="300"/>
     <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220308114132193.png" width="300"/>
 </center>
+常用第三种方法
+
 ### 综合案例：
 
 ```html

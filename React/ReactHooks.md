@@ -177,6 +177,8 @@ const Demo = () => {
 
 ## 3.内置Hooks（1）
 
+有个坑：见官网https://zh-hans.reactjs.org/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often
+
 ### useEffect：
 
 ```
@@ -236,7 +238,7 @@ function Sample() {
 
 代码的原意可能是在 todos 变化的时候去产生一些副作用，但是这里的 todos 变量是在函数内创建的，实际上每次都产生了一个新数组。所以在作为依赖项的时候进行引用的比较，实际上被认为是发生了变化的。
 
-这个我在PureComponent里面天禹老师也说过
+*这个在基础PureComponent那里天禹老师也说过*
 
 #### 总结：
 
@@ -259,8 +261,6 @@ function Sample() {
 ## 4.内置Hooks（2）
 
 ### useCallback：缓存回调函数
-
-
 
 每次创建新函数的方式会让接收事件处理函数的组件，需要重新渲染。
 
@@ -301,6 +301,12 @@ function Counter() {
 ```
 
 在这里，我们把 count 这个 state ，作为一个依赖传递给 useCallback。这样，只有 count 发生变化的时候，才需要重新创建一个回调函数，这样就保证了组件不会创建重复的回调函数。而接收这个回调函数作为属性的组件，也不会频繁地需要重新渲染。
+
+### 补充：
+
+如果没有依赖项，就是没有写第二个参数的情况，那么每次都会重新渲染，useCallBack相当于白写了，和普通函数没区别。
+
+如果依赖项是空数组，即第二个参数为[],那么只在第一次渲染的时候创建一个函数
 
 ### useMemo：缓存计算的结果
 
@@ -671,6 +677,8 @@ function BlogView({ id }) {
 
 自定义的useCounter 
 
+沙箱：[React Hooks Course - CodeSandbox](https://codesandbox.io/s/react-hooks-course-20vzg?file=/src/06/UseCounter.js)
+
 ```jsx
 import { useState, useCallback }from 'react';
  
@@ -724,6 +732,8 @@ export default Counter
 
 #### 案例：
 
+沙箱：[React Hooks Course - CodeSandbox](https://codesandbox.io/s/react-hooks-course-20vzg?file=/src/06/useAsync.js)
+
 可以重新看下在第 1 讲中看到的异步请求的例子，从 Server 端获取用户列表，并显示在界面上：
 
 <a href="#userList">Link</a>
@@ -744,7 +754,7 @@ export default Counter
 
 这个钩子接收一个异步请求函数，返回值有4个：
 
-1. 
+1. execute: 包装后的异步请求函数
 2. loading：异步请求的loading状态,true或者false
 3. data：异步请求获得的数据对象
 4. error:异步请求获得的错误对象
@@ -909,11 +919,11 @@ export default ScrollTop
 
 做法很简单，就是**尽量将相关的逻辑做成独立的 Hooks，然后在函数组中使用这些 Hooks，通过参数传递和返回值让 Hooks 之间完成交互。**
 
-
-
 #### 例子：
 
-老师这个例子太复杂了，而且没有接口。了解其中的拆分思想即可
+沙箱：[React Hooks Course - CodeSandbox](https://codesandbox.io/s/react-hooks-course-20vzg?file=/src/06/BlogList.js)
+
+*老师这个例子太复杂了，建议把沙箱上的代码下载下来，并测试下后台接口，会清晰很多。目前就antD部分还看不懂*
 
 ```jsx
 
@@ -934,8 +944,6 @@ function BlogList() {
 这里的useAsync就是之前写的那个
 
 <a href="#useAsync">Link</a>
-
-建议放在IDE里面看，方便折叠代码。这里请求地址是假的
 
 ```jsx
 
@@ -1066,7 +1074,7 @@ export default function BlogList() {
 
 *我会在扩展里面试验下作者的想法*
 
-下面是精简原文：
+
 
 Hooks 的本质就是提供了让 React 组件能够绑定到某个可变的数据源的能力。在这里，当 Hooks 用到 Redux 时可变的对象就是 Store，而 useSelector 则让一个组件能够在 Store 的某些数据发生变化时重新 render。我在这里仍然以官方给的计数器例子为例，来给你讲解如何在 React 中使用 Redux：
 
@@ -1253,10 +1261,30 @@ function FilterList({ data }) {
 }
 ```
 
+还可以加一部分逻辑，把原始数据data也保持一致性
 
+```jsx
+
+function FilterList({ data }) {
+  // ...
+  // 在 data 变化的时候，也重新生成最终数据
+  useEffect(() => {
+    setFiltered(data => {...})
+  }, [data, searchKey])
+  // ...
+}
+```
+
+但这还不是最完美的
+
+那么，我想说的是，这种复杂性其实完全不需要。因为复杂性的根源就在于没有遵循状态最小化的原则，而是设计了一个多余的状态：**过滤后的结果数据**。由于这个结果数据实际上完全由原始数据和过滤关键字决定，那么我们在需要的时候每次重新计算得出就可以了。性能问题，再使用useMemo缓存计算结果就可以了。
 
 最终实际代码：[React Hooks Course - CodeSandbox](https://codesandbox.io/s/react-hooks-course-20vzg?file=/src/08/FilterList.js)
+
+
 
 虽然这是一个比较简单的例子，但是在实际开发的过程中，很多复杂场景之所以变得复杂，如果抽丝剥茧来看，你会发现它们都有**定义多余状态**现象的影子，而问题的根源就在于它们**没有遵循状态最小化的原则**。
 
 所以我们在定义一个新的状态之前，都要再三拷问自己：**这个状态是必须的吗？是否能通过计算得到呢？**在得到肯定的回答后，我们再去定义新的状态，就能避免大部分多余的状态定义问题了，也就能在简化状态管理的同时，保证状态的一致性。
+
+### 原则二：避免中间状态，确保唯一数据源

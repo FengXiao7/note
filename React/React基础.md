@@ -741,6 +741,25 @@ class Person extends React.Component{
 		ReactDOM.render(<Person name="jerry"/>,document.getElementById('test1'))
 ```
 
+#### PS：
+
+这里说的不妥当，函数式组件默认值不用写这么复杂
+
+```jsx
+function List({pageSize = 10}) {
+  return (
+    <div>
+      此处展示props的默认值：{ pageSize }
+    </div>
+  )
+}
+
+// 不传入pageSize属性
+<List />
+```
+
+
+
 ## 8.三大属性之一-----refs
 
 组件内的标签可以定义ref属性来标识自己，和vue里的用法差不多
@@ -1017,7 +1036,117 @@ class Login extends React.Component{
 
 https://zh-hans.reactjs.org/docs/refs-and-the-dom.html#dont-overuse-refs
 
-受控组件简单理解：页面里所有输入类型的dom(我们的例子是input)，随着我们的输入，react可以维护它的状态，用的时候直接从state取出来。其实就是vue里面的v-model双向数据绑定
+受控组件简单理解：页面里所有输入类型的dom(我们的例子是input)，随着我们的输入，react可以维护它的状态，用的时候直接从state取出来。其实就是vue里面的v-model双向数据绑定。
+
+
+
+### PS：
+
+我回头再来看受控组件和非受控组件，当时总结的不是很好。
+
+我一直觉得受控组件，用React状态控制。input里面的内容改变一次，不就会改变状态，进而导致组件
+
+重新渲染呀，为啥受控组件还受欢迎？难道dif算法真的这么强大？
+
+这里我摘一段别人的笔记：
+
+### 1. 受控表单组件
+
+> 什么是受控组件？  `input框自己的状态被React组件状态控制`
+>
+> React组件的状态的地方是在state中，input表单元素也有自己的状态是在value中，React将state与表单元素的值（value）绑定到一起，由state的值来控制表单元素的值，从而保证单一数据源特性
+
+**实现步骤**
+
+以获取文本框的值为例，受控组件的使用步骤如下：
+
+1. 在组件的state中声明一个组件的状态数据
+2. 将状态数据设置为input标签元素的value属性的值
+3. 为input添加change事件，在事件处理程序中，通过事件对象e获取到当前文本框的值（`即用户当前输入的值`）
+
+4. 调用setState方法，将文本框的值作为state状态的最新值
+
+**代码落地**
+
+```jsx
+import React from 'react'
+
+class InputComponent extends React.Component {
+  // 声明组件状态
+  state = {
+    message: 'this is message',
+  }
+  // 声明事件回调函数
+  changeHandler = (e) => {
+    this.setState({ message: e.target.value })
+  }
+  render () {
+    return (
+      <div>
+        {/* 绑定value 绑定事件*/}
+        <input value={this.state.message} onChange={this.changeHandler} />
+      </div>
+    )
+  }
+}
+
+
+function App () {
+  return (
+    <div className="App">
+      <InputComponent />
+    </div>
+  )
+}
+export default App
+```
+
+### 2. 非受控表单组件
+
+> 什么是非受控组件？
+>
+> 非受控组件就是通过手动操作dom的方式获取文本框的值，文本框的状态不受react组件的state中的状态控制，直接通过原生dom获取输入框的值
+
+**实现步骤**
+
+1. 导入`createRef` 函数
+2. 调用createRef函数，创建一个ref对象，存储到名为`msgRef`的实例属性中
+3. 为input添加ref属性，值为`msgRef`
+4. 在按钮的事件处理程序中，通过`msgRef.current`即可拿到input对应的dom元素，而其中`msgRef.current.value`拿到的就是文本框的值
+
+**代码落地**
+
+```jsx
+import React, { createRef } from 'react'
+
+class InputComponent extends React.Component {
+  // 使用createRef产生一个存放dom的对象容器
+  msgRef = createRef()
+
+  changeHandler = () => {
+    console.log(this.msgRef.current.value)
+  }
+
+  render() {
+    return (
+      <div>
+        {/* ref绑定 获取真实dom */}
+        <input ref={this.msgRef} />
+        <button onClick={this.changeHandler}>click</button>
+      </div>
+    )
+  }
+}
+
+function App () {
+  return (
+    <div className="App">
+      <InputComponent />
+    </div>
+  )
+}
+export default App
+```
 
 ## 11.优化我们的表单案例
 
@@ -1613,6 +1742,8 @@ https://www.bilibili.com/video/BV1wy4y1D7JT?p=51
 <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/91.gif" style="zoom: 100%"></img>
 
 我们修改item里面勾选栏的状态，需要更新todos的值，但todos在App里面。App和item相当于爷孙关系（中间隔了个父亲list）。我们目前还是父给子用props传函数的形式实现组件之间的通讯，后续会有更好的方法
+
+defaultChecked
 
 ![image-20220403201051874](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403201051874.png)
 
@@ -3673,6 +3804,66 @@ export default Demo;
         setXxx(value => newValue): 参数为函数, 接收原本的状态值, 返回新的状态值, 内部用其覆盖原来的状态值
 ```
 
+有坑：传送门：
+
+[(26条消息) 记React中useState异步更新小坑_coucouxie的博客-CSDN博客_usestate异步更新取值](https://blog.csdn.net/coucouxie/article/details/119607459)
+
+#### PS:
+
+#### useState - 回调函数的参数
+
+`本节任务:`  能够理解useState回调函数作为参数的使用场景
+
+**使用场景**
+
+参数只会在组件的初始渲染中起作用，后续渲染时会被忽略。如果初始 state 需要通过计算才能获得，则可以传入一个函数，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用
+
+**语法**
+
+```jsx
+const [name, setName] = useState(()=>{    // 编写计算逻辑    return '计算之后的初始值'})
+```
+
+**语法规则**
+
+1. 回调函数return出去的值将作为 `name` 的初始值
+2. 回调函数中的逻辑只会在组件初始化的时候执行一次
+
+**语法选择**
+
+1. 如果就是初始化一个普通的数据 直接使用 `useState(普通数据)` 即可
+2. 如果要初始化的数据无法直接得到需要通过计算才能获取到，使用`useState(()=>{})` 
+
+**案例：**
+
+```jsx
+import { useState } from 'react'
+
+function Counter(props) {
+  const [count, setCount] = useState(() => {
+    return props.count
+  })
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>{count}</button>
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <Counter count={10} />
+      <Counter count={20} />
+    </>
+  )
+}
+
+export default App
+```
+
+
+
 ### useEffect：
 
 这里阮老师讲得很好。
@@ -3680,6 +3871,8 @@ export default Demo;
 传送门：
 
 [轻松学会 React 钩子：以 useEffect() 为例 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2020/09/react-hooks-useeffect-tutorial.html)
+
+官网：https://zh-hans.reactjs.org/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often
 
 ```jsx
 import React from 'react';
@@ -3690,6 +3883,7 @@ const Demo = () => {
 	//第一个参数是一个函数，它就是所要完成的副效应。组件加载以后，React 就会执行这个函数。
     React.useEffect(()=>{
         let timer = setInterval(()=>{
+            //这里面必须写成函数形式的Set，见官网
             setCount(count=>count+1)
         },500)
 		//useEffect()允许返回一个函数，在组件卸载时，执行该函数，清理副效应。如果不需要清理副效应，			useEffect()就不用返回任何值。

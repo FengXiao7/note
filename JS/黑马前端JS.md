@@ -1008,6 +1008,8 @@ https://zh.javascript.info/searching-elements-dom#querySelectorAll
 
 ![image-20220318174403034](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220318174403034.png)
 
+
+
 ![image-20220318174652808](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220318174652808.png)
 
 ```html
