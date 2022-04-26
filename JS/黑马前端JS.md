@@ -10,9 +10,7 @@
 
 [JavaScript: pink老师的js全视频配套资料 (gitee.com)](https://gitee.com/xiaoqiang001/java-script)
 
-# 需要注意的地方：
-
-## 1.offsetX是什么？
+## 
 
 
 

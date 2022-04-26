@@ -16,13 +16,19 @@ Grid布局：(这部分pink老师没讲，看阮老师的博客)
 
 [CSS Grid 网格布局教程 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html)
 
-## 2.第五天第19
 
-19-padding不会影响盒子大小情况
 
-## 3.overflow
 
-## 4.圆角边框原理
+
+## 2.BFC？
+
+## 3.第九天第10条
+
+## 4.字体图标
+
+## 5.3D导航栏
+
+## 6.旋转木马
 
 # 需要注意的地方：
 
@@ -62,10 +68,6 @@ bug:只能显示ad部分的一个gif
 
 ## 10.开发者模式下，手机端F12怎么拖动啊？
 
-## 11.label标签
-
-[ - HTML（超文本标记语言） | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/label)
-
 
 
 
@@ -75,6 +77,8 @@ bug:只能显示ad部分的一个gif
 ## 1.缩放固定图片比例    
 
 Alt+Ctrl+I
+
+用于多倍精灵图
 
 ## 2.显示参考线，矩阵大小等信息
 
@@ -191,6 +195,8 @@ F8
 ## 5.复合选择器
 
 ![image-20220309130455989](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309130455989.png)
+
+伪类选择器优先级：10
 
 ## 6.块，行内，行内块元素
 
@@ -319,7 +325,7 @@ F8
 
 ![image-20220308105003129](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220308105003129.png)
 
-
+如果盒子本身没有指定宽度或高度，则此时padding不会撑大盒子。
 
 ### margin:
 
@@ -534,6 +540,10 @@ auto:让浏览器自己选择一个合适的外边距。有时，在一些特殊
 
 ## 10.圆框
 
+border-radius就是这些圆的半径大小
+
+![image-20220423192414911](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220423192414911.png)
+
 ![image-20220309132205208](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309132205208.png)
 
 案例：
@@ -592,6 +602,8 @@ auto:让浏览器自己选择一个合适的外边距。有时，在一些特殊
 ## 11.盒子阴影
 
 ![image-20220309133011308](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309133011308.png)
+
+这个写好在浏览器上调就行
 
 案例：
 
@@ -1788,7 +1800,13 @@ html:
 
 ## 16.css定位
 
+传送门：
+
 [CSS 定位详解 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/11/css-position.html)
+
+position与float同时使用的坑
+
+[position 与 float 同时使用 - 简书 (jianshu.com)](https://www.jianshu.com/p/dbb7447d3ceb)
 
 为什么需要定位？
 
@@ -1969,6 +1987,7 @@ html:
             /* 1. left 走 50%  父容器宽度的一半 */
             left: 50%;
             /* 2. margin 负值 往左边走 自己盒子宽度的一半 */
+            /* 3. 也可以合起来写top:calc(50% - 100px)*/
             /* 垂直类似 */
             margin-left: -100px;
             top: 50%;
@@ -2578,7 +2597,9 @@ html:
 
 ### 表单轮廓，文本域防拖拽：
 
-表单轮廓，就是在input框输入内容时，边框会变色
+表单轮廓，就是在input框输入内容时，边框会变色。
+
+文本域防拖拽就是不让用户用鼠标自由缩放文本域大小
 
 ```html
 <!DOCTYPE html>
@@ -2844,6 +2865,8 @@ html:
 
 ### 直角三角形：
 
+其实根据这个边框大小和颜色，已经可以画任意三角形了，不要去背，换个方向一下就绕晕了。自己在浏览器上调一下就会了，重要的是知道把高宽设为0，然后调整边框画三角形这种思想。
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -3027,11 +3050,19 @@ body {
 
 ## 1.新增语义标签
 
+传送门：
+
+[不要一直用啦！语义化标签了解下？ - 掘金 (juejin.cn)](https://juejin.cn/post/7021448274431180831)
+
+不怎么看好，还是喜欢用div+class命名的方式。看评论区知真
+
 ![image-20220314184921747](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314184921747.png)
 
 ![image-20220314184947767](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314184947767.png)
 
 ## 2.新增多媒体标签
+
+属性太多了，记不住也很正常，用的时候去查就行
 
 ### video：
 
@@ -3294,6 +3325,8 @@ body {
 
 **伪元素属于行内元素**
 
+设置高宽当然无效。注意不要和以前的伪类搞混了
+
 ![image-20220314194439802](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314194439802.png)
 
 ```html
@@ -3443,6 +3476,8 @@ body {
 ![image-20220315154736128](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315154736128.png)
 
 ### calc:
+
+注意运算符旁必须要有空格
 
 ![image-20220315154805107](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315154805107.png)
 
@@ -3682,6 +3717,8 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 </html>
 ```
 
+看左上角这个点，x和y轴上的距离比较清晰
+
 ![image-20220315174843663](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315174843663.png)
 
 #### 子盒子居中：
@@ -3827,6 +3864,8 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 #### transform-origin设置旋转中心点：
 
 ![image-20220315190712030](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315190712030.png)
+
+这个中心点设置还是相对于左上角
 
 ```html
 <!DOCTYPE html>

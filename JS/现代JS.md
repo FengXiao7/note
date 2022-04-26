@@ -110,6 +110,12 @@ https://zh.javascript.info/import-export
 
 [包装异常](https://zh.javascript.info/custom-errors#bao-zhuang-yi-chang)
 
+### 17.原生DOM操作
+
+它的所有习题对我而言，都很难。因为自己用js框架的时间和UI组件库的时间要多得多，写框架和UI库的应该要经常用吧
+
+[任务](https://zh.javascript.info/modifying-document#tasks)
+
 
 
 # 疑问：
@@ -5841,35 +5847,671 @@ https://zh.javascript.info/modules-dynamic-imports
 
 ## Document
 
+很多操作节点的方法很少使用，知道有这个东西，用的时候回来查查就行。一般来说都用框架了吧，估计自己封装组件库
+
+会经常使用到。
+
+### 1.2DOM树
+
+[DOM 树](https://zh.javascript.info/dom-nodes)
+
+空格和换行符都是完全有效的字符，就像字母和数字。它们形成文本节点并成为 DOM 的一部分，但这种文本节点一般都会被工具隐藏。
+
+#### 节点类型
+
+一共有 [12 种节点类型](https://dom.spec.whatwg.org/#node)。实际上，我们通常用到的是其中的 4 种：
+
+1. `document` — DOM 的“入口点”。
+2. 元素节点 — HTML 标签，树构建块。
+3. 文本节点 — 包含文本。
+4. 注释 — 有时我们可以将一些信息放入其中，它不会显示，但 JS 可以从 DOM 中读取它。
+
 ### 1.3遍历DOM
 
-对于所有节点：`parentNode`，`childNodes`，`firstChild`，`lastChild`，`previousSibling`，`nextSibling`。
+[遍历 DOM](https://zh.javascript.info/dom-navigation)
 
-仅对于元素节点：`parentElement`，`children`，`firstElementChild`，`lastElementChild`，`previousElementSibling`，`nextElementSibling`。
+#### 顶层节点
 
-也就是说有“Element”就是操作元素节点的方法
+最顶层的树节点可以直接作为 `document` 的属性来使用：
 
-对于很多任务来说，我们并不想要文本节点或注释节点。我们希望操纵的是代表标签的和形成页面结构的元素节点。
+- `<html>` = `document.documentElement`
 
-#### 
+  最顶层的 document 节点是 `document.documentElement`。这是对应 `<html>` 标签的 DOM 节点。
 
-#### 1.习题：
+- `<body>` = `document.body`
 
-https://zh.javascript.info/dom-navigation#dom-zi-jie-dian
+  另一个被广泛使用的 DOM 节点是 `<body>` 元素 — `document.body`。
 
-#### 2.习题：
+- `<head>` = `document.head`
 
-https://zh.javascript.info/dom-navigation#xiong-di-jie-dian-wen-ti
+  `<head>` 标签可以通过 `document.head` 访问。
 
-#### 3.习题：
+#### 子节点：
 
-https://zh.javascript.info/dom-navigation#xuan-ze-suo-you-dui-jiao-dan-yuan-ge
+1.**`childNodes` 集合列出了所有子节点，包括文本节点。**
+
+2.**`firstChild` 和 `lastChild` 属性是访问第一个和最后一个子元素的快捷方式。**
+
+```js
+elem.childNodes[0] === elem.firstChild
+elem.childNodes[elem.childNodes.length - 1] === elem.lastChild
+```
+
+3.`childNodes` 看起来就像一个数组。但实际上它并不是一个数组，而是一个 **集合** — 一个类数组的可迭代对象。
+
+如果我们想要使用数组的方法的话，我们可以使用 `Array.from` 方法来从集合创建一个“真”数组：
+
+```js
+alert( Array.from(document.body.childNodes).filter ); // function
+```
+
+4.`elem.hasChildNodes()` 用于检查节点是否有子节点。
+
+#### 兄弟节点和父节点
+
+下一个兄弟节点在 `nextSibling` 属性中，上一个是在 `previousSibling` 属性中。
+
+可以通过 `parentNode` 来访问父节点。
+
+```js
+// <body> 的父节点是 <html>
+alert( document.body.parentNode === document.documentElement ); // true
+
+// <head> 的后一个是 <body>
+alert( document.head.nextSibling ); // HTMLBodyElement
+
+// <body> 的前一个是 <head>
+alert( document.body.previousSibling ); // HTMLHeadElement
+```
+
+#### 纯元素导航
+
+但是对于很多任务来说，我们并不想要文本节点或注释节点。我们希望操纵的是代表标签的和形成页面结构的元素节点。
+
+所以，让我们看看更多只考虑 **元素节点** 的导航链接（navigation link）：
+
+<div style="color: red">这些链接和我们在上面提到过的类似，只是在词中间加了 `Element`：</div>
+
+- `children` — 仅那些作为元素节点的子代的节点。
+- `firstElementChild`，`lastElementChild` — 第一个和最后一个子元素。
+- `previousElementSibling`，`nextElementSibling` — 兄弟元素。
+- `parentElement` — 父元素。
+
+所以说访问节点的方式如下：
+
+- 对于所有节点：`parentNode`，`childNodes`，`firstChild`，`lastChild`，`previousSibling`，`nextSibling`。
+- 仅对于元素节点：`parentElement`，`children`，`firstElementChild`，`lastElementChild`，`previousElementSibling`，`nextElementSibling`。
+
+小细节：
+
+**为什么是** `parentElement`**? 父节点可以不是一个元素吗？**
+
+```js
+alert( document.documentElement.parentNode ); // document
+alert( document.documentElement.parentElement ); // null
+```
+
+根节点 `document.documentElement`（`<html>`）的父节点是 `document`。但 `document` 不是一个元素节点，所以 `parentNode` 返回了 `document`，但 `parentElement` 返回的是 `null`。
 
 ### 1.4搜索：getElement*，querySelector*
 
-#### 1.习题:
+[搜索：getElement*，querySelector*](https://zh.javascript.info/searching-elements-dom)
+
+提供了很多访问节点的方法，我觉得用querySelector和querySelectorAll就足够了。
+
+记一些不常用的方法
+
+#### match:
+
+只会检查 `elem` 是否与给定的 CSS 选择器匹配。它返回 `true` 或 `false`。
+
+```js
+<a href="http://example.com/file.zip">...</a>
+<a href="http://ya.ru">...</a>
+
+<script>
+  // 不一定是 document.body.children，还可以是任何集合
+  for (let elem of document.body.children) {
+    if (elem.matches('a[href$="zip"]')) {
+      alert("The archive reference: " + elem.href );
+    }
+  }
+</script>
+```
+
+#### getElementsBy*
+
+这个居然也成为了时代的眼泪了吗？以前经常用的。
+
+注意返回的是集合哈
+
+#### 实时的集合
+
+所有的 `"getElementsBy*"` 方法都会返回一个 **实时的（live）** 集合。这样的集合始终反映的是文档的当前状态，并且在文档发生更改时会“自动更新”。
+
+```js
+<div>First div</div>
+
+<script>
+  let divs = document.getElementsByTagName('div');
+  alert(divs.length); // 1
+</script>
+
+<div>Second div</div>
+
+<script>
+  alert(divs.length); // 2
+</script>
+```
+
+`querySelectorAll` 返回的是一个 **静态的** 集合。就像元素的固定数组。
+
+```js
+<div>First div</div>
+
+<script>
+  let divs = document.querySelectorAll('div');
+  alert(divs.length); // 1
+</script>
+
+<div>Second div</div>
+
+<script>
+  alert(divs.length); // 1
+</script>
+```
+
+让我们在这里提一下另一种用来检查子级与父级之间关系的方法，因为它有时很有用：
+
+- 如果 `elemB` 在 `elemA` 内（`elemA` 的后代）或者 `elemA==elemB`，`elemA.contains(elemB)` 将返回 true。
+
+#### 习题:
+
+这个习题看懂，就没多大问题了
 
 https://zh.javascript.info/searching-elements-dom#sou-suo-yuan-su
+
+### 1.5节点属性
+
+[节点属性：type，tag 和 content](https://zh.javascript.info/basic-dom-node-properties)
+
+所有属性：
+
+传送门：
+
+[HTML Standard (whatwg.org)](https://html.spec.whatwg.org/#htmlinputelement)
+
+我觉得很少使用这些节点属性吧，简单看看就行了。
+
+#### nodeType：
+
+用数字检查节点类型的，过时了。
+
+#### nodeName和tagName:
+
+给定一个 DOM 节点，我们可以从 `nodeName` 或者 `tagName` 属性中读取它的标签名.
+
+区别在于
+
+- `tagName` 属性仅适用于 `Element` 节点。
+- nodeName是为任意 Node定义的：
+  - 对于元素，它的意义与 `tagName` 相同。
+  - 对于其他节点类型（text，comment 等），它拥有一个对应节点类型的字符串。
+
+和1.3节讲的纯元素导航很像喔。
+
+#### innerHTML：内容
+
+[innerHTML](https://w3c.github.io/DOM-Parsing/#the-innerhtml-mixin) 属性允许将元素中的 HTML 获取为字符串形式。
+
+<div style="color: red">这个用的比较多。</div>
+
+```html
+下面这个示例显示了 document.body 中的内容，然后将其完全替换：
+
+<body>
+  <p>A paragraph</p>
+  <div>A div</div>
+
+  <script>
+    alert( document.body.innerHTML ); // 读取当前内容
+    document.body.innerHTML = 'The new BODY!'; // 替换它
+  </script>
+
+</body>
+我们可以尝试插入无效的 HTML，浏览器会修复我们的错误：
+
+<body>
+
+  <script>
+    document.body.innerHTML = '<b>test'; // 忘记闭合标签
+    alert( document.body.innerHTML ); // <b>test</b>（被修复了）
+  </script>
+
+</body>
+```
+
+从技术上来说，下面这两行代码的作用相同：
+
+```javascript
+elem.innerHTML += "...";
+// 进行写入的一种更简短的方式：
+elem.innerHTML = elem.innerHTML + "..."
+```
+
+换句话说，`innerHTML+=` 做了以下工作：
+
+1. 移除旧的内容。
+2. 然后写入新的 `innerHTML`（新旧结合）。
+
+<div style="color: red">因为内容已“归零”并从头开始重写，因此所有的图片和其他资源都将重写加载。</div>
+
+所以慎用+=innerHTML喔。
+
+#### outerHTML
+
+`outerHTML` 属性包含了元素的完整 HTML。就像 `innerHTML` 加上元素本身一样。
+
+下面是一个示例：
+
+```html
+<div id="elem">Hello <b>World</b></div>
+
+<script>
+  alert(elem.outerHTML); // <div id="elem">Hello <b>World</b></div>
+</script>
+```
+
+与innerHTML的不同建议看原文，有点多。
+
+#### 文本节点
+
+`innerHTML` 属性仅对元素节点有效。
+
+其他节点类型，例如文本节点，具有它们的对应项：`nodeValue` 和 `data` 属性。这两者在实际使用中几乎相同，只有细微规范上的差异。因此，我们将使用 `data`，因为它更短。
+
+读取文本节点和注释节点的内容的示例：
+
+```html
+<body>
+  Hello
+  <!-- Comment -->
+  <script>
+    let text = document.body.firstChild;
+    alert(text.data); // Hello
+
+    let comment = text.nextSibling;
+    alert(comment.data); // Comment
+  </script>
+</body>
+```
+
+#### textContext: 纯文本
+
+`textContent` 提供了对元素内的 **文本** 的访问权限：仅文本，去掉所有 `<tags>`。
+
+例如：
+
+```html
+<div id="news">
+  <h1>Headline!</h1>
+  <p>Martians attack people!</p>
+</div>
+
+<script>
+  // Headline! Martians attack people!
+  alert(news.textContent);
+</script>
+```
+
+#### hidden
+
+“hidden” 特性（attribute）和 DOM 属性（property）指定元素是否可见。
+
+我们可以在 HTML 中使用它，或者使用 JavaScript 对其进行赋值，如下所示：
+
+```html
+<div>Both divs below are hidden</div>
+
+<div hidden>With the attribute "hidden"</div>
+
+<div id="elem">JavaScript assigned the property "hidden"</div>
+
+<script>
+  elem.hidden = true;
+</script>
+```
+
+从技术上来说，`hidden` 与 `style="display:none"` 做的是相同的事。但 `hidden` 写法更简洁。
+
+这里有一个 blinking 元素：
+
+```html
+<div id="elem">A blinking element</div>
+
+<script>
+  setInterval(() => elem.hidden = !elem.hidden, 1000);
+</script>
+```
+
+
+
+#### 习题
+
+这个可以看看，还可以复习原型知识
+
+[层次结构中的 "document" 在哪里？](https://zh.javascript.info/basic-dom-node-properties#ceng-ci-jie-gou-zhong-de-document-zai-na-li)
+
+### 1.6特性和属性
+
+[特性和属性（Attributes and properties）](https://zh.javascript.info/dom-attributes-and-properties)
+
+这一章内容多，杂。而且两个概念含义太相近了，很容易绕混，建议看原文
+
+可以把其中的自定义属性dataset详细看看，我项目里还是用到了
+
+[非标准的特性，dataset](https://zh.javascript.info/dom-attributes-and-properties#fei-biao-zhun-de-te-xing-dataset)
+
+### 1.7修改文档
+
+[修改文档（document）](https://zh.javascript.info/modifying-document)
+
+这个用的就很多了。
+
+#### 插入元素
+
+```html
+<ol id="ol">
+  <li>0</li>
+  <li>1</li>
+  <li>2</li>
+</ol>
+
+<script>
+  ol.before('before'); // 将字符串 "before" 插入到 <ol> 前面
+  ol.after('after'); // 将字符串 "after" 插入到 <ol> 后面
+
+  let liFirst = document.createElement('li');
+  liFirst.innerHTML = 'prepend';
+  ol.prepend(liFirst); // 将 liFirst 插入到 <ol> 的最开始
+
+  let liLast = document.createElement('li');
+  liLast.innerHTML = 'append';
+  ol.append(liLast); // 将 liLast 插入到 <ol> 的最末尾
+</script>
+```
+
+
+
+![image-20220425214324828](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220425214324828.png)
+
+#### 替换节点
+
+- `node.replaceWith(...nodes or strings)` —— 将 `node` 替换为给定的节点或字符串。
+
+#### 作为HTML插入
+
+```html
+<div id="div"></div>
+<script>
+  div.insertAdjacentHTML('beforebegin', '<p>Hello</p>');
+  div.insertAdjacentHTML('afterend', '<p>Bye</p>');
+</script>
+```
+
+……将导致：
+
+```html
+<p>Hello</p>
+<div id="div"></div>
+<p>Bye</p>
+```
+
+这就是我们可以在页面上附加任意 HTML 的方式。
+
+这是插入变体的示意图：
+
+![image-20220425214739299](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220425214739299.png)
+
+我们很容易就会注意到这张图片和上一张图片的相似之处。插入点实际上是相同的，但此方法插入的是 HTML。
+
+#### 移除节点
+
+想要移除一个节点，可以使用 `node.remove()`。
+
+请注意：如果我们要将一个元素 **移动** 到另一个地方，则无需将其从原来的位置中删除。
+
+**所有插入方法都会自动从旧位置删除该节点。**
+
+例如，让我们进行元素交换：
+
+```html
+<div id="first">First</div>
+<div id="second">Second</div>
+<script>
+  // 无需调用 remove
+  second.after(first); // 获取 #second，并在其后面插入 #first
+</script>
+```
+
+#### 克隆节点
+
+调用 `elem.cloneNode(true)` 来创建元素的一个“深”克隆 — 具有所有特性（attribute）和子元素。如果我们调用 `elem.cloneNode(false)`，那克隆就不包括子元素。
+
+```html
+<style>
+    .alert {
+      padding: 15px;
+      border: 1px solid #d6e9c6;
+      border-radius: 4px;
+      color: #3c763d;
+      background-color: #dff0d8;
+    }
+    </style>
+    
+    <div class="alert" id="div">
+      <strong>Hi there!</strong> You've read an important message.
+    </div>
+    
+    <script>
+      let div2 = div.cloneNode(true); // 克隆消息
+      div2.querySelector('strong').innerHTML = 'Bye there!'; // 修改克隆
+    
+      div.after(div2); // 在已有的 div 后显示克隆
+    </script>
+```
+
+![image-20220426131441105](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220426131441105.png)
+
+#### DocumentFragment
+
+我目前没看出来这个DOM节点有啥特别的
+
+
+
+`DocumentFragment` 是一个特殊的 DOM 节点，用作来传递节点列表的包装器（wrapper）。
+
+我们可以向其附加其他节点，但是当我们将其插入某个位置时，则会插入其内容。
+
+例如，下面这段代码中的 `getListContent` 会生成带有 `<li>` 列表项的片段，然后将其插入到 `<ul>` 中：
+
+```html
+<ul id="ul"></ul>
+
+<script>
+function getListContent() {
+  let fragment = new DocumentFragment();
+
+  for(let i=1; i<=3; i++) {
+    let li = document.createElement('li');
+    li.append(i);
+    fragment.append(li);
+  }
+
+  return fragment;
+}
+
+ul.append(getListContent()); // (*)
+</script>
+```
+
+请注意，在最后一行 `(*)` 我们附加了 `DocumentFragment`，但是它和 `ul` “融为一体（blends in）”了，所以最终的文档结构应该是：
+
+```html
+<ul>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+```
+
+#### 老式的 insert/remove 方法
+
+- 这里还有“旧式”的方法：
+
+  - `parent.appendChild(node)`
+  - `parent.insertBefore(node, nextSibling)`
+  - `parent.removeChild(node)`
+  - `parent.replaceChild(newElem, node)`
+
+  这些方法都返回 `node`。
+
+#### 聊一聊 “document.write”
+
+还有一个非常古老的向网页添加内容的方法：`document.write`。
+
+语法如下：
+
+```html
+<p>Somewhere in the page...</p>
+<script>
+  document.write('<b>Hello from JS</b>');
+</script>
+<p>The end</p>
+```
+
+调用 `document.write(html)` 意味着将 `html` “就地马上”写入页面。`html` 字符串可以是动态生成的，所以它很灵活。我们可以使用 JavaScript 创建一个完整的页面并对其进行写入。
+
+**`document.write` 调用只在页面加载时工作。**
+
+如果我们稍后调用它，则现有文档内容将被擦除。
+
+例如：
+
+```html
+<p>After one second the contents of this page will be replaced...</p>
+<script>
+  // 1 秒后调用 document.write
+  // 这时页面已经加载完成，所以它会擦除现有内容
+  setTimeout(() => document.write('<b>...By this.</b>'), 1000);
+</script>
+```
+
+因此，在某种程度上讲，它在“加载完成”阶段是不可用的，这与我们上面介绍的其他 DOM 方法不同。
+
+但它运行起来出奇的快，因为它 **不涉及 DOM 修改**。它直接写入到页面文本中，而此时 DOM 尚未构建。
+
+
+
+要在页面加载完成之前将 HTML 附加到页面：
+
+- `document.write(html)`
+
+页面加载完成后，这样的调用将会擦除文档。多见于旧脚本。
+
+#### 习题：
+
+太难了！原生的操作dom节点，还是用的少
+
+[任务](https://zh.javascript.info/modifying-document#tasks)
+
+
+
+
+
+### 1.8样式和类
+
+这章怎么说习惯用jquery的css了……。原生的看看就好
+
+[样式和类](https://zh.javascript.info/styles-and-classes)
+
+#### className和classList
+
+```html
+<body class="main page">
+  <script>
+    alert(document.body.className); // main page
+  </script>
+</body>
+```
+
+如果我们对 `elem.className` 进行赋值，它将替换类中的整个字符串。有时，这正是我们所需要的，但通常我们希望添加/删除单个类。这个时候用classList
+
+`classList` 的方法：
+
+- `elem.classList.add/remove(class)` — 添加/移除类。
+- `elem.classList.toggle(class)` — 如果类不存在就添加类，存在就移除它。
+- `elem.classList.contains(class)` — 检查给定类，返回 `true/false`。
+
+此外，`classList` 是可迭代的，因此，我们可以像下面这样列出所有类：
+
+```html
+<body class="main page">
+  <script>
+    for (let name of document.body.classList) {
+      alert(name); // main，然后是 page
+    }
+  </script>
+</body>
+```
+
+#### 元素样式
+
+`elem.style` 属性是一个对象，它对应于 `"style"` 特性（attribute）中所写的内容。`elem.style.width="100px"` 的效果等价于我们在 `style` 特性中有一个 `width:100px` 字符串。
+
+对于多词（multi-word）属性，使用驼峰式 camelCase：
+
+```javascript
+background-color  => elem.style.backgroundColor
+z-index           => elem.style.zIndex
+border-left-width => elem.style.borderLeftWidth
+```
+
+#### 注意单位
+
+就是要加上px喔
+
+#### [计算样式：getComputedStyle](https://zh.javascript.info/styles-and-classes#ji-suan-yang-shi-getcomputedstyle)
+
+这是用来读取样式的。建议看原文。
+
+### 1.9元素大小和滚动
+
+[元素大小和滚动](https://zh.javascript.info/size-and-scroll)
+
+这张内容很多，很难记住那些几何属性。建议看原文
+
+传送门：
+
+几何属性这里面写的很形象，记不住也没有关系
+
+[这些原生DOM操作你还记住多少😨 - 掘金 (juejin.cn)](https://juejin.cn/post/6966062224892756005#heading-24)
+
+### 1.10window大小和滚动
+
+这个我应用过，在路由跳转时,可以把页面滚动到最上方。详细说明建议看原文
+
+[Window 大小和滚动](https://zh.javascript.info/size-and-scroll-window)
+
+
+
+
+
+
+
+
+
+
 
 
 
