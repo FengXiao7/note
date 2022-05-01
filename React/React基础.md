@@ -1,3 +1,19 @@
+# 疑问：
+
+## 1.setState到底是异步的，还是同步的？
+
+## 2.defaultChecked和checked的区别,defaultValue和value的区别？
+
+## 3.createRef()和useRef()的区别？
+
+## 4路由动态参数？
+
+## 5.路由拦截？
+
+## 6.异步Action?
+
+## 7.reducer纯函数？
+
 # 说明：
 
 视频地址：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?spm_id_from=333.337.search-card.all.click)
@@ -369,7 +385,7 @@ jsx语法规则：
 
 ### 类式组件：
 
-```js
+```jsx
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -512,7 +528,7 @@ class Weather extends React.Component {
                 this.setState({isHot:!isHot})
             }
         }
-        ReactDOM.render(<Weather />, document.querySelector(".app"))
+ReactDOM.render(<Weather />, document.querySelector(".app"))
 ```
 
 <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/84.gif" style="zoom: 100%"></img>
@@ -1745,6 +1761,10 @@ https://www.bilibili.com/video/BV1wy4y1D7JT?p=51
 
 defaultChecked
 
+传送门：
+
+[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?p=57)  17:50s左右
+
 ![image-20220403201051874](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220403201051874.png)
 
 注意这里面{...todo}的写法，我们之前在props那一章有过介绍
@@ -2617,7 +2637,7 @@ export default withRouter(Header)
 
 官网：[Ant Design - The world's second most popular React UI framework](https://ant.design/)
 
-UI库学习建议看官方文档
+UI库学习建议看官方文档，一般我都是把代码复制下来，然后改改。
 
 # redux_test
 
@@ -2886,7 +2906,7 @@ export function countReducer(preState=0,action){
 		case INCREMENT:
 			return preState+data;
 		case DECREMENT:
-			return preState-=data;
+			return preState-data;
 		default:
 			return preState;
 	}
@@ -3071,7 +3091,7 @@ import {connect} from 'react-redux'
 //这个connect会为我们创建容器组件
 //我们连接CountUI,另一个需要连接的redux
 //只需要连接store.js这个最关键的主管就行
-//它通过App的传递props连接里
+//它通过App的传递的props连接
 export default connect()(CountUI)
 ```
 
@@ -3284,7 +3304,7 @@ export default class Count extends Component {
 
 mapDispatchToProps不仅可以写成一个函数，还可以写成一个对象。
 
-如果`mapDispatchToProps`是一个对象，它的每个键名也是对应 UI 组件的同名参数，键值应该是一个函数，会被当作 Action creator ，返回的 Action 会由 Redux 自动发出。我们就不用手动dispatch了
+如果`mapDispatchToProps`是一个对象，它的每个键名也是对应 UI 组件的同名参数，**键值应该是一个函数，会被当作 Action creator ，返回的 Action 会由 Redux 自动发出。**我们就不用手动dispatch了
 
 函数写法：
 
@@ -3314,9 +3334,9 @@ let mapDispatchToProps = {
 
 一种解决方法是将`state`对象作为参数，传入容器组件（我就是这样做的）。但是，这样做比较麻烦，尤其是容器组件可能在很深的层级，一级级将`state`传下去就很麻烦。
 
-React-Redux 提供`Provider`组件，可以让容器组件拿到`state`。
+**React-Redux 提供`Provider`组件，可以让容器组件拿到`state`。**
 
-React里面的Context里面也有个Provider，功能是类似的。让深层次的组件方便拿到祖组件的props
+**PS：**React里面的Context里面也有个Provider，功能是类似的。让深层次的组件方便拿到祖组件的props
 
 index.js
 
@@ -3630,6 +3650,379 @@ export default createStore(AllReducer,composeWithDevTools(applyMiddleware(thunk)
 <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/111.gif" style="zoom: 100%"></img>
 
 我想说我在写下笔记时，已经完全掌握redux的基础使用。以后不用肯定会忘的，常回来看看！
+
+## 补充：
+
+阮老师的博客写的太好了，复习的时候。建议看看。
+
+我在这里摘一下重要的地方。
+
+传送门：
+
+[Redux 入门教程（一）：基本用法 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
+
+[Redux 入门教程（二）：中间件与异步操作 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html)
+
+### Redux基本用法：
+
+#### store：
+
+Store 就是保存数据的地方，你可以把它看成一个容器。整个应用只能有一个 Store。
+
+Redux 提供`createStore`这个函数，用来生成 Store。
+
+> ```javascript
+> import { createStore } from 'redux';
+> const store = createStore(fn);
+> ```
+
+上面代码中，`createStore`函数接受另一个函数作为参数，返回新生成的 Store 对象。
+
+PS：这里的另一个函数参数就是reducer喔
+
+#### state：
+
+当前时刻的 State，可以通过`store.getState()`拿到。
+
+> ```javascript
+> import { createStore } from 'redux';
+> const store = createStore(fn);
+> 
+> const state = store.getState();
+> ```
+
+PS：这个我用的不是很多
+
+#### Action：
+
+State 的变化，会导致 View 的变化。但是，用户接触不到 State，只能接触到 View。所以，**State 的变化必须是 View 导致的。**Action 就是 View 发出的通知，表示 State 应该要发生变化了。
+
+Action 是一个对象。其中的`type`属性是必须的，表示 Action 的名称。其他属性可以自由设置，社区有一个[规范](https://github.com/acdlite/flux-standard-action)可以参考。
+
+> ```javascript
+> const action = {
+>   type: 'ADD_TODO',
+>   payload: 'Learn Redux'
+> };
+> ```
+
+上面代码中，Action 的名称是`ADD_TODO`，它携带的信息是字符串`Learn Redux`。
+
+可以这样理解，Action 描述当前发生的事情。**改变 State 的唯一办法，就是使用 Action。它会运送数据到 Store。**
+
+#### Action Creator
+
+View 要发送多少种消息，就会有多少种 Action。如果都手写，会很麻烦。可以**定义一个函数来生成 Action**，这个函数就叫 Action Creator。
+
+> ```javascript
+> const ADD_TODO = '添加 TODO';
+> 
+> function addTodo(text) {
+>   return {
+>     type: ADD_TODO,
+>     text
+>   }
+> }
+> 
+> const action = addTodo('Learn Redux');
+> ```
+
+上面代码中，`addTodo`函数就是一个 Action Creator。
+
+#### store.dispatch()
+
+**`store.dispatch()`是 View 发出 Action 的唯一方法。**
+
+> ```javascript
+> import { createStore } from 'redux';
+> const store = createStore(fn);
+> 
+> store.dispatch({
+>   type: 'ADD_TODO',
+>   payload: 'Learn Redux'
+> });
+> ```
+
+上面代码中，`store.dispatch`接受一个 Action 对象作为参数，将它发送出去。
+
+结合 Action Creator，这段代码可以改写如下。
+
+> ```javascript
+> store.dispatch(addTodo('Learn Redux'));
+> ```
+
+#### Reducer
+
+Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。
+
+**Reducer 是一个函数，它接受 Action 和当前 State 作为参数，返回一个新的 State**。
+
+> ```javascript
+> const reducer = function (state, action) {
+>   // ...
+>   return new_state;
+> };
+> ```
+
+整个应用的初始状态，可以作为 State 的默认值。下面是一个实际的例子。
+
+> ```javascript
+> const defaultState = 0;
+> const reducer = (state = defaultState, action) => {
+>   switch (action.type) {
+>     case 'ADD':
+>       return state + action.payload;
+>     default: 
+>       return state;
+>   }
+> };
+> 
+> const state = reducer(1, {
+>   type: 'ADD',
+>   payload: 2
+> });
+> ```
+
+上面代码中，`reducer`函数收到名为`ADD`的 Action 以后，就返回一个新的 State，作为加法的计算结果。其他运算的逻辑（比如减法），也可以根据 Action 的不同来实现。
+
+实际应用中，Reducer 函数不用像上面这样手动调用，**`store.dispatch`方法会触发 Reducer 的自动执行**。为此，Store 需要知道 Reducer 函数，做法就是在生成 Store 的时候，将 Reducer 传入`createStore`方法。
+
+> ```javascript
+> import { createStore } from 'redux';
+> const store = createStore(reducer);
+> ```
+
+上面代码中，`createStore`接受 Reducer 作为参数，生成一个新的 Store。以后每当`store.dispatch`发送过来一个新的 Action，就会自动调用 Reducer，得到新的 State。
+
+PS：多个reducer，用combineReducers来汇总Reducer
+
+####  纯函数
+
+Reducer 函数最重要的特征是，它是一个纯函数。也就是说，只要是同样的输入，必定得到同样的输出。
+
+纯函数是函数式编程的概念，必须遵守以下一些约束。
+
+> - 不得改写参数
+> - 不能调用系统 I/O 的API
+> - 不能调用`Date.now()`或者`Math.random()`等不纯的方法，因为每次会得到不一样的结果
+
+由于 Reducer 是纯函数，就可以保证同样的State，必定得到同样的 View。但也正因为这一点，Reducer 函数里面不能改变 State，必须返回一个全新的对象，请参考下面的写法。
+
+> ```javascript
+> // State 是一个对象
+> function reducer(state, action) {
+>   return Object.assign({}, state, { thingToChange });
+>   // 或者
+>   return { ...state, ...newState };
+> }
+> 
+> // State 是一个数组
+> function reducer(state, action) {
+>   return [...state, newItem];
+> }
+> ```
+
+#### store.subscribe()
+
+Store 允许使用`store.subscribe`方法设置监听函数，一旦 State 发生变化，就自动执行这个函数。
+
+> ```javascript
+> import { createStore } from 'redux';
+> const store = createStore(reducer);
+> 
+> store.subscribe(listener);
+> ```
+
+显然，只要把 View 的更新函数（对于 React 项目，就是组件的`render`方法或`setState`方法）放入`listen`，就会实现 View 的自动渲染。
+
+**`store.subscribe`方法返回一个函数，调用这个函数就可以解除监听。**
+
+> ```javascript
+> let unsubscribe = store.subscribe(() =>
+>   console.log(store.getState())
+> );
+> 
+> unsubscribe();
+> ```
+
+PS：解除监听这一块，以前确实没有注意到
+
+
+
+#### 工作流程：
+
+![image-20220406124926789](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220406124926789.png)
+
+首先，用户发出 Action。
+
+> ```javascript
+> store.dispatch(action);
+> ```
+
+然后，Store 自动调用 Reducer，并且传入两个参数：当前 State 和收到的 Action。 Reducer 会返回新的 State 。
+
+> ```javascript
+> let nextState = todoApp(previousState, action);
+> ```
+
+State 一旦有变化，Store 就会调用监听函数。
+
+> ```javascript
+> // 设置监听函数
+> store.subscribe(listener);
+> ```
+
+`listener`可以通过`store.getState()`得到当前状态。如果使用的是 React，这时可以触发重新渲染 View。
+
+> ```javascript
+> function listerner() {
+>   let newState = store.getState();
+>   component.setState(newState);   
+> }
+> ```
+
+
+
+
+
+### 中间件和异步操作
+
+#### 中间件
+
+要添加日志功能，把 Action 和 State 打印出来，可以对`store.dispatch`进行如下改造。
+
+> ```javascript
+> let next = store.dispatch;
+> store.dispatch = function dispatchAndLog(action) {
+>   console.log('dispatching', action);
+>   next(action);
+>   console.log('next state', store.getState());
+> }
+> ```
+
+上面代码中，对`store.dispatch`进行了重定义，在发送 Action 前后添加了打印功能。这就是中间件的雏形。
+
+**中间件就是一个函数，对`store.dispatch`方法进行了改造，在发出 Action 和执行 Reducer 这两步之间，添加了其他功能。**
+
+#### 中间件用法：
+
+> ```javascript
+> import { applyMiddleware, createStore } from 'redux';
+> import createLogger from 'redux-logger';
+> const logger = createLogger();
+> 
+> const store = createStore(
+>   reducer,
+>   applyMiddleware(logger)
+> );
+> ```
+
+上面代码中，`redux-logger`提供一个生成器`createLogger`，可以生成日志中间件`logger`。然后，将它放在`applyMiddleware`方法之中，传入`createStore`方法，就完成了`store.dispatch()`的功能增强。
+
+这里有两点需要注意：
+
+（1）`createStore`方法可以接受整个应用的初始状态作为参数，那样的话，`applyMiddleware`就是第三个参数了。
+
+> ```javascript
+> const store = createStore(
+>   reducer,
+>   initial_state,
+>   applyMiddleware(logger)
+> );
+> ```
+
+（2）中间件的次序有讲究。
+
+> ```javascript
+> const store = createStore(
+>   reducer,
+>   applyMiddleware(thunk, promise, logger)
+> );
+> ```
+
+上面代码中，`applyMiddleware`方法的三个参数，就是三个中间件。有的中间件有次序要求，使用前要查一下文档。比如，`logger`就一定要放在最后，否则输出结果会不正确。
+
+#### applyMiddleware
+
+看到这里，你可能会问，`applyMiddlewares`这个方法到底是干什么的？
+
+**它是 Redux 的原生方法，作用是将所有中间件组成一个数组，依次执行。**
+
+详见[Middleware · Redux](https://www.redux.org.cn/docs/advanced/Middleware.html)，官方文档，极为详细。
+
+#### 异步操作的基本思路
+
+理解了中间件以后，就可以处理异步操作了。
+
+同步操作只要发出一种 Action 即可，异步操作的差别是它要发出三种 Action。
+
+> - 操作发起时的 Action
+> - 操作成功时的 Action
+> - 操作失败时的 Action
+
+以向服务器取出数据为例，三种 Action 可以有两种不同的写法。
+
+> ```javascript
+> // 写法一：名称相同，参数不同
+> { type: 'FETCH_POSTS' }
+> { type: 'FETCH_POSTS', status: 'error', error: 'Oops' }
+> { type: 'FETCH_POSTS', status: 'success', response: { ... } }
+> 
+> // 写法二：名称不同
+> { type: 'FETCH_POSTS_REQUEST' }
+> { type: 'FETCH_POSTS_FAILURE', error: 'Oops' }
+> { type: 'FETCH_POSTS_SUCCESS', response: { ... } }
+> ```
+
+除了 Action 种类不同，异步操作的 State 也要进行改造，反映不同的操作状态。下面是 State 的一个例子。
+
+> ```javascript
+> let state = {
+>   // ... 
+>   isFetching: true,
+>   didInvalidate: true,
+>   lastUpdated: 'xxxxxxx'
+> };
+> ```
+
+上面代码中，State 的属性`isFetching`表示是否在抓取数据。`didInvalidate`表示数据是否过时，`lastUpdated`表示上一次更新时间。
+
+现在，整个异步操作的思路就很清楚了。
+
+> - 操作开始时，送出一个 Action，触发 State 更新为"正在操作"状态，View 重新渲染
+> - 操作结束后，再送出一个 Action，触发 State 更新为"操作结束"状态，View 再一次重新渲染
+
+
+
+#### redux-thunk 中间件
+
+异步操作至少要送出两个 Action：用户触发第一个 Action，这个跟同步操作一样，没有问题；如何才能在操作结束时，系统自动送出第二个 Action 呢？
+
+………………………………………………………………
+
+Action 是由`store.dispatch`方法发送的。而`store.dispatch`方法正常情况下，参数只能是对象，不能是函数。
+
+这时，就要使用中间件[`redux-thunk`](https://github.com/gaearon/redux-thunk)。
+
+> ```javascript
+> import { createStore, applyMiddleware } from 'redux';
+> import thunk from 'redux-thunk';
+> import reducer from './reducers';
+> 
+> // Note: this API requires redux@>=3.1.0
+> const store = createStore(
+>   reducer,
+>   applyMiddleware(thunk)
+> );
+> ```
+
+上面代码使用`redux-thunk`中间件，改造`store.dispatch`，使得后者可以接受函数作为参数。
+
+因此，异步操作的第一种解决方案就是，写出一个返回函数的 Action Creator，然后使用`redux-thunk`中间件改造`store.dispatch`。
+
+
+
+PS：这里我有点看不懂了，中间省略了……以后再看看吧。
 
 # react_extension
 
@@ -4081,6 +4474,8 @@ function C(){
 	    }
 	  </xxxContext.Consumer>
 ```
+
+函数式组件一般用useContext这个钩子
 
 在应用开发中一般不用context, 一般都用它的封装react插件
 

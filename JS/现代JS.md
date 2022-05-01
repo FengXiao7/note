@@ -8,15 +8,19 @@
 
 
 
-3.有些难以理解的地方，我都写的有自己的理解。实在不行还有传送门，但详细说明还是看原文好。还有些极其少见的用法，我个人感觉现阶段没有必要掌握。
+3.有些难以理解的地方，我都写的有自己的理解。实在不行还有传送门，但详细说明还是看原文好。还有些极其少见的用法，我个人感觉没有必要掌握。
 
 
 
-4.这是JS教程，不要死记硬背，要深度理解，忘记了回来再查查看看就行。写在这上面的笔记，我在阅读时一定是理解了，才会写上去。（不理解的有特殊说明）所以以后回顾时，遇见不理解的地方，多回笔记里看看
+4.这是JS教程，不要死记硬背，要深度理解，忘记了回来再查查看看就行。写在这上面的笔记，我在阅读时一定是理解了，才会写上去。（不理解的有特殊说明）所以以后回顾时，遇见不理解的地方，多回笔记里看看。
+
+5.有些地方写的晦涩难懂，也不要着急，看看博客会好很多。
+
+传送门：[Issues · mqyqingfeng/Blog (github.com)](https://github.com/mqyqingfeng/Blog/labels/深入系列)
 
 
 
-5.传送门：
+
 
 中文网址：[现代 JavaScript 教程](https://zh.javascript.info/)
 
@@ -113,6 +117,8 @@ https://zh.javascript.info/import-export
 ### 17.原生DOM操作
 
 它的所有习题对我而言，都很难。因为自己用js框架的时间和UI组件库的时间要多得多，写框架和UI库的应该要经常用吧
+
+能把下面这10个题做会，就算通关了。
 
 [任务](https://zh.javascript.info/modifying-document#tasks)
 
@@ -598,6 +604,10 @@ function sayHi(name) {
   alert( `Hello, ${name}` );
 }
 ```
+
+**因为在进入全局上下文时，首先处理函数声明，再处理变量声明。**
+
+
 
 函数声明的另外一个特殊的功能是它们的块级作用域。
 
@@ -2680,7 +2690,11 @@ alert(i); // Error, no such variable
 
 我将永远记住闭包的方法是通过背包的类比。当一个函数被创建并传递或从另一个函数返回时，它会携带一个背包。背包中是函数声明时作用域内的所有变量。
 
+
+
 ### 6.4旧时的var
+
+[旧时的 "var"](https://zh.javascript.info/var)
 
 #### 1.var没有块级作用域
 
@@ -3752,6 +3766,11 @@ alert( john.age );      // ……age 也是可访问的
 
 `__proto__` **是** `[[Prototype]]` 的因历史原因而留下来的 <span style="color: red">getter/setter</span>
 
+用这些方法替代__proto__：
+
+- [Object.getPrototypeOf(obj)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf) —— 返回对象 `obj` 的 `[[Prototype]]`。
+- [Object.setPrototypeOf(obj, proto)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf) —— 将对象 `obj` 的 `[[Prototype]]` 设置为 `proto`。
+
 #### 1.初识
 
 ```js
@@ -3774,7 +3793,24 @@ alert( john.age );      // ……age 也是可访问的
 
 就是说如果本身有这个方法，就不会顺着原型链往上找了.
 
+```js
+let animal = {
+  eats: true,
+  walk() {
+    /* rabbit 不会使用此方法 */
+  }
+};
 
+let rabbit = {
+  __proto__: animal
+};
+
+rabbit.walk = function() {
+  alert("Rabbit! Bounce-bounce!");
+};
+
+rabbit.walk(); // Rabbit! Bounce-bounce!
+```
 
 访问器（accessor）属性是一个例外，因为分配（assignment）操作是由 setter 函数处理的。因此，写入此类属性实际上与调用函数相同。
 
@@ -3887,6 +3923,33 @@ for(let prop in rabbit) {
 
 #### 习题：
 
+[写在哪里？](https://zh.javascript.info/prototype-inheritance#xie-zai-na-li)
+
+```js
+let animal = {
+    eat() {
+        this.full = true;
+    }
+};
+
+let rabbit = {
+    __proto__: animal
+};
+console.log(rabbit)
+rabbit.eat();
+console.log(rabbit)
+```
+
+`this` 是点符号前面的这个对象，因此 `rabbit.eat()` 修改了 `rabbit`。
+
+属性查找和执行是两回事儿。
+
+首先在原型中找到 `rabbit.eat` 方法，然后在 `this=rabbit` 的情况下执行。
+
+![image-20220427145422870](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220427145422870.png)
+
+
+
 很简单喔
 
 [为什么两只仓鼠都饱了？](https://zh.javascript.info/prototype-inheritance#wei-shi-mo-liang-zhi-cang-shu-du-bao-le)
@@ -3920,6 +3983,8 @@ alert( lazy.stomach ); // apple
 
 [F.prototype](https://zh.javascript.info/function-prototype)
 
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220427152255333.png)
+
 #### 1.F.prototype
 
 就是说我们可以给构造函数设置一个属性叫prototype，如果我们把一个对象（称为A吧）赋值给这个属性prototype，那么通过这个构造函数创建出来的对象，它们的[[Prototype]]就是A。所以我们现在又获得了一种访问[[Prototype]]的方式。
@@ -3948,7 +4013,7 @@ alert( rabbit.eats ); // true
 
 就是说我们如果不给构造函数设置prototype属性，它也是存在的，也是有默认值的。
 
-这个默认值是一个对象，一个只有属性 `constructor` 的对象，属性 `constructor` 指向函数自身
+这个默认值是一个对象，一个只有属性 `constructor` 的对象，属性 `constructor`的值就是函数自身
 
 ```js
 function Rabbit() {}
@@ -4028,6 +4093,8 @@ let user = {
 ```
 
 默认情况下，所有函数都有 `F.prototype = {constructor：F}`，所以我们可以通过访问它的 `"constructor"` 属性来获取一个对象的构造器。
+
+
 
 #### 习题：
 
@@ -4122,7 +4189,7 @@ console.log(rabbit);
 
 [任务](https://zh.javascript.info/prototype-methods#tasks)
 
-这两个题回了，已经通了。
+这两个题会了，已经通了。
 
 1.
 
@@ -4247,7 +4314,7 @@ alert(User.prototype.sayHi); // sayHi 方法的代码
 alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
 ```
 
-## 
+
 
 #### 4.类表达式
 
@@ -5321,6 +5388,8 @@ try {
 
 
 ## 11.Promise,async/await
+
+[Promise，async/await](https://zh.javascript.info/async)
 
 ### 11.2Promise:
 
