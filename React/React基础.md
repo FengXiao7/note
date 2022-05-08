@@ -1635,7 +1635,9 @@ class Person extends React.Component{
 
 安装：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?p=49&spm_id_from=pageDriver)   13min15s
 
-我git下来的，只需要yarn install即可
+我git下来的，只需要yarn install即可。
+
+**create-react-app 项目名**
 
 ## 1.脚手架文件介绍：
 
@@ -3436,7 +3438,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 //既用了开发者工具，又用了异步Action就得这么写
 export default createStore(AllReducer,composeWithDevTools(applyMiddleware(thunk)))
 //只用开发者工具，没用异步Action这么写
-// export default createStore(AllReducer,composeWithDevTools))
+// export default createStore(AllReducer,composeWithDevTools()))
 ```
 
 ## 8.数据共享版+最终版
