@@ -18,30 +18,28 @@
 
 ![image-20220508233106047](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220508233106047.png)
 
-### indexTest:
+### 定义我们的Model:indexTest
 
-键名都是规定好的
+键名namespace,state这些都是规定好的
 
 ```js
 export default{
-    //命名空间
     namespace:'indexTest',
     state:{
-        name:"小冯"
+        name:"小冯",
+        age:21
     },
     reducers:{
-        setName(state,payload){
+        setName(state,payload){    
             console.log(payload,'payload')
-            // 返回新的state,也可以深拷贝
+            // 返回新的state,深拷贝
             return {...state,name:payload.data}
         }
     }
 }
 ```
 
-
-
-
+传递Action有规定，其他和redux无异
 
 ```jsx
 import React from 'react';
@@ -49,13 +47,11 @@ import { connect } from 'dva';
 
 
 const IndexPage = (props) => {
-  // console.log(props)
+  console.log(props,'IndexPage  props')
   const handleClick=()=>{
-      //传递action
     props.dispatch({
-        //这个地方type规定先写命名空间/再写reducers的方法
       type:"indexTest/setName",
-        data:"猪猪侠"
+      data:"猪猪侠"
     })
   }
   return (
@@ -63,21 +59,30 @@ const IndexPage = (props) => {
       Indexpage
       <div>{props.msg}</div>
       <div>{props.name}</div>
+      <div>{props.age}</div>
       <button onClick={handleClick}>点击</button>
     </div>
   );
 }
-//状态映射为props
-  //state就是indexTest里的state
+
 const mapStateToProps=state=>{
  
   return{
       msg:"我爱你",
-      name:state.indexTest.name
+      name:state.indexTest.name,
+      age:state.indexTest.age
   }
 }
 
 export default connect(mapStateToProps)(IndexPage);
 
+
 ```
 
+挂载时
+
+![image-20220511170325322](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220511170325322.png)
+
+点击按钮
+
+![image-20220511170438407](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220511170438407.png)

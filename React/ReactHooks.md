@@ -258,6 +258,12 @@ function Sample() {
 
 [03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？ (geekbang.org)](https://time.geekbang.org/column/article/379299)  最下面
 
+三原则：
+
+- 在 useEffect 的回调函数中使用的变量，都必须在依赖项中声明；
+- Hooks 不能出现在条件语句或者循环中，也不能出现在 return 之后；
+- Hooks 只能在函数组件或者自定义 Hooks 中使用。
+
 ## 4.内置Hooks（2）
 
 ### useCallback：缓存回调函数

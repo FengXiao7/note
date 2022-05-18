@@ -7583,3 +7583,37 @@ a {
 ![image-20220320142607051](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220320142607051.png)
 
 ### 栅格系统：![image-20220320142939524](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220320142939524.png)
+
+# 品优购
+
+## 1.ico图标
+
+转化工具
+
+[制作ico图标 | 在线ico图标转换工具 方便制作favicon.ico - 比特虫 - Bitbug.net](https://www.bitbug.net/)
+
+## 2.SEO优化
+
+### title
+
+![image-20220510235811367](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220510235811367.png)
+
+![image-20220510235916567](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220510235916567.png)
+
+### description
+
+![image-20220510235941561](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220510235941561.png)
+
+### keywords
+
+![image-20220511000208444](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220511000208444.png)
+
+![image-20220511000147093](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220511000147093.png)
+
+## 3.LOGO SEO优化
+
+
+
+![image-20220511000351493](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220511000351493.png)
+
+![image-20220511000435995](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220511000435995.png)

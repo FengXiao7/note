@@ -1168,6 +1168,8 @@ export default App
 
 ### 1.高阶函数和函数柯里化
 
+传送门：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?p=35) 7:16
+
 ```js
 /* 
 					高阶函数：如果一个函数符合下面2个规范中的任何一个，那该函数就是高阶函数。
@@ -1225,7 +1227,7 @@ class Login extends React.Component{
 
 传送门：[计算属性](https://zh.javascript.info/object#ji-suan-shu-xing)
 
-我们使用onChange触发一个函数，该函数返回一个箭头函数作为我们onChange的回调。用箭头函数是为了防止
+我们使用onChange触发一个函数，该函数返回一个函数作为我们onChange的回调。用箭头函数是为了防止
 
 丢失this
 
@@ -1263,6 +1265,8 @@ class Login extends React.Component{
 ```
 
 onChange触发函数，这个回调函数内部调用了saveFormData函数并且传递两个参数（dataType,event）
+
+传送门：[尚硅谷React技术全家桶全套完整版（零基础入门到精通/男神天禹老师亲授）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1wy4y1D7JT?p=36) 2:03
 
 
 
@@ -4018,7 +4022,7 @@ Action 是由`store.dispatch`方法发送的。而`store.dispatch`方法正常�
 > );
 > ```
 
-上面代码使用`redux-thunk`中间件，改造`store.dispatch`，使得后者可以接受函数作为参数。
+上面代码使用`redux-thunk`中间件，改造`store.dispatch`，使得后者可以**接受函数作为参数**。
 
 因此，异步操作的第一种解决方案就是，写出一个返回函数的 Action Creator，然后使用`redux-thunk`中间件改造`store.dispatch`。
 
@@ -4604,7 +4608,7 @@ export default class Parent extends Component {
                 {/*
                 	Parent挂载A，A有个props叫render，它是个回调函数。(习惯用这个名)
                 	我们在A组件里面触发这个回调函数，同时还带了个参数name。
-                	这个回调函数的触发结果就是：
+                	这个回调函数的触发结果就是：(A组件里面触发)
                 	在A里面挂载一个B组件，并且A通过props把name传给了B
                 */}
 				<A render={(name)=><B name={name}/>}/>
