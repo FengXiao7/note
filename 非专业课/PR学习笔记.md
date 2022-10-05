@@ -50,6 +50,20 @@ pr安装完成  打不开  还出现一个crash文件怎么办？ - 知乎 http:
 
 [李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32565?csource=Hp_searchresult&spm_id_from=333.337.0.0)
 
+## 12.HSL和HSB不同？
+
+[问个问题啊，hsl和hsb什么关系？_百度知道 (baidu.com)](https://zhidao.baidu.com/question/576996331.html)
+
+色彩空间中的 HSL、HSV、HSB 有什么区别？ - bigbigdream的回答 - 知乎 https://www.zhihu.com/question/22077462/answer/157323544
+
+## 13.调色插件的使用
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32567?csource=Hp_searchresult&spm_id_from=333.337.0.0)44分半处
+
+## 14.油管博主
+
+zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibili](https://space.bilibili.com/4345670)）
+
 # 艺术
 
 ## 混剪：
@@ -651,7 +665,189 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 
 # 11.视频调色
 
-老师说有点难度，需要沉下心来学习
+老师说有点难度，需要沉下心来学习。
+
+## RGB
+
+**任意两种三原色相加会得到另一种三原色的补色。**
+
+
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/IMG_20221004_190740.jpg)
+
+![image-20221004191011683](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221004191011683.png)
+
+## HSB（色相，饱和度，明度）
+
+色彩空间中的 HSL、HSV、HSB 有什么区别？ - bigbigdream的回答 - 知乎 https://www.zhihu.com/question/22077462/answer/157323544
+
+色相：就是红橙黄绿青蓝紫7大阵营
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/164.gif)
+
+饱和度：
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/162.gif)
+
+明度：
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/163.gif)
+
+## 打开调色面板
+
+**先剪辑后调色！**
+
+![image-20221004192403269](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221004192403269.png)
+
+## 在图层上调色
+
+下图为调饱和度（变绿了，不知道原因，有空研究研究）
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/165.gif)
+
+## 白平衡
+
+在**基本校正**这里可以找到白平衡
+
+![image-20221005125957280](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005125957280.png)
+
+色彩也是一个道理。（不过我觉得老师没讲太深，以后再深入学学）
+
+## 曝光：
+
+调整亮度
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/166.gif)
+
+## 对比度
+
+对比度越低，画面颜色越单调。越高，画面颜色越丰富，攻击性越强
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/167.gif)
+
+## 高光
+
+往右拉，白色的地方就更白，会丢失轮廓结构细节。一般拉低一点，配合往右拉的曝光，以调整亮度又不丢失细节
+
+## 更多
+
+往后面看吧，有更多的细节。老师都叫咱自己摸索了……
+
+25分半开看
+
+## 淡化胶片
+
+老照片效果，变模糊
+
+## 锐化
+
+越大，画面轮廓越清晰。越小，画面边界越模糊
+
+## RGB曲线
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32567?csource=Hp_searchresult&spm_id_from=333.337.0.0)30分半
+
+![image-20221005142131738](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005142131738.png)
+
+三原色都是一个道理
+
+![image-20221005142709999](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005142709999.png)
+
+## 色相与饱和度曲线
+
+![image-20221005143157447](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005143157447.png)
+
+不确定点，可以自己用吸管工具
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/168.gif)
+
+## 色相与色相曲线
+
+这个就是直接改颜色了~
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/169.gif)
+
+## HSL调色
+
+我觉得这个很方便。就是针对画面的某一种颜色，来给它单独调色
+
+很长，推荐看视频[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32567?csource=Hp_searchresult&spm_id_from=333.337.0.0)38:20处
+
+![image-20221005145926173](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005145926173.png)
+
+如果颜色改变显得生硬，可以调一下降噪和模糊参数，这样就会有过渡
+
+![image-20221005150227606](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005150227606.png)
+
+## 晕影
+
+自己调着玩玩，很少使用到
+
+## LUT
+
+就是别人做好或者系统自带的调色文件，自己放在素材上就行了。
+
+有两个地方可以点开：
+
+![image-20221005150950859](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005150950859.png)
+
+![image-20221005151057609](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005151057609.png)
+
+# 12.绿幕抠图
+
+不是很难，真的。但是想要做到天衣无缝，就不是一个PR能胜任的了，需要道具组，灯光组还有更高级的软件来配合
+
+## 超级键![image-20221005153427350](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005153427350.png)
+
+![image-20221005153651141](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005153651141.png)
+
+## 颜色键+超级键抠图
+
+建议看原视频，比较长
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32568?csource=Hp_searchresult&spm_id_from=333.337.0.0)4分开始
+
+## 多机位效果
+
+就是先把人物视频和背景视频内嵌成一个序列，然后就可以自己缩放模拟特写镜头啦
+
+## 人物调色
+
+就是上节课那一套
+
+## 人物磨皮
+
+装插件
+
+【pr磨皮插件beauty box，视频磨皮美美的】 https://www.bilibili.com/video/BV1bb41187hH?share_source=copy_web&vd_source=cdf0752a2120c79bb83ec7f8f959aaaf中文补丁见这里
+
+![image-20221005164150144](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005164150144.png)
+
+使用见[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32568?csource=Hp_searchresult&spm_id_from=333.337.0.0)23分处
+
+## 节目效果绿幕素材
+
+老师给了100多种……实在不行可以去b站私信up，搜索GB就可以找到巨量绿幕素材了……
+
+# 13.延时摄影
+
+![image-20221005173426921](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005173426921.png)
+
+咱先跳过吧~要相机的
+
+# 14.剪辑魔术
+
+类似何同学的花里胡哨的效果，后续再学吧
+
+## 跳接类
+
+# 15.大师珍藏篇
+
+老师教授了些资源网站，快捷键操作，以及提高效率的工具。
+
+
+
+
 
 # 17.蒙太奇
 
