@@ -64,6 +64,10 @@ pr安装完成  打不开  还出现一个crash文件怎么办？ - 知乎 http:
 
 zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibili](https://space.bilibili.com/4345670)）
 
+## 15.加水印
+
+接单要加自己的水印，尾款结了后再去水印
+
 # 艺术
 
 ## 混剪：
@@ -855,3 +859,46 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 
 [李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](http://www.bilibili.com/cheese/play/ep32573?csource=Hp_searchresult&spm_id_from=333.337.0.0)
 
+# 21.挑选音乐和改造音乐
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32577?csource=Hp_searchresult&spm_id_from=333.337.0.0)
+
+## 挑选音乐：
+
+### 版权音乐网站：
+
+- https://www.pond5.com/royalty-free-music/tag/classical/
+  有会员制也可以单曲购买，有视频等素材非常丰富高质量
+
+在视频16分处
+
+- https://www.epidemicsound.com/
+  只有音乐和音效
+
+在视频17分半处
+
+- https://www.musicbed.com/songs
+  需要哪首音乐要发邮件去询问购买，有免费的和付费的，比较麻烦
+- https://artlist.io/
+  没开翻墙很卡，<span style="color: red">重点推荐</span>
+
+18分
+
+
+
+### 无版权网站：
+
+- https://www.audiolibrary.com.co/?page=2
+  音乐质量高，重点推荐
+- https://freepd.com/horror.php
+  这个网站可以话几十块钱把所有音乐一起下载下来，也可以免费一首首下载，质量就没有那么高
+- https://musopen.org/
+  直接按风格搜索即可，都是无版权音乐，重点推荐
+- https://cn.imslp.org/wiki/Main_Page
+  国际乐谱网，是属于公共领域的音乐资源，什么是公共领域呢，就是创作出来的音乐作品超过了一定的年限，不受版权保护，大家就可以自由使用，可以点击这边来进行查看一下具体是什么意思
+- 
+  推荐视频：https://www.bilibili.com/video/BV1c4411N7WG?spm_id_from=333.999.0.0
+
+## 剪音乐
+
+新手先找音乐，后找视频素材。高手一般先找视频素材，后找音乐
