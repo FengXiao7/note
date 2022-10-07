@@ -74,6 +74,8 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/QQ%E6%88%AA%E5%9B%BE20221007174120.png)
 
+## 17.时间重映射需要深度学学
+
 # 艺术
 
 ## 混剪：
@@ -87,6 +89,14 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 ## 字体：
 
 ### 1.第三节课里有资料建议熟读
+
+
+
+## 音乐：
+
+### 1.熟练运用骤停反差法
+
+在21点里有提到
 
 # 01.电子相册案例
 
@@ -1095,6 +1105,50 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 - 
   推荐视频：https://www.bilibili.com/video/BV1c4411N7WG?spm_id_from=333.999.0.0
 
-## 剪音乐
+## 剪音乐：
 
 新手先找音乐，后找视频素材。高手一般先找视频素材，后找音乐
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32577?csource=Hp_searchresult&spm_id_from=333.337.0.0)19:32
+
+### 预判旋律法：
+
+前奏铺垫太长，找到前期音乐往上慢慢爬升的地方，把它后面切掉，直接衔接到燃点，再加个音频过渡即可。
+
+反复找衔接点，一定要有耐心。
+
+![image-20221007225401895](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007225401895.png)
+
+结束的地方也要找衔接点。我们找到一个降下来的衔接点，然后截一段音乐快要结束的地方。
+
+![image-20221007232618673](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007232618673.png)
+
+### 重复旋律法：
+
+就是把重复的旋律点剪切再拼接一下，移花接木即可。多次测试，逐帧微调。
+
+可以**观察音波**，重复旋律一定相似的。
+
+![image-20221007234054927](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007234054927.png)
+
+最后在相接的地方加个恒定功率。
+
+![image-20221007233929843](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007233929843.png)
+
+### 重拍衔接法：
+
+和第一种类似啦，只不过衔接点为重拍。把两个都是重拍的，连起来就行啦~
+
+### 骤停反差法：
+
+不要轻易尝试，会让人感到突兀，除非画面也配合得很好。
+
+![image-20221007235048938](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007235048938.png)
+
+### AU混合法：
+
+就是AU智能帮你缩放音乐长度，但是发挥还是不太稳定，用的比较少，还是自己剪好~
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32577?csource=Hp_searchresult&spm_id_from=333.337.0.0)46:45
+
+![image-20221007235529888](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007235529888.png)
