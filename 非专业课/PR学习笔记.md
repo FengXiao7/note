@@ -42,7 +42,7 @@ pr安装完成  打不开  还出现一个crash文件怎么办？ - 知乎 http:
 
 [pr怎样将音频视频进行分离-百度经验 (baidu.com)](https://jingyan.baidu.com/article/60ccbcebb4b91025cbb19776.html)
 
-用alt+鼠标可以单选中音频
+用alt+鼠标可以单选中音频，然后delete
 
 ## 11.素材使用说明
 
@@ -67,6 +67,12 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 ## 15.加水印
 
 接单要加自己的水印，尾款结了后再去水印
+
+## 16.导出错误
+
+[【PR干货】PR输出渲染的时候出现错误代码：-1609760768该怎么办，今天我们一起来解决 - 哔哩哔哩 (bilibili.com)](https://www.bilibili.com/read/cv9913071/)
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/QQ%E6%88%AA%E5%9B%BE20221007174120.png)
 
 # 艺术
 
@@ -267,6 +273,8 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 ![image-20220930180347421](http://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20220930180347421.png)
 
 # 02.混剪视频
+
+踩点插件：BeatEdit
 
 ## 转格式
 
@@ -858,6 +866,194 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 22分49秒，叫板式蒙太奇案例，方便音乐转场
 
 [李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](http://www.bilibili.com/cheese/play/ep32573?csource=Hp_searchresult&spm_id_from=333.337.0.0)
+
+# 19 .剪辑点和镜头组接
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32575?csource=Hp_searchresult&spm_id_from=333.337.0.0)慢慢来吧，加油！
+
+## 动作剪辑点：
+
+![image-20221007102310105](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007102310105.png)
+
+非常巧妙的剪辑手法，特别多……后续再学习吧，要实拍的，等有经济能力了再去看看。
+
+## 情绪剪辑点：
+
+35分处开始
+
+![image-20221007102402392](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007102402392.png)
+
+## 节奏剪辑点：
+
+51分处
+
+![image-20221007102433994](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007102433994.png)
+
+# 20.小商单：运动镜头高燃剪辑
+
+## 八大镜头：
+
+### 推镜头：
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/174.gif)
+
+![image-20221007104101326](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007104101326.png)
+
+### 拉镜头：
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/175.gif)
+
+![image-20221007104242781](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007104242781.png)
+
+![image-20221007104431239](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007104431239.png)
+
+
+
+![image-20221007104352118](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007104352118.png)
+
+#### 拍摄推拉镜头的两种方法：
+
+这种是人凑近了看的感觉
+
+![image-20221007104631656](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007104631656.png)
+
+从远处拿望远镜看的感觉
+
+![image-20221007104742044](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007104742044.png)
+
+#### 希区柯克变焦：
+
+就是摄像头往前推（画面从小变大），同时改变焦距（长焦变广焦，画面从大变小），两者配合好会让画面范围保持不变，但是会改变画面透视感。
+
+《大白鲨》《致命快感》里有这种镜头
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/176.gif)
+
+
+
+![image-20221007105115549](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007105115549.png)
+
+我们可以在前期拍摄中实现，当然也可以通过后期实现喔~
+
+#### 后期剪辑实现希区柯克变焦：
+
+前期拍摄只用推镜头，后期我们来实现变焦效果。（前期的推镜头一定要4k的，不然放大会很糊）
+
+15分开始[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32576?csource=Hp_searchresult&spm_id_from=333.337.0.0)
+
+​								记得在最后一帧那里，位置和缩放**打关键帧**！！！！！！！！！
+
+![image-20221007112511146](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007112511146.png)
+
+修改那一帧的不透明度
+
+![image-20221007113911683](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007113911683.png)
+
+调整原始素材，让其与那一帧重合就行
+
+![image-20221007114419505](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007114419505.png)
+
+最后一步就是把复制的那一帧删掉就行了。太神奇了！
+
+![image-20221007114734077](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007114734077.png)
+
+### 摇镜头：
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/177.gif)
+
+![image-20221007120454226](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007120454226.png)
+
+### 甩镜头：
+
+（快速版摇镜头）
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/178.gif)
+
+### 移镜头：
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/179.gif)
+
+![image-20221007121325224](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007121325224.png)
+
+![image-20221007121651164](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007121651164.png)
+
+### 升镜头和降镜头：
+
+咱还是算了，要花好多钱钱……
+
+![image-20221007121607784](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007121607784.png)
+
+### 跟镜头：
+
+![image-20221007121807716](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007121807716.png)
+
+## 火锅店案例：
+
+### 镜头1：
+
+这是一个甩镜头。
+
+#### 甩镜头加速：
+
+![image-20221007132209915](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007132209915.png)
+
+前期拍摄高帧率素材，后期可操作性更大。我们也可以对甩之前的镜头做同样的事~
+
+![image-20221007133026180](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007133026180.png)
+
+![image-20221007133917669](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007133917669.png)
+
+### 镜头2：
+
+一个推镜头。
+
+视频音频剪掉，藏拙（前面墙体有些不好看的地方切掉）
+
+#### 推镜头加速（时间重映射）：
+
+我们这里用第二种方法，很复杂推荐看原视频。
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32576?csource=Hp_searchresult&spm_id_from=333.337.0.0)47:44
+
+![image-20221007135356849](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007135356849.png)
+
+左边的线往上提速，ctrl+左键打点，创建范围，调曲线，右边降速
+
+![image-20221007140617397](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007140617397.png)
+
+一般都不在效果面板里调
+
+![image-20221007141223519](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007141223519.png)
+
+### 镜头3：
+
+一个移镜头，从店小二移步到小卖部。
+
+还是调速，调速到多少凭对音乐节奏的感觉就行。
+
+![image-20221007142053629](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007142053629.png)
+
+有密集鼓点加点特效过渡就行。
+
+![image-20221007144806977](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007144806977.png)
+
+有段密集的鼓点，可以做点特效转场。
+
+### 镜头4：
+
+4-1镜头：拍了一面墙，带个旋转的圆弧镜头。（加速）
+
+4-2镜头：一个logo，沿着y轴旋转镜头。（配合4-1遇见密集鼓点直接拼接即可）
+
+![image-20221007150925872](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007150925872.png)
+
+
+
+
+
+
+
+
 
 # 21.挑选音乐和改造音乐
 
