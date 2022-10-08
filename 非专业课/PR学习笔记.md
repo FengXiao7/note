@@ -46,9 +46,9 @@ pr安装完成  打不开  还出现一个crash文件怎么办？ - 知乎 http:
 
 ## 11.素材使用说明
 
-19:50s左右
+综艺效果：[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32565?csource=Hp_searchresult&spm_id_from=333.337.0.0)19:50
 
-[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32565?csource=Hp_searchresult&spm_id_from=333.337.0.0)
+音效素材：[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32578?csource=Hp_searchresult&spm_id_from=333.337.0.0)20:30
 
 ## 12.HSL和HSB不同？
 
@@ -75,6 +75,12 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/QQ%E6%88%AA%E5%9B%BE20221007174120.png)
 
 ## 17.时间重映射需要深度学学
+
+## 18.音频过渡的3个方法需深度研究
+
+目前我只有恒定增益没用过了。我使用的感受是：恒定功率用来辅助转场，让其更顺滑。指数淡化用来消减声音
+
+![image-20221008150326435](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008150326435.png)
 
 # 艺术
 
@@ -899,7 +905,7 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 
 ![image-20221007102433994](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007102433994.png)
 
-# 20.小商单：运动镜头高燃剪辑
+# 20.商单火锅店宣传片：运动镜头高燃剪辑
 
 ## 八大镜头：
 
@@ -1152,3 +1158,270 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 [李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32577?csource=Hp_searchresult&spm_id_from=333.337.0.0)46:45
 
 ![image-20221007235529888](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221007235529888.png)
+
+# 22.商单马拉松宣传片：音效的亿点细节
+
+## 动作音效：
+
+作用：还原现场，增强代入感。
+
+例子：打键盘的声音，开台灯的声音
+
+## 环境音效：
+
+作用：还原现场，增强代入感。
+
+例子：鸟叫声，水流声，风声，雨声，车流声等……
+
+![image-20221008100025516](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008100025516.png)
+
+
+
+![image-20221008100118631](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008100118631.png)
+
+## 气氛音效：
+
+不是现场拍摄真实存在的音效
+
+作用：渲染气氛，调动情绪
+
+例子：爱情公寓等情景剧里观众的笑声，综艺里各种调侃滑稽的音效，邵氏电影里打斗时的音效
+
+## 转场音效：
+
+作用：渲染气氛，调动情绪
+
+例子：土耳其瞭望塔短片，很多电影里把人从想象拉回现实等……
+
+## 音效合集：
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32578?csource=Hp_searchresult&spm_id_from=333.337.0.0)20:30
+
+## 马拉松案例：
+
+### 音乐寻找：
+
+搜索运动，激昂，兴奋，激情等关键词，不断听，不断找。没有人声的纯音乐喔~
+
+### 改造音乐：
+
+#### 轻柔前奏铺垫：
+
+找个柔和的长音效配合画面就行。
+
+#### 重音卡点，音乐起：
+
+
+
+![image-20221008112439967](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008112439967.png)
+
+#### 重音卡点，音乐继续：
+
+音乐配合完美
+
+#### 重音衔接，进入高潮：
+
+原音乐进入高潮，持续时间较短，我们自己到后面找一段持续时间长的。用重拍衔接法连起来。
+
+#### 音乐骤停，接环境音：
+
+用的是**骤停反差法**，中间来段山林鸟叫声。
+
+![image-20221008142830474](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008142830474.png)
+
+
+
+#### 重音衔接，小高潮收尾：
+
+找到原曲中间音波峰降下去的地方，作为小高潮收尾就行。还是卡重拍衔接。
+
+![image-20221008143332110](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008143332110.png)
+
+#### 音乐起，接大高潮&衔接结束音乐：
+
+利用**预判旋律法**。就是找两个合适的重拍，一个靠前，一个靠后，拼接起来就行咯~
+
+不好卡时间就多多试试几个不一样的重拍就行啦，衔接的时候可以加恒定功率会顺畅许多
+
+![image-20221008150640074](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008150640074.png)
+
+### 音效深度处理：
+
+简单来说，画面有啥加点合适的音效，比如车流声，海风声；再加点转场音效；最后来点气氛音效就可以了~
+
+注意不要太突兀，必要的时候可以加点音频过渡喔！
+
+
+
+可以来点海风，海浪音效
+
+![image-20221008152921128](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008152921128.png)
+
+来点心跳音效
+
+![image-20221008152955520](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008152955520.png)
+
+可以把原始BGM的前奏，接一部分放在前面，让整体音乐更连贯。
+
+![image-20221008153453696](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008153453696.png)
+
+配合蒙版转场加点扇动布料的声音
+
+![image-20221008165148196](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008165148196.png)
+
+环境白噪音，一些出现城市车流的地方也可以相应地加对应的白噪音。
+
+![image-20221008165249205](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008165249205.png)
+
+气氛音效
+
+![image-20221008165455345](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008165455345.png)
+
+![image-20221008165619413](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008165619413.png)
+
+# 23.读懂镜头：构图和角度
+
+这节课和摄影有很大关系，但是拍剪不分家嘛，多了解了解还是有好处。很偏理论……
+
+## 构图：
+
+### 构图目的
+
+- 挑选和处理素材
+- 让画面更加美观
+- 引导观众视线
+- 为剧情服务
+
+[丢人！百万UP主应聘BBC记者_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1c54y1W77q/?spm_id_from=333.999.0.0&vd_source=570cea793fc3893804a63510f81f7ea7)例子……
+
+![image-20221008171237280](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008171237280.png)
+
+### 构图6要素
+
+- **主体**：画面的主角，其他构图要素都是为主体做服务的
+- **陪体**：帮助主体揭示主题，均衡画面，烘托气氛
+- **背景**:   交代主体所处环境，渲染氛围
+- **前景**：靠近镜头，处于主体前面的人，物或景。增加层次感和背景配合，让观众更加有空间感
+- **色调**：潜移默化地影响着画面的表达
+- **线条**：有强烈的形式感，用于分割画面
+
+### 10大构图技法
+
+#### 中心构图法
+
+优点：
+
+![image-20221008174501991](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008174501991.png)
+
+缺点:
+
+![image-20221008174431999](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008174431999.png)
+
+#### 对称构图：
+
+![image-20221008174626621](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008174626621.png)
+
+给人稳定庄重的感觉
+
+#### 三分法构图
+
+![image-20221008174842290](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008174842290.png)
+
+![image-20221008175501904](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008175501904.png)
+
+![image-20221008175539077](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008175539077.png)
+
+![image-20221008175601156](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008175601156.png)
+
+![image-20221008175700122](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008175700122.png)
+
+否则不要让人物面壁思过（素材《为奴十二年》）
+
+#### 对角线构图：
+
+![image-20221008185810611](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008185810611.png)
+
+#### 引导线构图：
+
+![image-20221008185937652](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008185937652.png)
+
+#### 曲线构图：
+
+![image-20221008190052418](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008190052418.png)
+
+#### 前景构图：
+
+![image-20221008190246097](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008190246097.png)
+
+增加别的事物作为前景，更有层次感。
+
+#### 框架式构图：
+
+突出主体，产生较强的空间感和层次感
+
+![image-20221008190423351](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008190423351.png)
+
+#### 对比构图：
+
+![image-20221008190537234](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008190537234.png)
+
+![image-20221008190614804](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008190614804.png)
+
+#### 留白构图：
+
+
+
+![image-20221008190649579](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008190649579.png)
+
+经常用在小清新风格的拍摄上
+
+## 角度：
+
+用来引导观众的感受。（略显牵强）
+
+【一部电影少了镜头语言会变成什么样？】 https://www.bilibili.com/video/BV1Sr4y1h7Du?share_source=copy_web&vd_source=cdf0752a2120c79bb83ec7f8f959aaaf
+
+![image-20221008190904878](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008190904878.png)
+
+### 正面角度
+
+![image-20221008200114276](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008200114276.png)
+
+![image-20221008200139903](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008200139903.png)
+
+### 斜侧角度
+
+以拍摄人物为例
+
+![image-20221008200339983](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008200339983.png)
+
+![image-20221008200432519](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008200432519.png)
+
+### 反侧角度
+
+反侧角度有更强的引导作用，同时也可以做出人意料的反差效果
+
+![image-20221008200606793](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008200606793.png)
+
+### 侧面角度
+
+![image-20221008200738961](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008200738961.png)
+
+![image-20221008200805033](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008200805033.png)
+
+### 背面角度
+
+![image-20221008200903464](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008200903464.png)
+
+# 24.电影拉片
+
+多看看大师的作品吧~
+
+# 25.短视频剪辑和创作
+
+就这3个技能，掌握1个就很不错了~但我真的很不喜欢短视频
+
+![image-20221008203622828](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221008203622828.png)
+
+26.
+
