@@ -128,7 +128,11 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 
 ## 28.嵌套序列
 
+这个地方不怎么懂……
 
+## 29.调色曲线
+
+很像知道原理……
 
 # 艺术
 
@@ -741,7 +745,7 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 
 # 11.视频调色
 
-老师说有点难度，需要沉下心来学习。
+老师说有点难度，需要沉下心来学习。建议看看第30节课的笔记
 
 ## RGB
 
@@ -825,7 +829,7 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 
 ![image-20221005142131738](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005142131738.png)
 
-三原色都是一个道理
+后面的三原色都是一个道理
 
 ![image-20221005142709999](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221005142709999.png)
 
@@ -861,7 +865,7 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 
 ## LUT
 
-就是别人做好或者系统自带的调色文件，自己放在素材上就行了。
+就是别人做好或者系统自带的调色文件，自己放在素材上就行了。这个是最方便的~
 
 有两个地方可以点开：
 
@@ -882,6 +886,18 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 建议看原视频，比较长
 
 [李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32568?csource=Hp_searchresult&spm_id_from=333.337.0.0)4分开始
+
+![image-20221013144940551](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013144940551.png)
+
+![image-20221013145106763](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013145106763.png)
+
+![image-20221013145258992](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013145258992.png)
+
+![image-20221013145512262](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013145512262.png)
+
+![image-20221013145634322](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013145634322.png)
+
+![image-20221013150129871](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013150129871.png)
 
 ## 多机位效果
 
@@ -1688,4 +1704,223 @@ J-CUT下一个画面的声音提前入场
 经过测试，拍摄远景还有爆炸也可以达到同样的效果~
 
 ![image-20221012113851505](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221012113851505.png)
+
+# 29.打造视频栏目
+
+不喜欢做这个，不想出镜，有很多剪辑魔术内容。照本宣科剪一剪吧~
+
+## 音乐突然萎了效果：
+
+在AU中编辑。
+
+![image-20221013143501315](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013143501315.png)
+
+![image-20221013143549723](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013143549723.png)
+
+![image-20221013143914179](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013143914179.png)
+
+## 画面缩放的剪辑魔术：
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/181.gif)
+
+
+
+把两个镜头做个转场，第二个镜头自带缩放效果，我们做点关键帧动画就行。注意观众视角一定从小白缩放的。
+
+我们可以用**希区柯克变焦**那一节的知识，来完美匹配两个镜头的衔接
+
+![image-20221013152214848](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013152214848.png)
+
+## 超时空传递剪辑魔术：
+
+抛球打到视频里的人，就是用蒙版法
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/182.gif)
+
+把后面的反应拼接起来即可
+
+![image-20221013155710362](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013155710362.png)
+
+## 推画面的魔术：
+
+用PPT做的，了解即可。[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32585?csource=Hp_searchresult&spm_id_from=333.337.0.0)33分
+
+## 画面突然跳了下：
+
+小人最后一帧有个抖动
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/183.gif)
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32585?csource=Hp_searchresult&spm_id_from=333.337.0.0)34:50开始解决，了解即可
+
+## 局部发光效果：
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/184.gif)
+
+就是单独把电脑抠出来，画蒙版，加转场即可
+
+![image-20221013170122905](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013170122905.png)
+
+## 电脑遮罩效果：
+
+就是一张图，屏幕是透明的，自己套素材即可……
+
+后续就不想做了，我想快点学点干货知识……
+
+# 30.高级调色知识
+
+推荐传送门：[02-波形、分量、矢量、直方图表使用介绍_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1v741127oQ?p=2&vd_source=570cea793fc3893804a63510f81f7ea7)
+
+这样的布局比较合理
+
+![image-20221013180800681](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013180800681.png)
+
+
+
+![image-20221013181123930](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013181123930.png)
+
+## 重置参数
+
+![image-20221013181410019](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013181410019.png)
+
+## 看图
+
+![image-20221013181535912](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013181535912.png)
+
+## 亮度
+
+### 亮度波形图：
+
+![image-20221013182444495](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013182444495.png)
+
+### 获取部分图形亮度：
+
+获取部分画面的亮度，画蒙版就行~
+
+### 调整亮度：
+
+比如只调整背景亮度，不调整衣服亮度之类的
+
+![image-20221013193326926](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013193326926.png)
+
+## 基本校正（用来调亮度）
+
+### 曝光：
+
+每一块区域都有明显的亮度提升
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/187.gif)
+
+### 对比度：
+
+经典S曲线，明暗对比更强烈。亮部更亮，暗部更暗
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/188.gif)
+
+### 高光：
+
+- 影响范围只有比较亮的地方，暗部影响范围比较小。
+- 变化更柔和，是曲线变化。
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/189.gif)
+
+### 阴影：
+
+和高光相对应，往低了拉。柔和地降低暗部亮度
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/190.gif)
+
+### 白色：
+
+简单粗暴的直线变化。
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/191.gif)
+
+一般我们用来调整画面中“白点”的亮度。（白点就是画面中最亮部分的亮度值）
+
+下图我就轻松把白点的亮度调到最大了，就是白点部分已经变成横线了~
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/192.gif)
+
+### 黑色：
+
+和白色相对应，就是用来把暗部调的更暗。
+
+（这个就像尿尿的轨迹一样……）
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/193.gif)
+
+下图我们就把很多暗部颜色调为纯黑色了，下方出现了一条横线。
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/194.gif)
+
+## RGB曲线
+
+## RGB分量图（白平衡和色轮）
+
+这张图一般在调白平衡和色轮时查看
+
+![image-20221013204019518](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013204019518.png)
+
+### 白平衡：
+
+当3个图持平时，我们会说这张图白平衡参数非常正确 
+
+如下图我就调整了下白平衡，当3原色分量图持平时，效果最佳~
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/195.gif)
+
+### 色轮：
+
+这个地方我们用色轮调色，选择高光色轮往黄色地方拖，那么画面“白点”颜色就偏黄。
+
+对应三原色的红和绿就增大，因为红+绿=黄，蓝色部分则减少
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/196.gif)
+
+
+
+阴影部分也是一个道理。我们把阴影色轮调到绿色。画面“黑点”颜色就偏绿了~
+
+中间调则是影响所有区域了，动手一定要轻一点
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/197.gif)
+
+## 矢量示波器YUV
+
+**射线方向**代表**色相**，也就是不同的颜色。
+
+**射线长短**代表**饱和度**，越长饱和度越高，离圆心越近饱和度越低颜色也就越淡
+
+![image-20221013222424670](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013222424670.png)
+
+## 色相饱和度曲线
+
+有三种曲线，意思是根据色相去改变饱和度，色相，亮度。分别取名叫色相与饱和度曲线，色相与色相曲线，色相与亮度曲线。
+
+### 色相与饱和度
+
+把画面中的红色调整其饱和度试试：
+
+可以看到示波器中**射线的长度**在不断改变
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/199.gif)
+
+### 色相与色相
+
+我们把画面中的红色改成其他颜色试试：
+
+可以看到示波器里**射线的方向**都改变了
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/198.gif)
+
+### 色相与亮度
+
+把画面中红色的亮度调调：
+
+（旁边有个取色工具，就不用自己固定锚点了~）
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/200.gif)
+
+
 
