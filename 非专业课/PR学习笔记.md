@@ -134,6 +134,16 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 
 很像知道原理……
 
+## 30.调色要调整镜头组
+
+一定要调整镜头组，而不是调整单一镜头，不然会累死的……
+
+## 31.绿色的树调色
+
+有很多噪点，如何避免呢？
+
+![](C:\Users\FengXiao7\Pictures\GIF\209.gif)
+
 # 艺术
 
 ## 混剪：
@@ -847,9 +857,11 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/169.gif)
 
-## HSL调色
+## HSL辅助
 
-我觉得这个很方便。就是针对画面的某一种颜色，来给它单独调色
+我觉得这个很方便。就是针对画面的某一种颜色，来给它单独调色。
+
+推荐看看30集的笔记
 
 很长，推荐看视频[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32567?csource=Hp_searchresult&spm_id_from=333.337.0.0)38:20处
 
@@ -1769,68 +1781,72 @@ J-CUT下一个画面的声音提前入场
 
 # 30.高级调色知识
 
+## 调色工具
+
 推荐传送门：[02-波形、分量、矢量、直方图表使用介绍_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1v741127oQ?p=2&vd_source=570cea793fc3893804a63510f81f7ea7)
 
 这样的布局比较合理
 
 ![image-20221013180800681](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013180800681.png)
 
+### 面板功能分类
 
+这里写的很片面，比如“色相饱和度曲线”里面的“色相和亮度曲线”，可以根据色相来调曝光
 
 ![image-20221013181123930](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013181123930.png)
 
-## 重置参数
+### 重置参数
 
 ![image-20221013181410019](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013181410019.png)
 
-## 看图
+### 看图
 
 ![image-20221013181535912](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013181535912.png)
 
-## 亮度
+### 亮度
 
-### 亮度波形图：
+#### 亮度波形图：
 
 ![image-20221013182444495](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013182444495.png)
 
-### 获取部分图形亮度：
+#### 获取部分图形亮度：
 
 获取部分画面的亮度，画蒙版就行~
 
-### 调整亮度：
+#### 调整亮度：
 
 比如只调整背景亮度，不调整衣服亮度之类的
 
 ![image-20221013193326926](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013193326926.png)
 
-## 基本校正（用来调亮度）
+### 基本校正（用来调亮度）
 
-### 曝光：
+#### 曝光：
 
 每一块区域都有明显的亮度提升
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/187.gif)
 
-### 对比度：
+#### 对比度：
 
 经典S曲线，明暗对比更强烈。亮部更亮，暗部更暗
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/188.gif)
 
-### 高光：
+#### 高光：
 
 - 影响范围只有比较亮的地方，暗部影响范围比较小。
 - 变化更柔和，是曲线变化。
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/189.gif)
 
-### 阴影：
+#### 阴影：
 
 和高光相对应，往低了拉。柔和地降低暗部亮度
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/190.gif)
 
-### 白色：
+#### 白色：
 
 简单粗暴的直线变化。
 
@@ -1842,7 +1858,7 @@ J-CUT下一个画面的声音提前入场
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/192.gif)
 
-### 黑色：
+#### 黑色：
 
 和白色相对应，就是用来把暗部调的更暗。
 
@@ -1854,15 +1870,15 @@ J-CUT下一个画面的声音提前入场
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/194.gif)
 
-## RGB曲线
+### RGB曲线
 
-## RGB分量图（白平衡和色轮）
+#### RGB分量图（白平衡和色轮）
 
 这张图一般在调白平衡和色轮时查看
 
 ![image-20221013204019518](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013204019518.png)
 
-### 白平衡：
+##### 白平衡：
 
 当3个图持平时，我们会说这张图白平衡参数非常正确 
 
@@ -1870,7 +1886,7 @@ J-CUT下一个画面的声音提前入场
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/195.gif)
 
-### 色轮：
+##### 色轮：
 
 这个地方我们用色轮调色，选择高光色轮往黄色地方拖，那么画面“白点”颜色就偏黄。
 
@@ -1880,13 +1896,13 @@ J-CUT下一个画面的声音提前入场
 
 
 
-阴影部分也是一个道理。我们把阴影色轮调到绿色。画面“黑点”颜色就偏绿了~
+**阴影**部分也是一个道理。我们把阴影色轮调到绿色。画面“黑点”颜色就偏绿了~
 
-中间调则是影响所有区域了，动手一定要轻一点
+**中间调**则是影响所有区域了，动手一定要轻一点
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/197.gif)
 
-## 矢量示波器YUV
+### 矢量示波器YUV
 
 **射线方向**代表**色相**，也就是不同的颜色。
 
@@ -1894,11 +1910,11 @@ J-CUT下一个画面的声音提前入场
 
 ![image-20221013222424670](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221013222424670.png)
 
-## 色相饱和度曲线
+### 色相饱和度曲线
 
 有三种曲线，意思是根据色相去改变饱和度，色相，亮度。分别取名叫色相与饱和度曲线，色相与色相曲线，色相与亮度曲线。
 
-### 色相与饱和度
+#### 色相与饱和度
 
 把画面中的红色调整其饱和度试试：
 
@@ -1906,7 +1922,7 @@ J-CUT下一个画面的声音提前入场
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/199.gif)
 
-### 色相与色相
+#### 色相与色相
 
 我们把画面中的红色改成其他颜色试试：
 
@@ -1914,7 +1930,7 @@ J-CUT下一个画面的声音提前入场
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/198.gif)
 
-### 色相与亮度
+#### 色相与亮度
 
 把画面中红色的亮度调调：
 
@@ -1924,3 +1940,190 @@ J-CUT下一个画面的声音提前入场
 
 
 
+### HSL辅助
+
+一般用来调整肤色
+
+#### 键
+
+- 我们用这个工具方便地选中自己想要改变的颜色。
+- 遮罩可以直观的看出自己选择的颜色，一般选择彩色/灰色遮罩
+- HSL分别代表色相H，饱和度S，明度L
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/201.gif)
+
+下方的小三角代表羽化的意思，一般都把他们关掉，那样就没有羽化了。
+
+选择的范围就更小更明显。
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/202.gif)
+
+上方小三角可以调整对应的色相H,饱和度S,亮度L，调整完成后，我们可以拖动滑块，覆盖到更多的皮肤。
+
+下图为调整色相
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/203.gif)
+
+调整饱和度
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/204.gif)
+
+调整明度
+
+我自己仔细调了调三个参数，终于把皮肤部分调出来了~
+
+![image-20221014134538187](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014134538187.png)
+
+#### 优化
+
+这里我们调整下**模糊**就行，不要显得太突兀。
+
+之前**键**里面下方的小三角的羽化效果也可以达到这个目的
+
+这里的**降噪**，专业课学过，不过都忘的差不多了……
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/205.gif)
+
+![image-20221014135400109](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014135400109.png)
+
+## 正式开始调色
+
+工具基本讲完了，下面开始正式调色~
+
+两个步骤
+
+- 定一下整体颜色风格做**全局调色**
+- 调整其他颜色做**匹配**
+
+### 全局调色
+
+#### 1.定黑白点
+
+一定要调整镜头组，而不是调整单一镜头，不然会累死的……
+
+每个镜头组的画面主体都不一样哟~
+
+找到一个画面简单的镜头，先加入还原LUT
+
+![image-20221014142206658](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014142206658.png)
+
+定黑白点小技巧，去**模仿借鉴**。
+
+![image-20221014142720017](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014142720017.png)
+
+更细致的分析可以**加遮罩**，观察天空，白云，草地，女孩的亮度分布。
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/206.gif)
+
+![image-20221014143243397](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014143243397.png)
+
+
+
+![image-20221014144328366](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014144328366.png)
+
+#### 2.调整饱和度
+
+![image-20221014145206260](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014145206260.png)
+
+#### 3.亮度细节调整
+
+比较视图调整，便于观察与大神调色的不同
+
+![image-20221014145931560](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014145931560.png)
+
+我们可以看到地板的亮度
+
+我们目的是降低背景亮度，提升人物亮度或者让人物亮度不变，以增加**画面层次感**。
+
+还是选择蒙版来测量人物亮度，然后用**RGB曲线打锚点**就行。
+
+![image-20221014151040657](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014151040657.png)
+
+<center>
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014151214944.png" alt="image-20221014151214944" style="zoom:50%;" />
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014151255440.png" alt="image-20221014151255440" style="zoom:50%;" />
+</center>
+
+
+
+![image-20221014152937189](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014152937189.png)
+
+然后慢慢拖动调整就行
+
+当然一般把人物肤色的区间定住，细微调整高光部分就行了，也不用那么细致地区分地板和草地的亮度，大概意思意思就行了~
+
+![image-20221014153143672](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014153143672.png)
+
+#### 4.调整白平衡
+
+就是把RGB分量图3个原色持平就行了~
+
+我的蓝色部分偏低，把色温调冷点就行。这里调到-2就差不多了，GIF调的过于冷了……
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/207.gif)
+
+#### 5.调整颜色
+
+还是用色相曲线调，主要是色相与色相曲线，还有色相与饱和度曲线
+
+例子是调整草地颜色，不要太假了，稍微调下就行~
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/208.gif)
+
+#### 6.色调分离
+
+色调分离就是高光和阴影的偏色。
+
+用色轮调
+
+![image-20221014155454980](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014155454980.png)
+
+#### 7.调整肤色
+
+注意肤色由于打光景别不同，变化较大。我们单独给出现肤色的地方调整就行。
+
+具体调整的方式，讲解HSL辅助功能那里有详细介绍，这里不再赘述
+
+### 镜头匹配
+
+镜头匹配就是让同一个镜头组里的其他镜头曝光和颜色保持一致，不一致的话会很突兀。
+
+#### 1.检查亮度图
+
+我们之前的镜头组只根据那一个镜头调整的。我们分割视图，来调整亮度即可。
+
+主要是背景的亮度要一致。
+
+下图我就调整了地板的亮度
+
+![image-20221014161945177](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014161945177.png)
+
+#### 2.调整白平衡
+
+![image-20221014162217676](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221014162217676.png)
+
+#### 3.调整肤色
+
+把之前的镜头组的HSL辅助参数复制过来，然后开始微调。
+
+复制方法是来到**效果组件复制**。
+
+微调方式建议看HSL辅助工具讲解那里
+
+# 31.打光
+
+这个阶段，我还没有必要学那么深……不过在电影中，打光确实非常重要，也可以辅助叙事
+
+# 32.直播和布景
+
+这个阶段没有必要学这个
+
+# 33.相机参数
+
+没钱……
+
+# 34.影视资源大盘点
+
+里面有个画分镜的工具，可以试试。其余的就是单纯分享了，没有意义。
+
+[想做storyboard故事板但不会画画？让Storyboarder来帮你 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/142483969)
