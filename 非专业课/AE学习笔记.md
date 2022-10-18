@@ -715,3 +715,126 @@ AE里面也有表达式，我们利用表达式达到摇晃的效果，不是很
 ![image-20221017230638538](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221017230638538.png)
 
 后面的尾巴少了一两帧，只保留最后一段尾巴。然后把颜色通道改为正常颜色就行啦
+
+# 39.拆解AE模板
+
+萌新阶段鼓励研究和套用AE模板。这节课建议多看看，多练练！
+
+## 模板分类
+
+- 文字动画类
+- 图片展示类
+- Logo演绎类
+- 视频展示类
+
+难度依次递增
+
+AE模板做出来就是给别人用的，完全不用担心
+
+![image-20221018141313053](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018141313053.png)
+
+## 1.查看AE模板
+
+![image-20221018142408011](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018142408011.png)
+
+一般都有网址的，有详细说明的。点进去看看
+
+## 2.注意AE版本
+
+高版本兼容低版本。还有个广告链接点进去就可以看到
+
+![image-20221018143259323](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018143259323.png)
+
+![image-20221018143505732](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018143505732.png)
+
+高版本AE可以另存为低版本的AE文件
+
+![image-20221018143850771](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018143850771.png)
+
+## 3.注意AE插件和字体
+
+如果没有就去下插件，一般都会提供对应链接的。字体也是不过没有合适的字体也不用担心，插件才是最重要的
+
+## 4.设置首选项
+
+### 缓存
+
+媒体和缓存这个很重要，因为现在我的电脑性能还不是很强
+
+![image-20221018145706300](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018145706300.png)
+
+我自己设置了下，缓存位置。尽量放在固态硬盘上
+
+![image-20221018152003615](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018152003615.png)
+
+不会有任何影响的~卡顿就清理一下
+
+### 自动保存
+
+每隔一段时间AE会自动保存一下，文件夹旁边也会出现自动保存的aep文件格式
+
+![image-20221018163431586](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018163431586.png)
+
+### 脚本和表达式
+
+把应用程序那两个勾勾上就行。
+
+![image-20221018155238195](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018155238195.png)
+
+### 为项目设置显卡加速
+
+<center>
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018160159586.png" width = "50%" alt="***" align=left />
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018160015230.png" width = "50%"  alt="***" align=right />
+</center>
+
+## 5.表达式报错
+
+![image-20221018162022123](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018162022123.png)
+
+3种方法解决：
+
+### 法一：直接修改
+
+就是找到错误的地方直接修改，多为模板作者是使用的英文状态的表达式，我们改回中文即可
+
+![image-20221018163829352](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221018163829352.png)
+
+这种方法只适合在单个表达式错误时使用
+
+### 法二：插件
+
+这个插件就是处理表达式翻译过程中出错的。
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32595?csource=Hp_searchresult&spm_id_from=333.337.0.0)18:34有讲到
+
+这个插件作者收费了，一两百块，有经济能力再去看看。其实这会让小白直接走捷径，不是很推荐。
+
+建议把原始功能学会后，再来买~
+
+[Ae小伴侣脚本升级V4.0 新增功能讲解_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1iB4y1t7gj/?spm_id_from=333.788&vd_source=570cea793fc3893804a63510f81f7ea7)
+
+### 法三：AE切换回英文版
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32595?csource=Hp_searchresult&spm_id_from=333.337.0.0)20:30切换方式比较麻烦。
+
+就是把AE的配置文件改回en_US,在XML配置文件里面
+
+D:\WorkSpace\Tools\AE2020\Adobe After Effects 2020\Support Files\AMT
+
+zh_CN改为en_US即可。
+
+**等成长为AE高手再使用英文版！**
+
+## 6.注意脱机素材
+
+重新链接即可，如果确实找不到原素材，那就没办法了……
+
+## 7.改模板
+
+
+
+隐藏图标：这个和小眼睛的功能有点像，当图层特别多的时候，我们可以点击隐藏按钮来显示和隐藏特定图层
+
+![image-20221018174547555](C:\Users\FengXiao7\AppData\Roaming\Typora\typora-user-images\image-20221018174547555.png)
+
