@@ -58,6 +58,10 @@
 
 老师的方案就是先浅拷贝两个图层。详见37集第9点
 
+## 10.建议深刻研究模板构成
+
+## 11.K帧是什么意思
+
 # 艺术
 
 ## 1.油管博主
@@ -69,6 +73,14 @@
 ## 2.贝塞尔曲线
 
 建议学透，计算机视觉有讲过。有余力可以玩玩
+
+## 3.真大佬
+
+[我是破美工的个人空间_哔哩哔哩_bilibili](https://space.bilibili.com/24624223)，把他的视频学透！
+
+## 4.MG动画
+
+尝试做一个玩玩~
 
 # 36.赛博朋克案例，快速上手AE特效
 
@@ -144,7 +156,7 @@ alt+鼠标滚轮
 
 ### 出现问题：
 
-暂时没有解决
+暂时没有解决。ctrl+alt+f
 
 ![image-20221015141511493](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221015141511493.png)
 
@@ -402,7 +414,9 @@ alt+鼠标滚轮
 
 ![image-20221016153742846](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221016153742846.png)
 
-### 父级连接
+
+
+### <a name="num1">父级连接</a>
 
 我们使用父级连接，把空对象和红色正圆结合起来。
 
@@ -832,9 +846,538 @@ zh_CN改为en_US即可。
 
 ## 7.改模板
 
+好的作者会把每一个功能模块分的很详细，我们可以很方便地改自己的
 
+![image-20221019184138126](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019184138126.png)
 
 隐藏图标：这个和小眼睛的功能有点像，当图层特别多的时候，我们可以点击隐藏按钮来显示和隐藏特定图层
 
 ![image-20221018174547555](C:\Users\FengXiao7\AppData\Roaming\Typora\typora-user-images\image-20221018174547555.png)
+
+改颜色
+
+有的时候我们修改不了颜色，可能是因为被AE表达式控制住了，不能修改。我们把相关表达式取消即可
+
+## 8.研究模板原理
+
+选中一个素材后，按下U可以看到被打上关键帧的属性，按下U+U调出所有打上的关键帧。
+
+如果没有选中素材再按下U，可以看到所有图层的关键帧信息，U+U可以看到具体信息。
+
+# 40.中国水墨风片头：AE摄像头
+
+## PSD文件
+
+AE打开PSD文件，可以联动的。把PSD文件拖入AE
+
+### 素材
+
+选择合并这种选项PSD就成一张图了，当然也可以单独选择图层
+
+![image-20221019202417572](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019202417572.png)
+
+### 合成
+
+不常用，合成太大了……
+
+![image-20221019202927025](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019202927025.png)
+
+
+
+### 合成-保持图层大小
+
+![image-20221019201956467](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019201956467.png)
+
+合成大小适合
+
+![image-20221019202958648](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019202958648.png)
+
+这里还有个选项
+
+![image-20221019205120147](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019205120147.png)
+
+如果选择这个那么我们就不能更细致地修改素材参数了，因为图层已经粘成一张图片了。
+
+详见[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32596?csource=Hp_searchresult&spm_id_from=333.337.0.0)7:05
+
+## 前期准备
+
+![image-20221019205820995](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019205820995.png)
+
+![image-20221019210019420](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019210019420.png)
+
+## AE摄像机原理
+
+### 新建摄像机
+
+<span style="color: red">摄像机生效的前提是图层打开了3D效果</span>
+
+类似前端的CSS3的3D转换效果父层开启透视一样
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019210019420.png)
+
+### 改变摄像机方位
+
+<span style="color: red">改变摄像机位置是不会改变素材位置信息的</span>
+
+![image-20221019211555920](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019211555920.png)
+
+这里切换摄像机方位不要脑子昏了，要看清楚自己选的是哪个！
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/246.gif)
+
+### 摄像机妙用
+
+我们的动画就只需改变摄像机位置即可，不用对着画面做关键帧了~
+
+就像浏览一幅画卷一样~
+
+### 单节点摄像机和双节点摄像机
+
+双节点多了个目标点参数，可以固定目标点。
+
+![](C:\Users\FengXiao7\Pictures\GIF\247.gif)
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/248.gif)
+
+两个摄像机可以切换
+
+快捷键ctrl+alt+o即可（该快捷键与QQ冲突）
+
+### 多个摄像机
+
+最上面的会顶掉下面的摄像机，一个画面只允许一个摄像机
+
+### 摄像机工具
+
+下图依次展示了改变摄像机位置(鼠标左键)，纵深（鼠标右键），移动摄像机(中键)
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/249.gif)
+
+如果按住shift+鼠标中键可以单独改变X轴或者Y轴
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/250.gif)
+
+### 摄像机选项
+
+![image-20221019214817115](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019214817115.png)
+
+#### 缩放
+
+其实就是焦段
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/251.gif)
+
+最开始我们选择的是35mm，比较适合
+
+#### 景深，焦距，光圈
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32596?csource=Hp_searchresult&spm_id_from=333.337.0.0)17:30
+
+打开景深，在焦距上的图像最清晰，调整光圈可以把焦距外的图像变模糊
+
+![image-20221019220645194](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019220645194.png)
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/252.gif)
+
+## 第一镜
+
+### 调整图层z轴
+
+错落有致，待会摄像机移动的时候，更有立体感。
+
+随便调整就行~
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/253.gif)
+
+### 绑定父链接
+
+之前有讲过<a href="#num1">ctrl+鼠标左键跳转</a>
+
+一般我们都不直接调整摄像机位置，把摄像机位置绑定在空对象上即可。
+
+然后我们在空对象上打位置关键帧
+
+### 打关键帧
+
+这个就不用讲了吧~，可以整点旋转的关键帧，幅度小一点。
+
+顺滑一点选中关键帧按下F9，讲下关键帧类型
+
+## 关键帧类型
+
+1.匀速
+
+2.缓入 先快后慢![image-20221019224525484](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019224525484.png)
+
+3.缓出 先慢后快![image-20221019224525484](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019224525484.png)
+
+4.定格 直接瞬移
+
+![image-20221019224440988](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019224440988.png)
+
+5.缓动 速度曲线如下
+
+![image-20221019225402624](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019225402624.png)
+
+![image-20221019224525484](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221019224525484.png)
+
+6.平滑
+
+平滑关键帧，方法是选中关键帧按下ctrl即可。过渡自然
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/256.gif)
+
+
+
+## 第二镜&第三镜
+
+### 第二境
+
+合成宽度调为5500，把图片素材导入进去即可
+
+### 第三境
+
+大部分都和镜头1类似，镜头1是一个横向关键帧，镜头3是一个纵向关键帧。
+
+把庭院那些素材拖远点，最后来个关键帧动画就行
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/254.gif)
+
+细心点可以做速度曲线的，会更顺滑
+
+![image-20221020132114954](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221020132114954.png)
+
+
+
+## 总合成
+
+新建总合成，拖入1-3镜
+
+### 衔接好
+
+![image-20221020132705615](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221020132705615.png)
+
+### 白色底层
+
+把1镜和3镜的白底取消，在总合成新建白底即可
+
+### 摄像机&空对象&关键帧
+
+再次新建摄像机，绑定空对象，在空对象上做关键帧动画。
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/255.gif)
+
+### 调整速度曲线
+
+![image-20221020144443029](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221020144443029.png)
+
+使用平滑关键帧，方法是选中关键帧按下ctrl即可
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/256.gif)
+
+老师又自己手动调节了下
+
+![image-20221020163532846](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221020163532846.png)
+
+### 水墨特效制作
+
+先编辑文字，拖动水墨素材，调下字体缩放位置啥的
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/257.gif)
+
+开始制作蒙版
+
+就是一个把文字遮住，然后逐渐展开的过程
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/258.gif)
+
+### 桃花摇曳小动画
+
+方向+锚点+一系列关键帧
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32596?csource=Hp_searchresult&spm_id_from=333.337.0.0)48:40
+
+调整锚点，我们把它放到花枝根处
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/259.gif)
+
+然后在方向上打关键帧，z轴移动几度即可，不断复制即可
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/260.gif)
+
+选中关键帧alt拖动可以整体改变间隙
+
+### 加音效
+
+我最后加了点小音效
+
+# 41.一键三连特效：栏目包装类小特效
+
+## AE形状小工具
+
+- 选择形状工具
+- 调整填充颜色，属性我们这里选的是纯色
+- 调整描边颜色，属性我们这里选的是纯色，再调整描边像素
+- 按住shift可以画正多边形
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/261.gif)
+
+## 线性渐变
+
+### 推荐网站
+
+[Gradient Colors Collection Palette - CoolHue 2.0 (webkul.github.io)](https://webkul.github.io/coolhue/)
+
+https://uigradients.com/
+
+[Fresh Background Gradients | WebGradients.com 💎](https://webgradients.com/)
+
+[Gradient by ShapeFactory | Chromatic Gradient Generator](https://gradient.shapefactory.co/)
+
+### 如何打开线性渐变面板
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/262.gif)
+
+### 基本参数
+
+![image-20221021131510117](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021131510117.png)
+
+### 四色渐变效果
+
+推荐视频：【AE更好的动画渐变效果】 https://www.bilibili.com/video/BV1744y1e7EB?share_source=copy_web&vd_source=cdf0752a2120c79bb83ec7f8f959aaaf
+
+![image-20221021132249836](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021132249836.png)
+
+4个角落随意拖动即可
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/263.gif)
+
+后面博主用到了AE表达式，待我学成归来再看看！
+
+## 工具创建形状和蒙版
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/264.gif)
+
+![](C:\Users\FengXiao7\Pictures\GIF\265.gif)
+
+## 贝塞尔曲线路径
+
+没有打开的情况：矩形路径有3个参数
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/265.gif)
+
+一般这个都用作MG动画
+
+![image-20221021140559172](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021140559172.png)
+
+## 拆解一键三连小动画
+
+### 对齐
+
+下载3张png图标
+
+![image-20221021143231776](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021143231776.png)
+
+![image-20221021143406593](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021143406593.png)
+
+重置锚点ctrl+alt+home
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/266.gif)
+
+首选项打开这个
+
+![image-20221021144352379](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021144352379.png)
+
+### 圆环动画
+
+![image-20221021145320325](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021145320325.png)
+
+#### 修建路径
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32597?csource=Hp_searchresult&spm_id_from=333.337.0.0)  25:46
+
+![image-20221021150150165](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021150150165.png)
+
+偏移一看就会好吧~
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/267.gif)
+
+#### 动画
+
+![image-20221021150605746](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021150605746.png)
+
+### 发散点动画
+
+比较长
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32597?csource=Hp_searchresult&spm_id_from=333.337.0.0) 28:18秒
+
+#### 画直线
+
+![image-20221021151636535](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021151636535.png)
+
+改成圆头端点
+
+![image-20221021151520476](C:\Users\FengXiao7\AppData\Roaming\Typora\typora-user-images\image-20221021151520476.png)
+
+#### 修建路径
+
+**关键帧1**
+
+![image-20221021152058568](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021152058568.png)
+
+**关键帧2**
+
+![image-20221021152206542](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021152206542.png)
+
+把结束关键帧集体往右拖动2帧即可
+
+![image-20221021152450075](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021152450075.png)
+
+#### 原理拆解
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32597?csource=Hp_searchresult&spm_id_from=333.337.0.0)31:35秒处
+
+不是很难，可以看做3个不同的区间。
+
+开始和结束控制线的长度伸缩，偏移控制运动。
+
+### 复制发散点
+
+<span style="color: red">使用中继器！</span>
+
+#### 新建中继器
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021153938214.png" alt="image-20221021153938214" style="zoom:50%;" />
+
+#### 副本
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021154122530.png" alt="image-20221021154122530" style="zoom:50%;" />
+
+#### 偏移
+
+这个属性不怎么使用，我们调为0即可
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/268.gif" style="zoom:50%;" />
+
+#### 位置
+
+可以调整副本X轴和Y轴的紧密程度。我们这里全部改成0，相当于7个点重合在一起了~
+
+<img src="C:\Users\FengXiao7\Pictures\GIF\269.gif" style="zoom:50%;" />
+
+#### 旋转
+
+这里应该是调为8个点，之前打错了……下图我还适当调节了下锚点的位置。
+
+我们把旋转度数设为45即可，8个刚好360度
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/270.gif)
+
+#### 最后效果
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/271.gif)
+
+### 内层发散点圈
+
+![image-20221021160333389](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021160333389.png)
+
+### 圆环关键帧
+
+配合发散点做透明度和缩放关键帧即可
+
+![image-20221021160952290](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021160952290.png)
+
+### 预合成&复制动画
+
+![image-20221021161614334](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021161614334.png)
+
+### 点赞图标动画单独处理下
+
+主要是取消圆环，增加抖动，还有突然放大和缩小(这个打缩放关键帧即可，下图没有展示)~
+
+![image-20221021162936939](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021162936939.png)
+
+
+
+### 颜色填充
+
+![image-20221021163940086](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021163940086.png)
+
+注意这里的颜色关键帧，点赞图标是普通关键帧。投币和收藏是**定格关键帧**！
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32597?csource=Hp_searchresult&spm_id_from=333.337.0.0) 44:58秒老师讲了下**复制粘贴属性**的方式，可以留意下。
+
+其实就是**注意下时间轴**的位置
+
+### 我的作业
+
+【AE小作业】一键三连小动画】 https://www.bilibili.com/video/BV1LG4y1H798?share_source=copy_web&vd_source=cdf0752a2120c79bb83ec7f8f959aaaf
+
+# 42.AE和PR联动
+
+## 确保AE和PR能够关联
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021185755507.png" alt="image-20221021185755507" style="zoom:50%;" />
+
+同版本，安装默认位置，安装路径无中文
+
+## 联动方法
+
+### 直接复制法
+
+就是把PR素材砍出来，复制粘贴到AE即可
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/272.gif)
+
+### 动态链接法
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021185755507.png" alt="image-20221021185755507" style="zoom:50%;" />
+
+![image-20221021190823189](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021190823189.png)
+
+这个就是动态链接法。在AE里修改这个片段ctrl+s，在PR里也会生效
+
+#### 保险
+
+- 使用动态链接法会把**原视频破坏**，最好先复制一层，拿复制出来的这一层去做**动态链接**。就是下图的粉色那一层
+- 更保险就是在**AE里面导出**，然后把导出的视频盖在上面。就是下图的紫色那一层
+
+![image-20221021191144280](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021191144280.png)
+
+#### 第二个地方
+
+![image-20221021191701331](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021191701331.png)
+
+![image-20221021191821181](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021191821181.png)
+
+### 导入素材法
+
+直接把AE项目拖入PR即可。
+
+<center>
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/273.gif" width="400"/>
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/274.gif" width="400"/>
+</center>
+
+### 透明素材法
+
+常用来导出些透明底的小动画
+
+![image-20221021194751223](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021194751223.png)
+
+![image-20221021194956784](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021194956784.png)
+
+### 动态图形模板法
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32598?csource=Hp_searchresult&spm_id_from=333.337.0.0) 19分处，略长
+
+![image-20221021200030829](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221021200030829.png)
+
+- 因为PR自带有些模板，不方便查找，直接搜索
+- 拖入时间轴
+- 双击即可编辑
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/275.gif)
 
