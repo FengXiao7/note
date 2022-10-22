@@ -62,6 +62,12 @@
 
 ## 11.K帧是什么意思
 
+## 12.有余力可以尝试搭配AI做MG动画
+
+## 13.字体安装找不到问题
+
+[pr新安装字体找不到 ；pr中文字体名字变成英文或者显示不正确的解决办法 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/344026320)
+
 # 艺术
 
 ## 1.油管博主
@@ -1381,3 +1387,18 @@ https://uigradients.com/
 
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/275.gif)
 
+## 动态图形模板制作
+
+# 52.字幕知识
+
+## 原始方式
+
+自己ctrl+T或者旧标题打字幕调整位置等信息即可
+
+## 网易见外
+
+[网易见外 - AI智能语音转写听翻平台 (youdao.com)](https://sight.youdao.com/)
+
+很慢诶~目前只支持中文和英文。免费，是机器翻译
+
+![image-20221023022816398](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023022816398.png)

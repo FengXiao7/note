@@ -142,7 +142,9 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 
 有很多噪点，如何避免呢？
 
-![](C:\Users\FengXiao7\Pictures\GIF\209.gif)
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/209.gif)
+
+
 
 # 艺术
 
@@ -1591,7 +1593,7 @@ Q删除前面的废片，W删除后面的废片。下图为Q
 
 必须要分类
 
-![image-20221009175227586](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221009175227586.png)
+![image-20221009175227586](http://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221009175227586.png)
 
 也可以按地点分，按拍摄设备分，这些都算比较偷懒的方法。
 
@@ -1619,7 +1621,7 @@ Media Encoder，咱先跳过，百度云还在下载中……
 
 ## 前期筹备
 
-![image-20221010101844192](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221010101844192.png)
+![image-20221010101844192](http://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221010101844192.png)
 
 剪辑师要学会看分镜头脚本，不用会制作。还有个职业叫分镜师，专门帮导演画分镜头
 
@@ -2127,3 +2129,4 @@ J-CUT下一个画面的声音提前入场
 里面有个画分镜的工具，可以试试。其余的就是单纯分享了，没有意义。
 
 [想做storyboard故事板但不会画画？让Storyboarder来帮你 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/142483969)
+
