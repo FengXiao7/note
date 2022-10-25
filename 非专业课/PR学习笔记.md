@@ -168,6 +168,32 @@ zach king，皮老师（国内有搬运[8K8K的个人空间_哔哩哔哩_bilibil
 
 在21点里有提到
 
+## 镜头：
+
+### 1.裂焦滤镜
+
+[上映时被叫“垃圾”！深度解析影史最伟大的科幻恐怖片之一《怪形》_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1sg411h7tY/?spm_id_from=333.999.0.0&vd_source=570cea793fc3893804a63510f81f7ea7)  20:19
+
+![image-20221024185102604](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221024185102604.png)
+
+远景和近景的焦点都一样，能带来压迫感和不安感。按照人眼的规律远景不应该出现实焦
+
+![image-20221024185639267](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221024185639267.png)
+
+![image-20221024190109870](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221024190109870.png)
+
+### 2.窥视转直视
+
+[上映时被叫“垃圾”！深度解析影史最伟大的科幻恐怖片之一《怪形》_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1sg411h7tY/?spm_id_from=333.999.0.0&vd_source=570cea793fc3893804a63510f81f7ea7) 7:10
+
+
+
+## 实拍特效
+
+[上映时被叫“垃圾”！深度解析影史最伟大的科幻恐怖片之一《怪形》_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1sg411h7tY/?spm_id_from=333.999.0.0&vd_source=570cea793fc3893804a63510f81f7ea7) 42:20
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/280.gif)
+
 # 01.电子相册案例
 
 ## 素材

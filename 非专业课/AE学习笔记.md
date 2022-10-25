@@ -68,6 +68,22 @@
 
 [pr新安装字体找不到 ；pr中文字体名字变成英文或者显示不正确的解决办法 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/344026320)
 
+## 14.AE多窗口
+
+新建查看器即可
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/279.gif)
+
+## 15.AE打开多个多工程文件
+
+[AE软件怎么双开或者多开-百度经验 (baidu.com)](https://jingyan.baidu.com/article/e75aca8589e932552fdac614.html)
+
+16.2020版本AEroto笔刷bug
+
+[ae出现文件数据缺失问题解决 - 哔哩哔哩 (bilibili.com)](https://www.bilibili.com/read/cv14576955/)
+
+[(1 封私信 / 29 条消息) 为什么ae总是出现33:4 文件数据缺失？如何解决？ - 知乎 (zhihu.com)](https://www.zhihu.com/question/386957987)
+
 # 艺术
 
 ## 1.油管博主
@@ -972,7 +988,7 @@ AE打开PSD文件，可以联动的。把PSD文件拖入AE
 
 其实就是焦段
 
-![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/251.gif)
+![](http://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/251.gif)
 
 最开始我们选择的是35mm，比较适合
 
@@ -1335,7 +1351,7 @@ https://uigradients.com/
 
 就是把PR素材砍出来，复制粘贴到AE即可
 
-![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/272.gif)
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/272.gif" style="zoom:50%;" />
 
 ### 动态链接法
 
@@ -1389,16 +1405,280 @@ https://uigradients.com/
 
 ## 动态图形模板制作
 
+### 画底层
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023172334123.png" alt="image-20221023172334123" style="zoom:50%;" />
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023173258148.png" alt="image-20221023173258148" style="zoom:50%;" />
+
+### 复制合成&轨道遮罩
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32598?csource=Hp_searchresult&spm_id_from=333.337.0.0)27：40处，有点小复杂
+
+#### 轨道遮罩
+
+使用轨道遮罩的图层会把上面一层的形状图层变成本层的一个遮罩
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/278.gif)
+
+#### 复制图层并添加遮罩
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023174819532.png" alt="image-20221023174819532" style="zoom:50%;" />
+
+后面重复制作就行了，没什么难度，重点看看如何导出图形模板！
+
+## 导出图形模板
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32598?csource=Hp_searchresult&spm_id_from=333.337.0.0)33:30
+
+相当麻烦……导出模板需要自己设置很多东西。
+
+简单点说就是一个一个把带有小闹钟的属性拖入基本图形面板，设置名称。后期有余力可以自己尝试制作模板
+
+![image-20221023181802654](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023181802654.png)
+
+# 43.爱情公寓影视拆解
+
+这节课感觉没有讲多少干货，直接看原up的视频会好很多
+
+## 快速抠图(不是重点)
+
+### PS抠图
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32599?csource=Hp_searchresult&spm_id_from=333.337.0.0)13:17
+
+### 在线网站抠图
+
+[【抠图】在线抠图软件_AI抠图证件照换底色-稿定设计 (gaoding.com)](https://koutu.gaoding.com/)
+
+## 特效制作
+
+这里只记录新知识了，很多地方都在之前讲过。
+
+### 不使用摄像机
+
+直接改变空对象位置属性也行，很方便
+
+![image-20221024165842316](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221024165842316.png)
+
+![image-20221024170330184](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221024170330184.png)
+
+### 运动模糊
+
+![image-20221024172437334](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221024172437334.png)
+
+### 百叶窗
+
+一个效果，在效果控件里搜索即可。没啥难度
+
+
+
+# 44.视频绿幕
+
+## 绿幕拍摄干货
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32600?csource=Hp_searchresult&spm_id_from=333.337.0.0) 3:20
+
+### 绿幕平整
+
+不要有褶皱
+
+### 人物位置
+
+人物离绿幕尽量远一些，2米左右
+
+### 打光
+
+## 颜色范围绿幕抠图及优化
+
+### AE抠绿幕
+
+通过**颜色范围**来抠，太边缘的地方直接画个蒙版把人物框柱即可
+
+![image-20221025141851834](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025141851834.png)
+
+### **keyCleaner**
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32600?csource=Hp_searchresult&spm_id_from=333.337.0.0)11:46开始详细讲解参数
+
+![image-20221025142554275](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025142554275.png)
+
+### **Advanced Spill Suppressor**
+
+高级溢出抑制器,见视频[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32600?csource=Hp_searchresult&spm_id_from=333.337.0.0)15:12
+
+最后可以调一下颜色
+
+![image-20221025143246927](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025143246927.png)
+
+## Keylight应对复杂抠图
+
+nuke>keylight>AE>PR
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32600?csource=Hp_searchresult&spm_id_from=333.337.0.0)21:35-27:10
+
+内容很多，以后有这方面需求可以看看……我的电脑是真的带不动……
+
+![image-20221025144308306](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025144308306.png)
+
+## Roto笔刷无绿幕抠图
+
+注意不要使用AE2020版本，有大坑
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025153127757.png" alt="image-20221025153127757" style="zoom:50%;" />
+
+把抠像片段放在最上层，抠图即可
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025153232078.png" alt="image-20221025153232078" style="zoom:50%;" />
+
+### 开始抠图
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32600?csource=Hp_searchresult&spm_id_from=333.337.0.0) 35:10开始
+
+![image-20221025153320445](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025153320445.png)
+
+双击图层开始抠图。下图ctrl+鼠标拖动可以调整光标大小
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/281.gif)
+
+拖动可以抠图，alt拖动可以把错误的地方去掉。慢慢抠就行了……
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/282.gif)
+
+出现问题：
+
+![image-20221025163020695](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025163020695.png)
+
+[ae出现文件数据缺失问题解决 - 哔哩哔哩 (bilibili.com)](https://www.bilibili.com/read/cv14576955/)
+
+[(1 封私信 / 29 条消息) 为什么ae总是出现33:4 文件数据缺失？如何解决？ - 知乎 (zhihu.com)](https://www.zhihu.com/question/386957987)
+
+### 线性颜色键绿幕素材抠图
+
+和PR第12集讲的差不多，是一模一样的。
+
+# 45.时停特效
+
+简单用PR做一个时停效果。太简单了，冻结帧+蒙版
+
+## 冻结帧
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025173145329.png" alt="image-20221025173145329" style="zoom:50%;" />
+
+设置持续时间45帧左右，再复制2个出来
+
+### <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025173524130.png" alt="image-20221025173524130" style="zoom:50%;" />
+
+## lens扭曲+关键帧动画
+
+放波和收波用这个实现.控制size关键帧即可。复制多层的原因也在这里，因为lens只显示这个圆波里面的画面
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/283.gif)
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025181804122.png" alt="image-20221025181804122" style="zoom:50%;" />
+
+
+
+## 颜色反转
+
+就是把颜色变成对应的互补色
+
+![image-20221025175133976](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025175133976.png)
+
+## 颜色平衡
+
+有一个颜色不断变化的效果。添加颜色平衡，改变色相。每个100ms变一次(可以用AE表达式)
+
+![image-20221025180042414](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025180042414.png)
+
+## 湍流置换
+
+我们的球边缘太平整，需要把它变得波澜起伏
+
+![image-20221025180855131](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025180855131.png)
+
+## 色相饱和度
+
+就是波收回来后，整个图像颜色变灰淡。
+
+主要应用在第3层和第1层
+
+![image-20221025181514756](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025181514756.png)
+
+## 白色的圈
+
+就是波放出去时有一轮一轮白圈
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32601?csource=Hp_searchresult&spm_id_from=333.337.0.0) 24:10
+
+### 两个圆的蒙版
+
+流程就是画两个圆的蒙版，内外关系，里面的相减
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025193423417.png" alt="image-20221025193423417" style="zoom:50%;" />
+
+### 湍流置换
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025193650463.png" alt="image-20221025193650463" style="zoom:50%;" />
+
+### 径向模糊
+
+![image-20221025194113293](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025194113293.png)
+
+### 关键帧动画
+
+![image-20221025194521492](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025194521492.png)
+
+### 复制圆环
+
+复制一层圆环往前几帧，视觉效果更好
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025195025061.png" alt="image-20221025195025061" style="zoom:50%;" />
+
+## 预合成再添加径向模糊
+
+把之前的时停效果打个预合成，再次添加径向模糊，画面更有冲击力
+
+![image-20221025195951144](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025195951144.png)
+
+**最后添加音效即可**
+
+
+
 # 52.字幕知识
 
 ## 原始方式
 
 自己ctrl+T或者旧标题打字幕调整位置等信息即可
 
-## 网易见外
+## 网易见外（不推荐）
 
 [网易见外 - AI智能语音转写听翻平台 (youdao.com)](https://sight.youdao.com/)
 
 很慢诶~目前只支持中文和英文。免费，是机器翻译
 
-![image-20221023022816398](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023022816398.png)
+![image-20221023022816398](http://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023022816398.png)
+
+导出srt字幕文件，拖入时间轴即可
+
+![image-20221023135618020](http://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023135618020.png)
+
+手动编辑下srt文件[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili](https://www.bilibili.com/cheese/play/ep32608?csource=Hp_searchresult&spm_id_from=333.337.0.0)10:27
+
+自己调整字体，背景颜色。把透明度改成透明就背景框了
+
+![image-20221023140222309](http://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221023140222309.png)
+
+## ArcTime(还在观望)
+
+好的功能要收费。是一个专业处理字幕的软件，用来校对错别字很方便。
+
+## 讯飞听见(花钱买人工服务)
+
+人工服务打字幕，准确率很高~
+
+## VideoSrt(强烈推荐)
+
+我就用这个了，可以自己diy的
+
+[Videosrt Pro 简介 · 语雀 (yuque.com)](https://www.yuque.com/viggo-t7cdi/videosrt-pro/cpwtwl)
