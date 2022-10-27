@@ -1,6 +1,4 @@
-
-
-# 配套资料：
+# 源码：
 
 https://gitee.com/xiaoqiang001/html_css_material.git
 
@@ -15,10 +13,6 @@ https://gitee.com/xiaoqiang001/html_css_material.git
 Grid布局：(这部分pink老师没讲，看阮老师的博客)
 
 [CSS Grid 网格布局教程 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html)
-
-
-
-
 
 ## 2.BFC？
 
@@ -38,7 +32,11 @@ Grid布局：(这部分pink老师没讲，看阮老师的博客)
 
 ## 3.浏览器设置67%页面大小好切图。（本机显示屏1920*1200）
 
-## 
+传送门：
+
+[(27条消息) “截图尺寸和浏览器CSS像素设置不一样”解决方法_雾里看花花里看雾的博客-CSDN博客_网页截图像素与实际像素不一致](https://blog.csdn.net/qq_43779149/article/details/108508493)
+
+因为我的系统缩放设置的是150%，所以会有这个问题。调整浏览器缩放为67%即可
 
 ## 5.多行文本溢出显示省略号后台怎么实现呢？见高阶技巧第6点
 
@@ -68,10 +66,6 @@ bug:只能显示ad部分的一个gif
 
 ## 10.开发者模式下，手机端F12怎么拖动啊？
 
-
-
-
-
 # PS操作： 
 
 ## 1.缩放固定图片比例    
@@ -89,8 +83,6 @@ F8
 # HTML，CSS基础干货：
 
 ## 1.单行文字垂直居中
-
-
 
 ```html
 <!DOCTYPE html>
@@ -124,7 +116,11 @@ F8
 
 ​               原理：        https://www.bilibili.com/video/BV14J4114768?p=114  2:20秒
 
+![image-20221027150304915](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027150304915.png)
+
 ![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/60.png)
+
+![image-20221027150710418](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027150710418.png)
 
 ## 2.五彩导航栏案例:
 
@@ -188,15 +184,89 @@ F8
 
 ![image-20220307232741424](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220307232741424.png)
 
+### 行高写法
+
+见第7点小点行高的继承
+
+### 字体样式
+
+font-family如果有多个，优先适配第一个，没有就找下一个，以此类推
+
+![image-20221027132246719](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027132246719.png)
+
 ## 4.背景复合写法
 
 ![image-20220307232843267](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220307232843267.png)
 
+
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027152644428.png" style="zoom:50%;" />
+
+固定背景图
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027152851444.png" style="zoom:50%;" />
+
+透明背景
+
+```css
+div {
+            width: 300px;
+            height: 300px;
+            /* background-color: black; */
+            /* background: rgba(0, 0, 0, 0.3); */
+            /* RGB分别为3原色，都为0那么颜色为黑，最后一个是alpha通道。1就是不透明度为100% */
+            background: rgba(0, 0, 0, .3);
+        }
+```
+
+
+
 ## 5.复合选择器
+
+
 
 ![image-20220309130455989](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309130455989.png)
 
 伪类选择器优先级：10
+
+### 链接伪类选择器
+
+```html
+ <style>
+        /* 1.未访问的链接 a:link  把没有点击过的(访问过的)链接选出来 */
+        a:link {
+            color: #333;
+            text-decoration: none;
+        }
+
+        /*2. a:visited 选择点击过的(访问过的)链接 */
+        a:visited {
+            color: orange;
+        }
+
+        /*3. a:hover 选择鼠标经过的那个链接 */
+        a:hover {
+            color: skyblue;
+        }
+
+        /* 4. a:active 选择的是我们鼠标正在按下还没有弹起鼠标的那个链接 */
+        a:active {
+            color: green;
+        }
+        /* 
+            1.为了确保生效，请按照LVHA的循顺序声明：link-:visited -:hover-:active。
+            2.记忆法：love hate 或者 lv 包包hao。  
+         */
+    </style>
+```
+
+
+
+### :focus选择器
+
+![image-20221027142342388](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027142342388.png)
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/293.gif)
 
 ## 6.块，行内，行内块元素
 
@@ -212,13 +282,25 @@ F8
 
 ### 行内块元素：
 
+<a href="#juedui">锚点：绝对定位和固定定位的特殊属性</a>
+
 ![image-20220309130726554](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309130726554.png)
 
 ### 总结：
 
 ![image-20220309130545944](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309130545944.png)
 
-## 7.行高的继承
+## 7.层叠性和继承性
+
+### 层叠性
+
+![image-20221027162940092](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027162940092.png)
+
+### 继承性
+
+![image-20221027163048916](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027163048916.png)
+
+### 行高的继承
 
 ```html
 <!DOCTYPE html>
@@ -259,16 +341,32 @@ F8
 </html>
 ```
 
-## 8.优先级
+## 8.优先级和样式表位置
 
-\1. 权重是有4组数字组成,但是不会有进位。 
-\2. 可以理解为类选择器永远大于元素选择器, id选择器永远大于类选择器,以此类推.. 
-\3. 等级判断从左向右，如果某一位数值相同，则判断下一位数值。 
-\4. 可以简单记忆法:  通配符和继承权重为0, 标签选择器为1,类(伪类)选择器为 10, id选择器 100, 行内样式表为 
-1000, !important 无穷大. 
-\5. 继承的权重是0， 如果该元素没有直接选中，不管父元素权重多高，子元素得到的权重都是 0。 
+### 样式表位置
+
+![image-20221027160710121](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027160710121.png)
+
+[(27条消息) CSS三种样式表（内部样式表、行内样式表、 外部样式表）_hello_dashen的博客-CSDN博客_行内样式](https://blog.csdn.net/weixin_42235173/article/details/91040811)
+
+### 权重
+
+-  权重是有4组数字组成,但是**不会有进位**。 
+
+- 可以理解为类选择器永远大于元素选择器, id选择器永远大于类选择器,以此类推.. 
+-  等级判断从左向右，如果某一位数值相同，则判断下一位数值。 
+- 可以简单记忆法:  通配符和继承权重为0, 标签选择器为1,类(伪类)选择器为 10, id选择器 100, 行内样式表为 1000, !important 无穷大. 
+- **继承的权重是0， 如果该元素没有直接选中，不管父元素权重多高，子元素得到的权重都是 0。** 
+
+下图pink>purple>green>red
+
+**!important>行内样式>id选择器>class选择器**
 
 ![image-20220307233817276](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220307233817276.png)
+
+### 继承
+
+
 
 ![image-20220307234331191](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220307234331191.png)
 
@@ -283,32 +381,30 @@ F8
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>css权重注意点</title>
+    <title>权重的叠加</title>
     <style>
-        /* 父亲的权重是 100  */
-        #father {
-            color: red!important;
+       /* 复合选择器会有权重叠加的问题 */
+       /* 权重虽然会叠加,但是永远不会有进位 */
+       /* ul li 权重  0,0,0,1 + 0,0,0,1  =  0,0,0,2     2 */
+        ul li {
+            color: green;
         }
-        /* p继承的权重为 0 */
-        /* 继承的权重是0， 如果该元素没有直接选中，不管父元素权重多高，子元素得到的权重都是 0 */
-        /* 所以以后我们看标签到底执行那个样式,就先看这个标签有么有直接被选出来 */
-        p {
-            color: pink;
-        }
-        body {
+        /* li 的权重是 0,0,0,1    1 */
+        li {
             color: red;
         }
-        /* a链接浏览器默认制定了一个样式 蓝色的 有下划线  a {color: blue;}*/
-        a {
-            color: green;
+        /* .nav li  权重    0,0,1,0  +  0,0,0,1  =  0,0,1,1    11 */
+        .nav li {
+            color: pink;
         }
     </style>
 </head>
 <body>
-    <div id="father">
-        <p>你还是很好看</p>
-    </div>
-    <a href="#">我是单独的样式</a>
+    <ul class="nav">
+        <li>大猪蹄子</li>
+        <li>大肘子</li>
+        <li>猪尾巴</li>
+    </ul>
 </body>
 </html>
 ```
@@ -317,23 +413,117 @@ F8
 
 ![image-20220307235829783](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220307235829783.png)
 
+### border：
+
+![image-20221027162617400](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027162617400.png)
+
+#### 边框样式
+
+![image-20221027162650899](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027162650899.png)
+
+#### 边框复合写法
+
+![image-20221027162747186](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027162747186.png)
+
+#### 边框影响盒子大小
+
+<span style="color: red">边框会影响盒子实际大小！</span>
+
+```html
+<style>
+        /* 我们需要一个200*200的盒子, 但是这个盒子有10像素的红色边框 */
+        div {
+            width: 180px;
+            height: 180px;
+            background-color: pink;
+            border: 10px solid red;
+        }
+    </style>
+```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027163639413.png" alt="image-20221027163639413" style="zoom:50%;" />
+
 ### padding:
+
+#### 概念
+
+<span style="color: red">padding是在盒子里面的！表示内容到边框的距离。也会影响盒子大小</span>
+
+<img src="C:\Users\FengXiao7\AppData\Roaming\Typora\typora-user-images\image-20221027164000783.png" alt="image-20221027164000783" style="zoom:50%;" />
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027164135821.png" alt="image-20221027164135821" style="zoom:50%;" />
+
+#### 写法
+
+边框，padding,margin都是这样的
 
 ![image-20220308104131221](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220308104131221.png)
 
+也有带方向的
+
+```css
+		   padding-left: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 5px;
+```
+
+
+
 #### padding应用-新浪导航
+
+可以练练
 
 ![image-20220308105003129](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220308105003129.png)
 
-如果盒子本身没有指定宽度或高度，则此时padding不会撑大盒子。
+#### padding不撑开盒子的情况
+
+<span style="color: red">如果盒子本身没有指定宽度或高度，则此时padding不会撑大盒子。</span>
+
+##### 案例1:
+
+```css
+ h1 {
+        /* 如果写上宽度，那么h1会比body宽60px。不写宽度就没事，padding只会撑开高度 */
+           width: 100%;
+           height: 200px;
+           background-color: pink;
+           /* 这里只改变高度，没有撑开宽度 */
+           padding: 30px;
+       }
+```
+
+下图我写了宽度，可以看到h1宽度>body宽度，多了60px，也就是padding值*2
+
+比body宽度大，自然也就会出现横向滚轮
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/294.gif" style="zoom:50%;" />
+
+##### 案例2：
+
+位置关系是div包住p，两个都是块元素。
+
+下图最开始把p的高度去掉，可以看到p的高度就是60px（2个padding）,也就是蓝色部分，这个时候还可以看见div的紫色
+
+但是一旦把p的高度填上去，瞬间就是100+60了。padding撑开了盒子高度，完全看不见div的紫色了，只有p的蓝色
+
+
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/295.gif)
 
 ### margin:
+
+margin代表盒子与盒子之间的距离。已经在边框外面了。实际上是不属于盒子的一部分
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027180004024.png" alt="image-20221027180004024" style="zoom:50%;" />
 
 #### 	margin应用：让块级盒子居中
 
 ![image-20220308111844028](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220308111844028.png)
 
 auto:让浏览器自己选择一个合适的外边距。有时，在一些特殊情况下，该值可以使元素居中。
+
+传送门：[margin: auto 的魔法世界 - 掘金 (juejin.cn)](https://juejin.cn/post/6913857621850062856#comment)
 
 行内元素或者行内块元素水平居中给其父元素添加 text-align:center 即可,像下边这样
 
@@ -366,6 +556,8 @@ auto:让浏览器自己选择一个合适的外边距。有时，在一些特殊
 </body>
 </html>
 ```
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027181304984.png" alt="image-20221027181304984" style="zoom:50%;" />
 
 #### 外边距合并问题：
 
@@ -442,7 +634,7 @@ auto:让浏览器自己选择一个合适的外边距。有时，在一些特殊
 
 ![image-20220308113721645](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220308113721645.png)
 
-
+![image-20221027184141141](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027184141141.png)
 
 解决办法:
 
@@ -542,7 +734,9 @@ auto:让浏览器自己选择一个合适的外边距。有时，在一些特殊
 
 ## 10.圆框
 
-border-radius就是这些圆的半径大小
+**border-radius**就是这些圆的半径大小
+
+所以border-radius不能超过矩形较短一条边的一半
 
 ![image-20220423192414911](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220423192414911.png)
 
@@ -601,11 +795,13 @@ border-radius就是这些圆的半径大小
 </html>
 ```
 
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027195804795.png" alt="image-20221027195804795" style="zoom:50%;" />
+
 ## 11.盒子阴影
 
 ![image-20220309133011308](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309133011308.png)
 
-这个写好在浏览器上调就行
+这个写好前两个属性，然后在浏览器上调就行
 
 案例：
 
@@ -651,6 +847,10 @@ border-radius就是这些圆的半径大小
 
 ## 12.浮动
 
+### 标准流
+
+![image-20221027201102077](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027201102077.png)
+
 **网页布局第一准则：多个块级元素纵向排列找标准流，多个块级元素横向排列找浮动。** 
 
 ### 特性1：
@@ -695,11 +895,13 @@ border-radius就是这些圆的半径大小
 </html>
 ```
 
-效果：
+效果：这个就是脱标
 
-![image-20220309135124793](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309135124793.png)
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309135124793.png" alt="image-20220309135124793" style="zoom:50%;" />
 
-这个就是脱标
+
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027201345590.png" alt="image-20221027201345590" style="zoom:50%;" />
 
 ### 特性2：
 
@@ -733,7 +935,7 @@ border-radius就是这些圆的半径大小
         }
 
         /* 如果行内元素有了浮动,则不需要转换块级\行内块元素就可以直接给高度和宽度 */
-        p {
+        a {
             float: right;
             height: 200px;
             background-color: purple;
@@ -746,7 +948,7 @@ border-radius就是这些圆的半径大小
     <span>2</span>
 
     <div>div</div>
-    <p>ppppppp</p>
+    <a>ppppppp</a>
 </body>
 
 </html>
@@ -807,6 +1009,8 @@ border-radius就是这些圆的半径大小
 ```
 
 效果：
+
+若果右侧的蓝块不打上浮动，就会脱标
 
 ![image-20220309140747314](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309140747314.png)
 
@@ -877,6 +1081,8 @@ border-radius就是这些圆的半径大小
 
 ![image-20220309145620927](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309145620927.png)
 
+![image-20221027203849207](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027203849207.png)
+
 ### 清除浮动：
 
 #### 引入：
@@ -895,7 +1101,7 @@ border-radius就是这些圆的半径大小
 #### 本质：
 
  1.清除浮动的本质是清除浮动元素造成的影响 
- 2.如果父盒子本身有高度，则不需要清除浮动 
+ 2.**如果父盒子本身有高度，则不需要清除浮动** 
  3.清除浮动之后，父级就会根据浮动的子盒子自动检测高度。父级有了高度，就不会影响下面的标准流了 
 
 #### 清除浮动方法：
@@ -944,7 +1150,7 @@ border-radius就是这些圆的半径大小
             height: 200px;
             background-color: black;
         }
-
+		/*添加样式*/
         .clear {
             clear: both;
         }
@@ -973,11 +1179,11 @@ border-radius就是这些圆的半径大小
 
 ##### 2.父级添加 overflow 
 
-可以给父级添加 overflow 属性，将其属性值设置为 hidden、 auto 或 scroll 。 
+可以给父级添加 **overflow** 属性，将其属性值设置为 hidden、 auto 或 scroll 。 
 
 在此不详细解释。
 
-这个其实就是BFC的应用之一喔
+这个其实就是**BFC**的应用之一喔
 
 子不教,父之过,注意是给父元素添加代码 
 
@@ -1178,6 +1384,10 @@ border-radius就是这些圆的半径大小
 
 我们目前晓得有这些方法就行，不用死记硬背，用的时候复制过来就行。
 
+:after和::after区别
+
+[:before和::before以及:after和::after的区别 - 掘金 (juejin.cn)](https://juejin.cn/post/7090447984411803656)
+
 ## 13.PS切图
 
 ### 1.图层切图
@@ -1191,6 +1401,8 @@ border-radius就是这些圆的半径大小
 ### 3.插件
 
 用cutterman切图
+
+
 
 ## 14.边框复合写法
 
@@ -1230,7 +1442,7 @@ border-radius就是这些圆的半径大小
 
 ### css书写顺序：
 
-![image-20220312145848303](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220312145848303.png)
+![image-20221027233515695](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027233515695.png)
 
 ### 整体布局思路：
 
@@ -1802,15 +2014,19 @@ html:
 
 ![image-20220313191422167](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313191422167.png)
 
-## 16.css定位
+## 16.定位
 
-传送门：
+传送门：（阮老师讲的很棒）
 
 [CSS 定位详解 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2019/11/css-position.html)
+
+![image-20221027235946894](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221027235946894.png)
 
 position与float同时使用的坑
 
 [position 与 float 同时使用 - 简书 (jianshu.com)](https://www.jianshu.com/p/dbb7447d3ceb)
+
+![image-20221028003513569](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028003513569.png)
 
 为什么需要定位？
 
@@ -1870,7 +2086,7 @@ position与float同时使用的坑
 
 ![image-20220313195035951](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313195035951.png)
 
-注意绝对定位原来的位置会被占有，这和相对定位不同
+**注意绝对定位原来的位置会被占有，这和相对定位不同**
 
 ### 子绝父相：
 
@@ -1973,6 +2189,15 @@ position与float同时使用的坑
 
 ![image-20220313224342792](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313224342792.png)
 
+<center>
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028001424578.png" alt="image-20221028001424578" style="zoom:50%;" />
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028001459093.png" alt="image-20221028001459093" style="zoom:50%;" />
+</center>
+
+
+
+
+
 #### 有定位的盒子如何居中？
 
 ![image-20220313225306980](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313225306980.png)
@@ -1988,16 +2213,15 @@ position与float同时使用的坑
     <style>
         .box {
             position: absolute;
-            /* 1. left 走 50%  父容器宽度的一半 */
-            left: 50%;
-            /* 2. margin 负值 往左边走 自己盒子宽度的一半 */
-            /* 3. 也可以合起来写top:calc(50% - 100px)*/
-            /* 垂直类似 */
-            margin-left: -100px;
-            top: 50%;
-            margin-top: -100px;
             width: 200px;
             height: 200px;
+            /* 1. left 走 50%  父容器宽度的一半 */
+            left: 50%;
+            top: 50%;
+            /* 2. margin 负值 往左边走 自己盒子宽度的一半 */
+            /* 垂直类似 */
+            margin-left: -100px;
+            margin-top: -100px;
             background-color: pink;
             /* 就不要使用这个居中了 */
             /* margin: auto; */
@@ -2014,15 +2238,32 @@ position与float同时使用的坑
 
 #### 特殊属性：
 
-##### 1：
+##### 1.改变了行内元素和块级元素
+
+<a name="juedui">目的地</a>
+
+就是变成行内块元素性质
 
 ![image-20220313225337184](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313225337184.png)
 
-##### 2：
+下图span粉块也能设置宽高，div蓝块没有占一行了
+
+<center>
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028002850819.png" alt="image-20221028002850819" style="zoom:50%;" />
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028002752996.png" alt="image-20221028002752996" style="zoom:50%;" />
+</center>
+
+
+
+
+
+##### 2.不触发外边距塌陷问题
 
 ![image-20220313225501728](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313225501728.png)
 
-##### 3：
+##### 3.绝对和固定定位完全脱标
+
+浮动不会压住下方文字和图片
 
 ![image-20220313225535798](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313225535798.png)
 
@@ -2186,11 +2427,9 @@ position与float同时使用的坑
 
 ![image-20220313233230334](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313233230334.png)
 
-隐藏后会占用原来位置，和display不同
+**隐藏后会占用原来位置，和display不同**
 
 ### overflow溢出：
-
-
 
 ![image-20220313233320336](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220313233320336.png)
 
@@ -2238,7 +2477,11 @@ position与float同时使用的坑
 </html>
 ```
 
-![image-20220315141717982](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315141717982.png)
+- 没有加overflow的情况：<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028004925501.png" alt="image-20221028004925501" style="zoom:25%;" />
+- overflow: visible(没啥区别)<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028004925501.png" alt="image-20221028004925501" style="zoom:25%;" />
+- overflow: hidden<img src="C:\Users\FengXiao7\AppData\Roaming\Typora\typora-user-images\image-20221028005129265.png" alt="image-20221028005129265" style="zoom:25%;" />
+- overflow: scroll<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028005155821.png" alt="image-20221028005155821" style="zoom:25%;" />
+- overflow: auto<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028005248721.png" alt="image-20221028005248721" style="zoom:25%;" />
 
 ### 遮罩层案例：
 
@@ -2410,6 +2653,7 @@ position与float同时使用的坑
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CSS 三角制作</title>
     <style>
+        /*我推荐用box1的这种方法画比较直观，border用熟练了再采用box2的画法*/
         .box1 {
             width: 0;
             height: 0;
@@ -2716,13 +2960,25 @@ position与float同时使用的坑
 </head>
 <body>
     <div>
-        啥也不说，此处省略一万字
+        啥也不说，此处省略一万字777777777777777777777777777777777777777777777777777777777777777777777
     </div>
 </body>
 </html>
 ```
 
-![image-20220314152941676](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314152941676.png)
+- 文字显示不开也必须强制一行内显示white-space: nowrap<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028012909524.png" alt="image-20221028012909524" style="zoom: 50%;" />
+- 溢出的部分隐藏起来 overflow:hidden<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028013018260.png" alt="image-20221028013018260" style="zoom:50%;" />
+- 文字溢出的时候用省略号来显示 text-overflow: ellipsis
+
+<span style="color: red">这个要结合前两个属性来使用！</span>
+
+[【ellipsis】什么意思_英语ellipsis的翻译_音标_读音_用法_例句_在线翻译_有道词典 (youdao.com)](https://dict.youdao.com/search?q=ellipsis&keyfrom=new-fanyi.smartResult)
+
+[text-overflow - CSS（层叠样式表） | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-overflow#尝试一下)
+
+![image-20221028013732090](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028013732090.png)
+
+![image-20221028013942599](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028013942599.png)
 
 ### 多行文本溢出显示省略号：
 
@@ -2736,7 +2992,7 @@ position与float同时使用的坑
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>单行文本溢出显示省略号</title>
+    <title>多行文本溢出显示省略号</title>
     <style>
         div {
             width: 150px;
@@ -2869,7 +3125,7 @@ position与float同时使用的坑
 
 ### 直角三角形：
 
-其实根据这个边框大小和颜色，已经可以画任意三角形了，不要去背，换个方向一下就绕晕了。自己在浏览器上调一下就会了，重要的是知道把高宽设为0，然后调整边框画三角形这种思想。
+其实根据这个边框大小和颜色，已经可以画任意等腰三角形（直角三角形用两个等腰的拼接即可）了，不要去背，换个方向一下就绕晕了。自己在浏览器上调一下就会了，重要的是知道把高宽设为0，然后调整边框画三角形这种思想。
 
 ```html
 <!DOCTYPE html>

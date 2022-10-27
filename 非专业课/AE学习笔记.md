@@ -1639,9 +1639,106 @@ nuke>keylight>AE>PR
 
 把之前的时停效果打个预合成，再次添加径向模糊，画面更有冲击力
 
-![image-20221025195951144](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025195951144.png)
+![image-20221025195951144](http://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221025195951144.png)
+
+
 
 **最后添加音效即可**
+
+# 46.实用插件
+
+## FXConsole
+
+主要用于导出图片和设置效果快捷键，可以提高工作效率。暂时没用
+
+https://www.bilibili.com/cheese/play/ep32602?csource=Hp_searchresult&spm_id_from=333.337.0.0
+3:30-16:22
+
+## MG动画图形运动脚本：Motion3
+
+预装了很多实用小动画功能，推荐安装！如果做MG动画是非常推荐用这个脚本的
+
+
+
+[李兴兴：三合一剪辑训练营_哔哩哔哩_bilibili ](https://www.bilibili.com/cheese/play/ep32602?csource=Hp_searchresult&spm_id_from=333.337.0.0) 16:30-34:56
+
+[MG动画必备脚本-motion3详细讲解教程_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1ay4y1r75c/?spm_id_from=333.337.search-card.all.click&vd_source=570cea793fc3893804a63510f81f7ea7)  详细教程。我推荐看这个教程
+
+![image-20221026140148066](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221026140148066.png)
+
+
+
+### 九点矩阵调整锚点
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/284.gif)
+
+alt点击，锚点在中央，图形根据此运动
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/285.gif)
+
+### 关键帧曲线调节
+
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221026135213653.png" alt="image-20221026135213653" style="zoom:50%;" />
+
+### 改背景颜色
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/286.gif)
+
+### 爆炸
+
+之前一键3连小动画制作过。调一下下面两个参数即可
+
+![image-20221026143732111](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221026143732111.png)
+
+### 复制关键帧
+
+如果同时按住alt点击，那么就可以反向复制关键帧
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/287.gif)
+
+### 延迟
+
+可以调节关键帧延迟间隙，不过好像变成一个图层了……
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/288.gif)
+
+### 弹性
+
+先自己调一下缩放，然后选中关键帧添加弹性即可。调节弹性3个参数即可
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/289.gif)
+
+### 采集
+
+可以批量修改属性。因为有些属性我们不知道快捷键，就可以用这个采集功能，把其他用到的同名属性选中
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/290.gif)
+
+### 弹跳
+
+设置y轴移动关键帧，然后添加弹跳效果即可。
+
+**重力**越大下落速度越快，**最大弹跳**是弹跳次数，**展开**是弹跳幅度。
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/291.gif)
+
+### 文字拆分
+
+就是把一个文字图层拆成多个形状图层，可以选择拆分字母或者拆分单词
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/292.gif)
+
+还有其他一些小工具，建议看详细教程！
+
+## 特殊编码加速渲染：AfterCodecs
+
+用这个替换AE自带的渲染器，这样我们都可以不用ME了~
+
+我的建议是ME和这个插件2选1吧，已经习惯ME了……
+
+# 47.粒子插件
+
+
 
 
 

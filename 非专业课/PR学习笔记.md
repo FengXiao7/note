@@ -34,6 +34,10 @@ pr安装完成  打不开  还出现一个crash文件怎么办？ - 知乎 http:
 
 [AE/pr怎么删除己经安装的插件_果味酱CG小屋 (aegwj.com)](https://www.aegwj.com/28926.html)
 
+C:\Program Files (x86)\Common Files\Adobe\CEP\extensions
+
+C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore
+
 ## 9.导入素材有格式问题
 
 下载quicktime即可
