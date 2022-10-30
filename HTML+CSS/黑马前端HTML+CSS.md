@@ -278,6 +278,8 @@ div {
 
 ### 行内元素：
 
+**伪元素属于行内元素**
+
 ![image-20220309130657961](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220309130657961.png)
 
 ### 行内块元素：
@@ -3316,6 +3318,12 @@ body {
 
 不怎么看好，还是喜欢用div+class命名的方式。看评论区知真
 
+缺点：
+
+- 有些标签可能还不知道就已经过时了
+- 很多语义标签自带样式，而这些样式我们并不需要，所以还要先取消默认样式。
+- 现代网页已经不再是按照书籍排版的结构来的，很多页面元素并不容易明确应该使用哪个语义标签。
+
 ![image-20220314184921747](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314184921747.png)
 
 ![image-20220314184947767](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314184947767.png)
@@ -3408,6 +3416,8 @@ body {
 
 ### 结构伪类选择器:
 
+**n是第n个，只能正整数**
+
 ![image-20220314192926899](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314192926899.png)
 
 ```html
@@ -3451,6 +3461,8 @@ body {
 </html>
 ```
 
+![image-20221028123425147](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028123425147.png)
+
 ![image-20220314192950146](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314192950146.png)
 
 ```html
@@ -3477,15 +3489,18 @@ body {
             background-color: pink;
         } */
         /* 4.nth-child(2n)母选择了所有的偶数孩子 等价于 even*/
-        /* ol li:nth-child(2n) {
+         /* ol li:nth-child(2n) {
             background-color: pink;
-        }
-        ol li:nth-child(2n+1) {
-            background-color: skyblue;
         } */
+        /* 5.选择所有奇数等价于，odd */
+        /* ol li:nth-child(2n+1) {
+            background-color: skyblue;
+        }  */
+        /* 6.第3个开始，包含第3个 */
         /* ol li:nth-child(n+3) {
             background-color: pink;
         } */
+        /* 7.前3个，包含第3个 */
         ol li:nth-child(-n+3) {
             background-color: pink;
         }
@@ -3517,6 +3532,8 @@ body {
 
 </html>
 ```
+
+要注意下E:nth-child(n)和E:nth-of-type(n)的区别!
 
 ![image-20220314193607716](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314193607716.png)
 
@@ -3587,6 +3604,12 @@ body {
 
 设置高宽当然无效。注意不要和以前的伪类搞混了
 
+**伪元素属于子元素**，我们常常使用子绝父相来定位
+
+**:after和::after区别**
+
+[:before和::before以及:after和::after的区别 - 掘金 (juejin.cn)](https://juejin.cn/post/7090447984411803656)
+
 ![image-20220314194439802](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220314194439802.png)
 
 ```html
@@ -3641,11 +3664,38 @@ body {
 
 ```
 
-清除浮动
+#### 清除浮动：
 
 ![image-20220315153159128](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315153159128.png)
 
 ![image-20220315153213065](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315153213065.png)
+
+#### 引入字体图标：
+
+iconfont的官网写的很好，以前我都是用他家的cdn引入的。下面简单介绍下本地文件引入。
+
+![image-20221028134534336](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028134534336.png)
+
+解压后官方说的很清楚
+
+![image-20221028134703056](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028134703056.png)
+
+打开css文件就可以看见伪元素的运用
+
+![image-20221028134824190](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028134824190.png)
+
+直接使用即可。注意这里用到了**子绝父相**，而且图标还是垂直居中的。之前有讲过**定位盒子如何居中**。
+
+因为字体大小是16px，我们top：50%后，再往上平移自身高度一半即8px即可
+
+<center>
+   <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028135703122.png" alt="image-20221028135703122" style="zoom:50%;" />
+    <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028135724958.png" alt="image-20221028135724958" style="zoom:50%;" />
+</center>
+
+
+
+
 
 ## 6.盒子模型
 
@@ -3699,11 +3749,13 @@ body {
 </html>
 ```
 
-![image-20220315153952916](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315153952916.png)
+![image-20221028141228137](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028141228137.png)
 
 ## 7.CSS3新增的其他属性
 
 ### filter:
+
+就是Adobe里面的**高斯模糊**
 
 ![image-20220315154526464](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315154526464.png)
 
@@ -3731,13 +3783,13 @@ body {
 </html>
 ```
 
-![image-20220315154700291](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315154700291.png)
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315154700291.png" alt="image-20220315154700291" style="zoom:50%;" />
 
-![image-20220315154736128](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315154736128.png)
+<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315154736128.png" alt="image-20220315154736128" style="zoom:50%;" />
 
 ### calc:
 
-注意运算符旁必须要有空格
+注意运算符旁必须要有空格。**这个会引起回流！**
 
 ![image-20220315154805107](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315154805107.png)
 
@@ -3775,6 +3827,10 @@ body {
 
 ### 过渡(transition)：
 
+就是AE和PR里面的**关键帧动画**啦~区别就是我们要自己写，AE里面直接打关键帧即可。
+
+**过渡transition配合转化transform**可以做很多关键帧动画
+
 过渡（transition)是CSS3中具有颠覆性的特征之一，我们可以在不使用 Flash 动画或 
 JavaScript 的情况下，当元素从一种样式变换为另一种样式时为元素添加效果。 
 
@@ -3794,12 +3850,12 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CSS3 过渡效果</title>
     <style>
-        div {
+       div {
             width: 200px;
             height: 100px;
             background-color: pink;
             /* transition: 变化的属性 花费时间 运动曲线 何时开始; */
-            transition: width .5s ease 0s, height .5s ease 1s;
+            transition: width .5s ease 0s, height .5s ease 0s;
             /* 如果想要写多个属性，利用逗号进行分割 */
             /* transition: width .5s, height .5s; */
             /* 如果想要多个属性都变化，属性写all就可以了 */
@@ -3820,7 +3876,9 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 </html>
 ```
 
-<img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/1.gif" style="zoom: 100%"></img>
+关键帧0s开始，0.5秒结束。变换属性有宽度从200变成400，高度从100变成200px
+
+![](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/1.gif)
 
 #### 进度条案例：
 
@@ -3928,6 +3986,8 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 ### translate移动
 
+这个就是关键帧动画列的位置属性
+
 对行内元素无效
 
 ![image-20220315173645315](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315173645315.png)
@@ -3942,8 +4002,12 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        /* 移动盒子的位置： 定位   盒子的外边距  2d转换移动 */
-        
+        /*清理默认属性*/
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /* 移动盒子的位置： 定位   盒子的外边距  2d转换移动 */    
         div {
             width: 200px;
             height: 200px;
@@ -3951,10 +4015,10 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
             /* x就是x轴上移动位置 y 就是y轴上移动位置 中间用逗号分隔*/
             /* transform: translate(x, y); */
             /* transform: translate(100px, 100px); */
-            /* 1. 我们如果只移动x坐标 */
+            /* 1. 我们如果只移动x坐标,两种写法 */
             /* transform: translate(100px, 0); */
             /* transform: translateX(100px); */
-            /* 2. 我们如果只移动y坐标 */
+            /* 2. 我们如果只移动y坐标，两种写法 */
             /* transform: translate(0, 100px); */
             /* transform: translateY(100px); */
         }
@@ -3963,7 +4027,7 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
             transform: translate(30px, 30px);
         }
         
-        div:last-child {
+        .last{
             background-color: purple;
         }
     </style>
@@ -3971,7 +4035,7 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 <body>
     <div></div>
-    <div></div>
+    <div class="last"></div></div>
 </body>
 
 </html>
@@ -3979,9 +4043,11 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 看左上角这个点，x和y轴上的距离比较清晰
 
-![image-20220315174843663](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315174843663.png)
+![image-20221028145055423](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221028145055423.png)
 
 #### 子盒子居中：
+
+其实和margin是一个道理，不过这样写平移就不用写具体一半的数值了~
 
 ```html
 <!DOCTYPE html>
@@ -4123,6 +4189,8 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 #### transform-origin设置旋转中心点：
 
+就是AE里面的锚点啦~
+
 ![image-20220315190712030](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315190712030.png)
 
 这个中心点设置还是相对于左上角
@@ -4206,6 +4274,8 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 </body>
 </html>
 ```
+
+开始是180度旋转，hover以后是回到0度旋转
 
 <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/7.gif" style="zoom: 100%"></img>
 
@@ -4302,6 +4372,8 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 ### 2D转换复合写法：
 
+<span style="color: red">一定要注意顺序问题！</span>
+
 ![image-20220315194628282](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315194628282.png)
 
 ```html
@@ -4344,6 +4416,8 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 ![image-20220315195151428](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315195151428.png)
 
 ## 9.CSS3 动画
+
+这个就是正宗的关键帧动画了
 
 ### 基本使用：
 
@@ -4575,9 +4649,11 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 ### 速度曲线细节：
 
+步长调节
+
 ![image-20220315205629069](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220315205629069.png)
 
-#### 案例1：
+#### 案例1文字依次出现：
 
 ```html
 <!DOCTYPE html>
@@ -4616,7 +4692,7 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 <img src="https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/14.gif" style="zoom: 100%"></img>
 
-#### 案例2：
+#### 案例2奔跑的北极熊：
 
 ```html
 <!DOCTYPE html>
@@ -4636,16 +4712,19 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
             height: 100px;
             background: url(media/bear.png) no-repeat;
             /* 我们元素可以添加多个动画， 用逗号分隔 */
-            animation: bear .8s steps(8) infinite forwards,move 2s linear forwards
+            animation: run .8s steps(8) infinite forwards,move 2s linear forwards
         }
-        @keyframes bear{
+        /*这是熊奔跑的动画*/
+        @keyframes run{
             0%{
                 background-position: 0 0;
             }
             100%{
+                /*这里使用的是背景方位，精灵图有用到*/
                 background-position: -1600px 0;
             }
         }
+        /*这是熊移动的动画*/
         @keyframes move{
             0%{
                 left:0px
@@ -4672,6 +4751,10 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 ## 10.CSS3 3D变换
 
+稍微详细点的文章……
+
+传送门：[好吧，CSS3 3D transform变换，不过如此！ « 张鑫旭-鑫空间-鑫生活 (zhangxinxu.com)](https://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/)
+
 ![image-20220316100250996](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220316100250996.png)
 
 ### 3D位移translate3d
@@ -4682,7 +4765,17 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 
 #### 透视perspective
 
+透视就是人的眼睛到屏幕的距离。**我们把屏幕固定，改变透视就是改变人眼到屏幕的距离，translateZ就是改变物体的位置**
+
 ![image-20220316101118053](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220316101118053.png)
+
+注意透视不一定要写在父盒子上，也可以写在自己身上。两种写法有差异。
+
+见[好吧，CSS3 3D transform变换，不过如此！ « 张鑫旭-鑫空间-鑫生活 (zhangxinxu.com)](https://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/)第6点
+
+### perspective-origin
+
+写法和transform-origin一样，就是改变锚点
 
 透视越小相当于眼睛离屏幕越近，看到的物体越大
 
@@ -4728,6 +4821,8 @@ JavaScript 的情况下，当元素从一种样式变换为另一种样式时为
 ```
 
 #### translateZ
+
+就是物体距离屏幕的距离，透视是人眼距离屏幕的距离。屏幕是固定的，想象移动物体就行
 
 ```html
 <!DOCTYPE html>
@@ -5837,6 +5932,10 @@ nav span{
 
 https://github.com/JailBreakC/flex-box-demo
 
+推荐玩游戏：
+
+[弹性框青蛙 - 学习CSS弹性框的游戏 (flexboxfroggy.com)](https://flexboxfroggy.com/)
+
 ![image-20220316202319963](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220316202319963.png)
 
 ### 原理：
@@ -6068,7 +6167,7 @@ https://github.com/JailBreakC/flex-box-demo
 
 #### align-content（设置侧轴子项排列方式）(多行)
 
-**注意在单行的情况下是没用的！**
+**注意在单行的情况下是没用的！**也就是说当flex-wrap为nowrap就不起左右
 
 ![image-20220316205943270](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220316205943270.png)
 
@@ -7196,7 +7295,7 @@ a {
 
 ![image-20220317202934918](https://picture-feng.oss-cn-chengdu.aliyuncs.com/img/image-20220317202934918.png)
 
-##### 插件：
+##### Easy LESS插件：
 
 装一个插件吧。装了以后，写less保存后，会自动生成对应同名的css文件
 
