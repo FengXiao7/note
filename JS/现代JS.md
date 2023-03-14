@@ -6716,6 +6716,15 @@ border-left-width => elem.style.borderLeftWidth
 
 [Fetch](https://zh.javascript.info/fetch)
 
+基本语法：
+
+```javascript
+let promise = fetch(url, [options])
+```
+
+- **`url`** —— 要访问的 URL。
+- **`options`** —— 可选参数：method，header 等。
+
 
 
 

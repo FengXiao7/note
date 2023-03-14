@@ -957,6 +957,7 @@ class Demo extends React.Component{
 
 			//展示右侧输入框的数据
 			//发生事件的元素正好是操作的元素就可以不用写ref，直接在target里拿就行
+    		//这里我们获取第二个input的数据，发生的onBlur事件也恰好在第二个input框上，所以可以不用ref
 			showData2 = (event)=>{
 				alert(event.target.value);
 			}
@@ -1200,6 +1201,7 @@ class Login extends React.Component{
 
 			//保存表单数据到状态中
 			saveFormData = (dataType)=>{
+                //这里返回一个回调函数
 				return (event)=>{
 					this.setState({[dataType]:event.target.value})
 				}
@@ -1765,7 +1767,7 @@ https://www.bilibili.com/video/BV1wy4y1D7JT?p=51
 
 我们修改item里面勾选栏的状态，需要更新todos的值，但todos在App里面。App和item相当于爷孙关系（中间隔了个父亲list）。我们目前还是父给子用props传函数的形式实现组件之间的通讯，后续会有更好的方法
 
-defaultChecked
+defaultChecked使用了就可以随意修改了。如果使用checked那么就需要搭配onChange使用
 
 传送门：
 
@@ -2332,7 +2334,7 @@ export default class Detail extends Component {
 			<ul>
 				<li>ID:{id}</li>
 				<li>TITLE:{title}</li>
-				<li>CONTENT:{findResult.content}</li>
+				<li>CONTENT:{findResult?.content}</li>
 			</ul>
 		)
 	}
@@ -3101,6 +3103,8 @@ import {connect} from 'react-redux'
 export default connect()(CountUI)
 ```
 
+### 连接store和UI组件:
+
 App.jsx
 
 ```jsx
@@ -3121,7 +3125,7 @@ export default class App extends Component {
 
 ```
 
-### 给UI组件传递东西：
+### 从容器组件传递状态和方法给UI组件：
 
 接下来我们开始给UI组件传递redux中保存的状态，和操作状态的方法。
 
@@ -3298,7 +3302,7 @@ export default class Count extends Component {
 							connect(mapStateToProps,mapDispatchToProps)(UI组件)
 								-mapStateToProps:映射状态，返回值是一个对象
 								-mapDispatchToProps:映射操作状态的方法，返回值是一个对象
-			(3).备注1：容器组件中的store是靠App通过props传进去的，而不是在容器组件中直接引入
+			(3).备注：容器组件中的store是靠App通过props传进去的，而不是在容器组件中直接引入
 			
 ```
 
@@ -3333,6 +3337,12 @@ let mapDispatchToProps = {
     IncrementAsync: createIncrementAsyncAction
 }
 ```
+
+### 检测Store：
+
+使用react-redux的connect函数后，就可以不使用subscribe检测了
+
+![image-20221201142549690](https://picture-feng.oss-cn-chengdu.aliyuncs.com/my%20life/image-20221201142549690.png)
 
 ### Provider：
 
@@ -4116,7 +4126,7 @@ setState第二个参数是一个可选的回调参数，在状态更新完毕、
 					要在第二个callback函数中读取
 ```
 
-我的建议是，只有需要props时，可以使用函数方式。这样比较方便
+我的建议是，只有需要props时，才使用函数方式。这样比较方便
 
 ## 2.懒加载
 
